@@ -8,8 +8,8 @@ def main (args = None):
 
     rclpy.init(args = args)
 
-    node_noise = NoisyCloud()
-    rclpy.spin(node_noise)
+    node = LocationNode()
+    rclpy.spin(node)
 
     rclpy.shutdown()
 

@@ -1,0 +1,16 @@
+running develop
+running egg_info
+writing location_controller.egg-info/PKG-INFO
+writing dependency_links to location_controller.egg-info/dependency_links.txt
+writing entry points to location_controller.egg-info/entry_points.txt
+writing requirements to location_controller.egg-info/requires.txt
+writing top-level names to location_controller.egg-info/top_level.txt
+reading manifest file 'location_controller.egg-info/SOURCES.txt'
+writing manifest file 'location_controller.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/pablo-portatil/GITHUB/TFG/project_ws/install/location_controller/lib/python3.10/site-packages/location-controller.egg-link (link to .)
+
+Installed /home/pablo-portatil/GITHUB/TFG/project_ws/build/location_controller
+running symlink_data
+symbolically linking /home/pablo-portatil/GITHUB/TFG/project_ws/build/location_controller/resource/location_controller -> /home/pablo-portatil/GITHUB/TFG/project_ws/install/location_controller/share/ament_index/resource_index/packages
+symbolically linking /home/pablo-portatil/GITHUB/TFG/project_ws/build/location_controller/package.xml -> /home/pablo-portatil/GITHUB/TFG/project_ws/install/location_controller/share/location_controller
