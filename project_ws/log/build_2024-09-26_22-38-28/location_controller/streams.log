@@ -1,0 +1,24 @@
+[0.510s] Invoking command in '/home/pablo-portatil/GITHUB/TFG/project_ws/src/location_controller': PYTHONPATH=/home/pablo-portatil/GITHUB/TFG/project_ws/build/location_controller/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/pablo-portatil/GITHUB/TFG/project_ws/install/location_controller/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/location_controller build --build-base /home/pablo-portatil/GITHUB/TFG/project_ws/build/location_controller/build install --record /home/pablo-portatil/GITHUB/TFG/project_ws/build/location_controller/install.log --single-version-externally-managed install_data
+[0.695s] running egg_info
+[0.695s] writing ../../build/location_controller/location_controller.egg-info/PKG-INFO
+[0.695s] writing dependency_links to ../../build/location_controller/location_controller.egg-info/dependency_links.txt
+[0.696s] writing entry points to ../../build/location_controller/location_controller.egg-info/entry_points.txt
+[0.696s] writing requirements to ../../build/location_controller/location_controller.egg-info/requires.txt
+[0.696s] writing top-level names to ../../build/location_controller/location_controller.egg-info/top_level.txt
+[0.697s] reading manifest file '../../build/location_controller/location_controller.egg-info/SOURCES.txt'
+[0.698s] writing manifest file '../../build/location_controller/location_controller.egg-info/SOURCES.txt'
+[0.698s] running build
+[0.698s] running build_py
+[0.698s] copying location_controller/location_module.py -> /home/pablo-portatil/GITHUB/TFG/project_ws/build/location_controller/build/lib/location_controller
+[0.698s] running install
+[0.698s] running install_lib
+[0.699s] copying /home/pablo-portatil/GITHUB/TFG/project_ws/build/location_controller/build/lib/location_controller/location_module.py -> /home/pablo-portatil/GITHUB/TFG/project_ws/install/location_controller/lib/python3.10/site-packages/location_controller
+[0.699s] byte-compiling /home/pablo-portatil/GITHUB/TFG/project_ws/install/location_controller/lib/python3.10/site-packages/location_controller/location_module.py to location_module.cpython-310.pyc
+[0.700s] running install_data
+[0.700s] running install_egg_info
+[0.702s] removing '/home/pablo-portatil/GITHUB/TFG/project_ws/install/location_controller/lib/python3.10/site-packages/location_controller-0.0.0-py3.10.egg-info' (and everything under it)
+[0.702s] Copying ../../build/location_controller/location_controller.egg-info to /home/pablo-portatil/GITHUB/TFG/project_ws/install/location_controller/lib/python3.10/site-packages/location_controller-0.0.0-py3.10.egg-info
+[0.703s] running install_scripts
+[0.716s] Installing location_node script to /home/pablo-portatil/GITHUB/TFG/project_ws/install/location_controller/lib/location_controller
+[0.716s] writing list of installed files to '/home/pablo-portatil/GITHUB/TFG/project_ws/build/location_controller/install.log'
+[0.732s] Invoked command in '/home/pablo-portatil/GITHUB/TFG/project_ws/src/location_controller' returned '0': PYTHONPATH=/home/pablo-portatil/GITHUB/TFG/project_ws/build/location_controller/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/pablo-portatil/GITHUB/TFG/project_ws/install/location_controller/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/location_controller build --build-base /home/pablo-portatil/GITHUB/TFG/project_ws/build/location_controller/build install --record /home/pablo-portatil/GITHUB/TFG/project_ws/build/location_controller/install.log --single-version-externally-managed install_data
