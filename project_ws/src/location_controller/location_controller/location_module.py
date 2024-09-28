@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import rclpy
 import numpy as np
 import copy as cp
 import open3d as o3d
@@ -10,15 +11,18 @@ from rclpy.node import Node
 
 class LocationNode (Node):
 
+    # Last point cloud data recieved
     actual_PCD = None
+    # Last pose data recieved calculated
+    actual_pose = np.identity(4)
 
-    def __init__(self):
+    def __init__(self, input_topic : str):
 
         # Initialize node
         super().__init__("localization_node")
 
         # Create subscription to /cloud_in, triggers pose_callback
-        self.location_node_ = self.create_subscription(PointCloud2, "/cloud_in", self.pose_callback, 10)
+        self.location_node_ = self.create_subscription(PointCloud2, input_topic, self.pose_callback, 1000)
 
     def pose_callback (self, msg : PointCloud2):
 
@@ -54,7 +58,9 @@ class LocationNode (Node):
                 source_temp, target_temp, threshold, initial_alignment.transformation,
                 o3d.pipelines.registration.TransformationEstimationPointToPlane())
             
-            o3d.visualization.draw_geometries([source_temp, target_temp])
+            # Update the actual pose with the new transformation
+            self.actual_pose = np.dot(reg_p2p.transformation,self.actual_pose)
+            print(self.actual_pose)
 
 
 
@@ -154,3 +160,4 @@ class LocationNode (Node):
                 pcd.colors = o3d.utility.Vector3dVector(colors.astype(float) / 255.0)
 
             return pcd
+    

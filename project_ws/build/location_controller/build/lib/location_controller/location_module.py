@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import rclpy
 import numpy as np
 import copy as cp
 import open3d as o3d
@@ -10,37 +11,40 @@ from rclpy.node import Node
 
 class LocationNode (Node):
 
+    # Last point cloud data recieved
     actual_PCD = None
+    # Last pose data recieved calculated
+    actual_pose = np.identity(4)
 
     def __init__(self):
 
-        #Initialize node
+        # Initialize node
         super().__init__("localization_node")
 
-        #Create subscription to /cloud_in, triggers pose_callback
-        self.location_node_ = self.create_subscription(PointCloud2, "/cloud_in", self.pose_callback, 10)
+        # Create subscription to /cloud_in, triggers pose_callback
+        self.location_node_ = self.create_subscription(PointCloud2, "/cloud_in", self.pose_callback, 1000)
 
     def pose_callback (self, msg : PointCloud2):
 
-        #If this is the first message, store it
+        # If this is the first message, store it
         if self.actual_PCD is None:
 
             self.actual_PCD = cp.deepcopy(self.pointcloud2_to_open3d(msg))
 
-        #If this is not the first message, compare it with the previous one
+        # If this is not the first message, compare it with the previous one
         else:
             
-            #Copy of the previous step
+            # Copy of the previous step
             source_temp = self.actual_PCD
-            #Copy of the actual step
+            # Copy of the actual step
             target_temp = cp.deepcopy(self.pointcloud2_to_open3d(msg))
             
             voxel_size = 0.1
             threshold = 0.04
-            #Preprocess clouds for registration
+            # Preprocess clouds for registration
             source_down, target_down, source_fpfh, target_fpfh = self.prepare_dataset(source_temp, target_temp, voxel_size)
 
-            #Initial alignment (Ransac or Fast global registration)
+            # Initial alignment (Ransac or Fast global registration)
             initial_alignment = self.execute_fast_global_registration(source_down, target_down, source_fpfh, target_fpfh, voxel_size)
             
             # Compute normals for the target point cloud
@@ -54,16 +58,18 @@ class LocationNode (Node):
                 source_temp, target_temp, threshold, initial_alignment.transformation,
                 o3d.pipelines.registration.TransformationEstimationPointToPlane())
             
-            print(reg_p2p)
+            # Update the actual pose with the new transformation
+            self.actual_pose = np.dot(reg_p2p.transformation,self.actual_pose)
+            print(self.actual_pose)
 
 
 
     def ransac_global_registration(self, source_down, target_down, source_fpfh, target_fpfh, voxel_size):
 
-        #Cloud downsampling ratio to determine correspondance between clouds
+        # Cloud downsampling ratio to determine correspondance between clouds
         distance_threshold = voxel_size * 1.5
 
-        #Calculates the transformation matrix using ransac
+        # Calculates the transformation matrix using ransac
         result = o3d.pipelines.registration.registration_ransac_based_on_feature_matching(
             source_down, target_down, source_fpfh, target_fpfh, True,
             distance_threshold,
@@ -79,10 +85,10 @@ class LocationNode (Node):
     
     def execute_fast_global_registration(self, source_down, target_down, source_fpfh, target_fpfh, voxel_size):
 
-        #Cloud downsampling ratio to determine correspondance between clouds
+        # Cloud downsampling ratio to determine correspondance between clouds
         distance_threshold = voxel_size * 0.5
         
-        #Calculates the transformation matrix using fast global registration
+        # Calculates the transformation matrix using fast global registration
         result = o3d.pipelines.registration.registration_fgr_based_on_feature_matching(
             source_down, target_down, source_fpfh, target_fpfh,
             o3d.pipelines.registration.FastGlobalRegistrationOption(
@@ -92,7 +98,7 @@ class LocationNode (Node):
     
     def prepare_dataset(self, source_pcd, target_pcd, voxel_size):
         
-        #Preprocess pcd with given parameters
+        # Preprocess pcd with given parameters
         source_down, source_fpfh = self.preprocess_point_cloud(source_pcd, voxel_size)
         target_down, target_fpfh = self.preprocess_point_cloud(target_pcd, voxel_size)
 
@@ -100,17 +106,16 @@ class LocationNode (Node):
 
     def preprocess_point_cloud(self, pcd, voxel_size):
 
-        #Donwsamples with using voxel size ratio
+        # Donwsamples with using voxel size ratio
         pcd_down = pcd.voxel_down_sample(voxel_size)
 
         radius_normal = voxel_size * 2
-        #Estimate normal with radius as search criteria
+        # Estimate normal with radius as search criteria
         pcd_down.estimate_normals(
             o3d.geometry.KDTreeSearchParamHybrid(radius=radius_normal, max_nn=30))
 
-
         radius_feature = voxel_size * 5
-        #Coumputes Fast Point Features Histograms with selected search radius
+        # Coumputes Fast Point Features Histograms with selected search radius
         pcd_fpfh = o3d.pipelines.registration.compute_fpfh_feature(
             pcd_down,
             o3d.geometry.KDTreeSearchParamHybrid(radius=radius_feature, max_nn=100))
@@ -155,3 +160,15 @@ class LocationNode (Node):
                 pcd.colors = o3d.utility.Vector3dVector(colors.astype(float) / 255.0)
 
             return pcd
+        
+def main (args = None):
+
+    rclpy.init(args = args)
+
+    node = LocationNode()
+    rclpy.spin(node)
+
+    rclpy.shutdown()
+
+if __name__ == "__main__":
+    main()

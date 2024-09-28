@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 
 import rclpy
-import location_controller.location_module as loc_module
+import location_module as lm
 
 def main (args = None):
 
     rclpy.init(args = args)
 
-    node = loc_module.LocationNode()
+    node = lm.LocationNode("/cloud_in")
     rclpy.spin(node)
 
     rclpy.shutdown()
