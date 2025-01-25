@@ -4,10 +4,10 @@ import rclpy
 import numpy as np
 import copy as cp
 import open3d as o3d
-import struct
 import tf_transformations as tf
 import time
 
+from location_controller.utils import draw_registration_result, pointcloud2_to_open3d
 from geometry_msgs.msg import PoseStamped
 from sensor_msgs.msg import PointCloud2
 from rclpy.node import Node
@@ -37,7 +37,14 @@ class LocationNode (Node):
         # If this is the first message, store it
         if self.actual_PCD is None:
 
-            self.actual_PCD = self.pointcloud2_to_open3d(msg)
+            # Store the actual pcd
+            self.actual_PCD = pointcloud2_to_open3d(msg)
+            
+            # Convert the matrix pose to a stamped pose
+            stamped_pose = self.matrix_to_pose_stamped(self.actual_pose)
+            
+            # Publish the stamped pose
+            self.location_publisher_.publish(stamped_pose)
 
         # If this is not the first message, compare it with the previous one
         else:
@@ -45,20 +52,21 @@ class LocationNode (Node):
             # Copy of the previous step
             source_temp = self.actual_PCD
             # Copy of the actual step
-            target_temp = self.pointcloud2_to_open3d(msg)
+            target_temp = pointcloud2_to_open3d(msg)
+
+            # Adejust fitting parameters
+            voxel_size = 0.2
+            threshold = 0.05
             
-            voxel_size = 0.1
-            threshold = 0.04
-            # Preprocess clouds for registration
+            # Preprocess clouds for registration (Downsampling)
             source_down, target_down, source_fpfh, target_fpfh = self.prepare_dataset(source_temp, target_temp, voxel_size)
-            print(f"prepare_dataset done at {time.time() - start_time:.4f} seconds")
+            #print(f"prepare_dataset done at {time.time() - start_time:.4f} seconds")
 
             # Initial alignment (Ransac or Fast global registration)
             initial_alignment = self.ransac_global_registration(source_down, target_down, source_fpfh, target_fpfh, voxel_size)
-            print(f"Initial alignment done at {time.time() - start_time:.4f} seconds")
+            #print(f"Initial alignment done at {time.time() - start_time:.4f} seconds")
             
-            # Line to view initial aligment result
-            # self.draw_registration_result(source_temp, target_temp, initial_alignment.transformation)
+            # draw_registration_result(source_temp, target_temp, initial_alignment.transformation)
             
             """ # Downsample target point cloud before normal estimation
             target_temp_downsampled = target_temp.voxel_down_sample(voxel_size)
@@ -66,23 +74,24 @@ class LocationNode (Node):
             
             # Compute normals for the target point cloud
             target_temp.estimate_normals(search_param=o3d.geometry.KDTreeSearchParamHybrid(radius=voxel_size*2, max_nn=30))
-            print(f"Normals computed at {time.time() - start_time:.4f} seconds")
+            #print(f"Normals computed at {time.time() - start_time:.4f} seconds")
 
-            # Ensure the normals are oriented consistently
-            target_temp.orient_normals_consistent_tangent_plane(100)
-            print(f"Normals oriented at {time.time() - start_time:.4f} seconds")
-            
             #ICP registration result using Point to Plane method
             reg_p2p = o3d.pipelines.registration.registration_icp(
                 source_temp, target_temp, threshold, initial_alignment.transformation,
                 o3d.pipelines.registration.TransformationEstimationPointToPlane())
-            print(f"ICP registration done at {time.time() - start_time:.4f} seconds")
+            #print(f"ICP registration done at {time.time() - start_time:.4f} seconds")
             
-            # self.draw_registration_result(source_temp, target_temp, reg_p2p.transformation)
+            #draw_registration_result(source_temp, target_temp, reg_p2p.transformation)
+            
+            print("RMSE: " + str(reg_p2p.inlier_rmse))
+            
+            # Compute the inverse of the transformation matrix
+            transformation_inv = np.linalg.inv(reg_p2p.transformation)
             
             # Update the actual pose with the new transformation
-            self.actual_pose = np.dot(self.actual_pose, reg_p2p.transformation)
-            print(f"Pose updated at {time.time() - start_time:.4f} seconds")
+            self.actual_pose = np.dot(self.actual_pose, transformation_inv)
+            #print(f"Pose updated at {time.time() - start_time:.4f} seconds")
             
             # Convert actual pose to PoseStamped
             stamped_pose = self.matrix_to_pose_stamped(self.actual_pose)
@@ -90,6 +99,9 @@ class LocationNode (Node):
             
             # Publish the stamped pose
             self.location_publisher_.publish(stamped_pose)
+            
+            # We update the PCD for the next step
+            self.actual_PCD = target_temp
             
     def ransac_global_registration(self, source_down, target_down, source_fpfh, target_fpfh, voxel_size):
 
@@ -151,13 +163,12 @@ class LocationNode (Node):
     
     def matrix_to_pose_stamped(self, matrix, frame_id="map"):
         
-        print(matrix)
         # Extraer la traslación
         translation = tf.translation_from_matrix(matrix)
         
         # Extraer la rotación en forma de cuaternión
         quaternion = tf.quaternion_from_matrix(matrix)
-        
+
         # Crear el mensaje PoseStamped
         pose_stamped = PoseStamped()
         pose_stamped.header.frame_id = frame_id
@@ -175,53 +186,3 @@ class LocationNode (Node):
         pose_stamped.pose.orientation.w = quaternion[3]
         
         return pose_stamped
-  
-    def pointcloud2_to_open3d(self, data_msg):
-        
-            pcd = o3d.geometry.PointCloud()
-            
-            float_values = []
-            for i in range(0, len(data_msg.data), 4):
-                float_value = struct.unpack('f', data_msg.data[i:i+4])[0]
-                float_values.append(float_value)
-
-            points = np.array(float_values, dtype=np.float32).reshape(-1, data_msg.point_step // 4)
-
-            pcd.points = o3d.utility.Vector3dVector(points[:,:3])
-
-            # Extract RGB data from the data field if available
-            rgb_offset = None
-
-            for field in data_msg.fields:
-                if field.name == 'rgb':
-                    rgb_offset = field.offset
-
-            if rgb_offset is not None:
-
-                rgb_stride = data_msg.point_step // 4
-                colors = []
-                for i in range(points.shape[0]):
-                    colors.append(struct.unpack('I', struct.pack('f', points[i, 4]))[0])
-                colors = np.array(colors, dtype=np.uint32).reshape(-1, 1)
-                r = (colors[:, 0] >> 16) & 0xFF
-                g = (colors[:, 0] >> 8) & 0xFF
-                b = colors[:, 0] & 0xFF   
-
-                
-                colors = np.array([r.reshape(-1), g.reshape(-1), b.reshape(-1)]).reshape((-1,3))
-                pcd.colors = o3d.utility.Vector3dVector(colors.astype(float) / 255.0)
-
-            return pcd
-        
-    def draw_registration_result(self, source, target, transformation):
-        source_temp = cp.deepcopy(source)
-        target_temp = cp.deepcopy(target)
-        source_temp.paint_uniform_color([1, 0.706, 0])
-        target_temp.paint_uniform_color([0, 0.651, 0.929])
-        source_temp.transform(transformation)
-        o3d.visualization.draw_geometries([source_temp, target_temp],
-                                        zoom=0.4459,
-                                        front=[0.9288, -0.2951, -0.2242],
-                                        lookat=[1.6784, 2.0612, 1.4451],
-                                        up=[-0.3402, -0.9189, -0.1996])
-    
