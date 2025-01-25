@@ -22,7 +22,8 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            "location_node = location_controller.location_node:main",
+            "location_node_no_err = location_controller.location_node_no_err:main",
+            "location_node_err = location_controller.location_node_err:main",
         ],
     },
 )
