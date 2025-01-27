@@ -10,9 +10,10 @@ setup.py
 ../../build/location_controller/location_controller.egg-info/zip-safe
 location_controller/__init__.py
 location_controller/location_module.py
-location_controller/location_node_err.py
-location_controller/location_node_no_err.py
-location_controller/noisy_cloud.py
+location_controller/location_node.py
+location_controller/noisy_cloud_module.py
+location_controller/noisy_cloud_node.py
+location_controller/utils.py
 resource/location_controller
 test/test_copyright.py
 test/test_flake8.py
