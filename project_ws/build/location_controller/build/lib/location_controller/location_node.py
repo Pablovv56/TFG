@@ -6,6 +6,7 @@ def main (args = None):
 
     rclpy.init(args = args)
 
+    # Creates the node using the orginal or noisiy pcd as input
     node = LocationNode("/cloud_in")
     rclpy.spin(node)
 

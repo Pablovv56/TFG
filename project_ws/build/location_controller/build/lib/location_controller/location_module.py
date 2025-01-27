@@ -12,8 +12,16 @@ from geometry_msgs.msg import PoseStamped
 from sensor_msgs.msg import PointCloud2
 from rclpy.node import Node
 
+# Global parameters
+
+# Adjust fitting parameters
+voxel_size = 0.2
+threshold = 0.05
+
 class LocationNode (Node):
 
+    # Class variables
+    
     # Last point cloud data recieved
     actual_PCD = None
     # Last pose data recieved calculated
@@ -53,10 +61,6 @@ class LocationNode (Node):
             source_temp = self.actual_PCD
             # Copy of the actual step
             target_temp = pointcloud2_to_open3d(msg)
-
-            # Adejust fitting parameters
-            voxel_size = 0.2
-            threshold = 0.05
             
             # Preprocess clouds for registration (Downsampling)
             source_down, target_down, source_fpfh, target_fpfh = self.prepare_dataset(source_temp, target_temp, voxel_size)
