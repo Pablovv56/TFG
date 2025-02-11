@@ -24,6 +24,7 @@ setup(
         'console_scripts': [
             "location_node = location_controller.location_node:main",
             "noisy_cloud_node = location_controller.noisy_cloud_node:main",
+            "input_data_node = location_controller.input_data_node:main"
         ],
     },
 )

@@ -9,6 +9,8 @@ setup.py
 ../../build/location_controller/location_controller.egg-info/top_level.txt
 ../../build/location_controller/location_controller.egg-info/zip-safe
 location_controller/__init__.py
+location_controller/input_data_module.py
+location_controller/input_data_node.py
 location_controller/location_module.py
 location_controller/location_node.py
 location_controller/noisy_cloud_module.py
