@@ -15,8 +15,8 @@ from rclpy.node import Node
 # Global parameters
 
 # Adjust fitting parameters
-voxel_size = 0.2
-threshold = 0.05
+voxel_size = 0.05
+threshold = 0.02
 
 class LocationNode (Node):
 
@@ -26,6 +26,11 @@ class LocationNode (Node):
     actual_PCD = None
     # Last pose data recieved calculated
     actual_pose = np.identity(4)
+    
+    # Mean error
+    mean_error = 0
+    # Number of messages recieved
+    n_msg = 0
 
     def __init__(self, input_topic : str):
 
@@ -37,6 +42,7 @@ class LocationNode (Node):
         
         # Create a publisher that will provide the actual pose
         self.location_publisher_ = self.create_publisher(PoseStamped, 'new_pose', 10)
+
 
     def pose_callback (self, msg : PointCloud2):
 
@@ -56,7 +62,7 @@ class LocationNode (Node):
 
         # If this is not the first message, compare it with the previous one
         else:
-            
+
             # Copy of the previous step
             source_temp = self.actual_PCD
             # Copy of the actual step
@@ -64,11 +70,11 @@ class LocationNode (Node):
             
             # Preprocess clouds for registration (Downsampling)
             source_down, target_down, source_fpfh, target_fpfh = self.prepare_dataset(source_temp, target_temp, voxel_size)
-            #print(f"prepare_dataset done at {time.time() - start_time:.4f} seconds")
+            # print(f"prepare_dataset done at {time.time() - start_time:.4f} seconds")
 
             # Initial alignment (Ransac or Fast global registration)
             initial_alignment = self.ransac_global_registration(source_down, target_down, source_fpfh, target_fpfh, voxel_size)
-            #print(f"Initial alignment done at {time.time() - start_time:.4f} seconds")
+            # print(f"Initial alignment done at {time.time() - start_time:.4f} seconds")
             
             # draw_registration_result(source_temp, target_temp, initial_alignment.transformation)
             
@@ -78,17 +84,26 @@ class LocationNode (Node):
             
             # Compute normals for the target point cloud
             target_temp.estimate_normals(search_param=o3d.geometry.KDTreeSearchParamHybrid(radius=voxel_size*2, max_nn=30))
-            #print(f"Normals computed at {time.time() - start_time:.4f} seconds")
+            # print(f"Normals computed at {time.time() - start_time:.4f} seconds")
 
-            #ICP registration result using Point to Plane method
+            # ICP registration result using Point to Plane method
             reg_p2p = o3d.pipelines.registration.registration_icp(
                 source_temp, target_temp, threshold, initial_alignment.transformation,
                 o3d.pipelines.registration.TransformationEstimationPointToPlane())
-            #print(f"ICP registration done at {time.time() - start_time:.4f} seconds")
+            # print(f"ICP registration done at {time.time() - start_time:.4f} seconds")
             
-            #draw_registration_result(source_temp, target_temp, reg_p2p.transformation)
+            self.n_msg =+ 1
             
-            print("RMSE: " + str(reg_p2p.inlier_rmse))
+            if self.n_msg == 0:
+                self.mean_error = reg_p2p.inlier_rmse
+            else:
+                self.mean_error =+ (reg_p2p.inlier_rmse - self.mean_error) / self.n_msg
+
+            # if (self.mean_error < reg_p2p.inlier_rmse):
+            #     draw_registration_result(source_temp, target_temp, reg_p2p.transformation)
+                
+            # print("RMSE: " + str(reg_p2p.inlier_rmse) + " / Mean:" + str(self.mean_error))
+            print(str(reg_p2p.inlier_rmse) + ",")
             
             # Compute the inverse of the transformation matrix
             transformation_inv = np.linalg.inv(reg_p2p.transformation)
@@ -99,7 +114,7 @@ class LocationNode (Node):
             
             # Convert actual pose to PoseStamped
             stamped_pose = self.matrix_to_pose_stamped(self.actual_pose)
-            print(f"Pose published at {time.time() - start_time:.4f} seconds")
+            #print(f"Pose published at {time.time() - start_time:.4f} seconds")
             
             # Publish the stamped pose
             self.location_publisher_.publish(stamped_pose)

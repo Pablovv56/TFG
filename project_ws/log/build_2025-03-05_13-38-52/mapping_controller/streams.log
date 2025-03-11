@@ -1,0 +1,21 @@
+[0.653s] Invoking command in '/home/pablo-portatil/GITHUB/TFG/project_ws/src/mapping_controller': PYTHONPATH=/home/pablo-portatil/GITHUB/TFG/project_ws/build/mapping_controller/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/pablo-portatil/GITHUB/TFG/project_ws/install/mapping_controller/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/mapping_controller build --build-base /home/pablo-portatil/GITHUB/TFG/project_ws/build/mapping_controller/build install --record /home/pablo-portatil/GITHUB/TFG/project_ws/build/mapping_controller/install.log --single-version-externally-managed install_data
+[0.819s] running egg_info
+[0.820s] writing ../../build/mapping_controller/mapping_controller.egg-info/PKG-INFO
+[0.820s] writing dependency_links to ../../build/mapping_controller/mapping_controller.egg-info/dependency_links.txt
+[0.820s] writing entry points to ../../build/mapping_controller/mapping_controller.egg-info/entry_points.txt
+[0.820s] writing requirements to ../../build/mapping_controller/mapping_controller.egg-info/requires.txt
+[0.820s] writing top-level names to ../../build/mapping_controller/mapping_controller.egg-info/top_level.txt
+[0.821s] reading manifest file '../../build/mapping_controller/mapping_controller.egg-info/SOURCES.txt'
+[0.821s] writing manifest file '../../build/mapping_controller/mapping_controller.egg-info/SOURCES.txt'
+[0.821s] running build
+[0.821s] running build_py
+[0.822s] running install
+[0.822s] running install_lib
+[0.823s] running install_data
+[0.823s] running install_egg_info
+[0.824s] removing '/home/pablo-portatil/GITHUB/TFG/project_ws/install/mapping_controller/lib/python3.10/site-packages/mapping_controller-0.0.0-py3.10.egg-info' (and everything under it)
+[0.824s] Copying ../../build/mapping_controller/mapping_controller.egg-info to /home/pablo-portatil/GITHUB/TFG/project_ws/install/mapping_controller/lib/python3.10/site-packages/mapping_controller-0.0.0-py3.10.egg-info
+[0.824s] running install_scripts
+[0.838s] Installing mapping_node script to /home/pablo-portatil/GITHUB/TFG/project_ws/install/mapping_controller/lib/mapping_controller
+[0.838s] writing list of installed files to '/home/pablo-portatil/GITHUB/TFG/project_ws/build/mapping_controller/install.log'
+[0.855s] Invoked command in '/home/pablo-portatil/GITHUB/TFG/project_ws/src/mapping_controller' returned '0': PYTHONPATH=/home/pablo-portatil/GITHUB/TFG/project_ws/build/mapping_controller/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/pablo-portatil/GITHUB/TFG/project_ws/install/mapping_controller/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/mapping_controller build --build-base /home/pablo-portatil/GITHUB/TFG/project_ws/build/mapping_controller/build install --record /home/pablo-portatil/GITHUB/TFG/project_ws/build/mapping_controller/install.log --single-version-externally-managed install_data
