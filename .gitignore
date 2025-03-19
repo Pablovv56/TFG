@@ -1,4 +1,1 @@
-project_ws/src/recordings/rosbag.db3
-project_ws/src/recordings/original_pose.txt
-project_ws/src/recordings/error_rmse.txt
-project_ws/src/recordings/calculated_pose.txt
+project_ws/src/recordings/*

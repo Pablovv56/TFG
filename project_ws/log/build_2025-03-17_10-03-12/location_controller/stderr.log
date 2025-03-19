@@ -1,0 +1,5 @@
+  File "/home/pablo-portatil/GITHUB/TFG/project_ws/install/location_controller/lib/python3.10/site-packages/location_controller/location_module.py", line 22
+    downsampling_corriesponding_ratio = #0.8
+                                        ^^^^
+SyntaxError: invalid syntax
+
