@@ -6,10 +6,15 @@ import logging
 import rosbag2_py
 import os
 import sys
+import tf2_geometry_msgs
+
+import numpy as np
+import sensor_msgs_py.point_cloud2 as pc2
 
 from rclpy.node import Node
 from sensor_msgs.msg import PointCloud2
-from geometry_msgs.msg import PoseStamped, PoseWithCovarianceStamped
+from geometry_msgs.msg import PoseStamped, PoseWithCovarianceStamped, TransformStamped
+
 
 # Obtaining the path for the recorgins folder
 recordings_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../../../../src/recordings"))
@@ -24,6 +29,7 @@ class InputData (Node):
     # Topic names
     PCL_TOPIC = "/cloud_in"
     POSE_TOPIC = "/gt_odom"
+    TF_TOPIC = "/tf"
     FRAME_ID = "map"
     
     # Setting recording path
@@ -69,6 +75,7 @@ class InputData (Node):
         
         # Temp pose
         self.temp_pose = None
+        self.temp_tf = None
         self.index = 0
         
         # Publish the first pose and pcl
@@ -126,6 +133,9 @@ class InputData (Node):
                     # We change the frame id to make sure its "map"
                     deserialized_msg.header.frame_id = self.FRAME_ID
                     
+                    # Transform the pcl to position it correctly on the map
+                    # transformed_pcl = self.transform_pcl(self.temp_tf, deserialized_msg)
+                    
                     # Publish the point cloud
                     self.input_data_publisher_pcl.publish(deserialized_msg)
                     
@@ -159,11 +169,54 @@ class InputData (Node):
                 
                 except Exception as e:
                     logger.error(f"Failed to deserialize or publish message: {e}")
+                    
+            elif topic == self.TF_TOPIC:
+                
+                # Try to deserialize the topic
+                try:
+                    # Converts the message from bytes to PoseWithCovarianceStamped
+                    deserialized_msg = rclpy.serialization.deserialize_message(msg, TransformStamped)
+ 
+                    self.temp_tf = deserialized_msg
+                    # self.input_data_publisher_pose.publish(deserialized_msg)
+                    
+                    # Continue reading the file until we find the next PCL
+                    self.input_data_callback(None)
+                
+                except Exception as e:
+                    logger.error(f"Failed to deserialize or publish message: {e}")
                 
             else: 
                 # Continue reading the file until we find the next PCL
                 self.input_data_callback(None)
                     
+                    
+    def transform_pcl (self, transform, pcl):
+        
+        try:
+
+            # Convert point cloud to list of (x, y, z)
+            points = np.array(list(pc2.read_points(pcl, field_names=("x", "y", "z"), skip_nans=True)))
+
+            transformed_points = []
+            
+            for p in points:
+                
+                point = tf2_geometry_msgs.PointStamped()
+                point.header.frame_id = pcl.header.frame_id
+                x, y ,z = p
+                point.point.x, point.point.y, point.point.z = (float(x), float(y),float(z))
+                point_transformed = tf2_geometry_msgs.do_transform_point(point, transform)
+                transformed_points.append((point_transformed.point.x, point_transformed.point.y, point_transformed.point.z))
+
+            # Create new PointCloud2 message
+            transformed_cloud = pc2.create_cloud_xyz32(pcl.header, transformed_points)
+            transformed_cloud.header.frame_id = "map"
+            
+            return transformed_cloud
+
+        except Exception as e:
+            logger.error(f"TF Transform Error: {e}")
                 
         
         

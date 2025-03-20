@@ -1,0 +1,26 @@
+[0.863s] Invoking command in '/home/pablo-portatil/GITHUB/TFG/project_ws/src/location_controller': PYTHONPATH=/home/pablo-portatil/GITHUB/TFG/project_ws/build/location_controller/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/pablo-portatil/GITHUB/TFG/project_ws/install/location_controller/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/location_controller build --build-base /home/pablo-portatil/GITHUB/TFG/project_ws/build/location_controller/build install --record /home/pablo-portatil/GITHUB/TFG/project_ws/build/location_controller/install.log --single-version-externally-managed install_data
+[1.096s] running egg_info
+[1.097s] writing ../../build/location_controller/location_controller.egg-info/PKG-INFO
+[1.097s] writing dependency_links to ../../build/location_controller/location_controller.egg-info/dependency_links.txt
+[1.097s] writing entry points to ../../build/location_controller/location_controller.egg-info/entry_points.txt
+[1.097s] writing requirements to ../../build/location_controller/location_controller.egg-info/requires.txt
+[1.097s] writing top-level names to ../../build/location_controller/location_controller.egg-info/top_level.txt
+[1.099s] reading manifest file '../../build/location_controller/location_controller.egg-info/SOURCES.txt'
+[1.100s] writing manifest file '../../build/location_controller/location_controller.egg-info/SOURCES.txt'
+[1.100s] running build
+[1.100s] running build_py
+[1.100s] copying location_controller/input_data_module.py -> /home/pablo-portatil/GITHUB/TFG/project_ws/build/location_controller/build/lib/location_controller
+[1.100s] running install
+[1.101s] running install_lib
+[1.101s] copying /home/pablo-portatil/GITHUB/TFG/project_ws/build/location_controller/build/lib/location_controller/input_data_module.py -> /home/pablo-portatil/GITHUB/TFG/project_ws/install/location_controller/lib/python3.10/site-packages/location_controller
+[1.102s] byte-compiling /home/pablo-portatil/GITHUB/TFG/project_ws/install/location_controller/lib/python3.10/site-packages/location_controller/input_data_module.py to input_data_module.cpython-310.pyc
+[1.103s] running install_data
+[1.103s] running install_egg_info
+[1.105s] removing '/home/pablo-portatil/GITHUB/TFG/project_ws/install/location_controller/lib/python3.10/site-packages/location_controller-0.0.0-py3.10.egg-info' (and everything under it)
+[1.105s] Copying ../../build/location_controller/location_controller.egg-info to /home/pablo-portatil/GITHUB/TFG/project_ws/install/location_controller/lib/python3.10/site-packages/location_controller-0.0.0-py3.10.egg-info
+[1.106s] running install_scripts
+[1.137s] Installing input_data_node script to /home/pablo-portatil/GITHUB/TFG/project_ws/install/location_controller/lib/location_controller
+[1.137s] Installing location_node script to /home/pablo-portatil/GITHUB/TFG/project_ws/install/location_controller/lib/location_controller
+[1.137s] Installing noisy_cloud_node script to /home/pablo-portatil/GITHUB/TFG/project_ws/install/location_controller/lib/location_controller
+[1.137s] writing list of installed files to '/home/pablo-portatil/GITHUB/TFG/project_ws/build/location_controller/install.log'
+[1.166s] Invoked command in '/home/pablo-portatil/GITHUB/TFG/project_ws/src/location_controller' returned '0': PYTHONPATH=/home/pablo-portatil/GITHUB/TFG/project_ws/build/location_controller/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/pablo-portatil/GITHUB/TFG/project_ws/install/location_controller/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/location_controller build --build-base /home/pablo-portatil/GITHUB/TFG/project_ws/build/location_controller/build install --record /home/pablo-portatil/GITHUB/TFG/project_ws/build/location_controller/install.log --single-version-externally-managed install_data

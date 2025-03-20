@@ -17,7 +17,7 @@ from rclpy.node import Node
 
 # Configure logging
 logging.basicConfig(
-    level=logging.DEBUG,  # Set the logging level to DEBUG to capture all log messages
+    level=logging.INFO,  # Set the logging level to DEBUG to capture all log messages
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',  # Log format
     handlers=[
         logging.StreamHandler()  # Output logs to the console
@@ -178,8 +178,8 @@ class LocationNode (Node):
                 # Update the actual pose with the new transformation
                 self.actual_pose = np.dot(self.actual_pose, transformation_inv)
                 
-            if logger.isEnabledFor(logging.DEBUG):
-                self.logging_data += "Pose_updated: " + str(time.time() - start_time) + "\n"
+                if logger.isEnabledFor(logging.DEBUG):
+                    self.logging_data += "Pose_updated: " + str(time.time() - start_time) + "\n"
             
                 # We update the PCD for the next step
                 self.actual_PCD = target_temp
