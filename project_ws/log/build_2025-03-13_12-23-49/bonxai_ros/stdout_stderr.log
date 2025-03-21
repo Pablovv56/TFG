@@ -1,0 +1,60 @@
+-- Eigen found (include: /usr/include/eigen3, version: 3.4.0)
+-- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)
+-- OpenNI2 found (version: 2.2.0.33, include: /usr/include/openni2, lib: /usr/lib/x86_64-linux-gnu/libOpenNI2.so;libusb::libusb)
+-- Eigen found (include: /usr/include/eigen3, version: 3.4.0)
+-- Building with colcon
+-- Found ament_cmake_auto: 1.3.11 (/opt/ros/humble/share/ament_cmake_auto/cmake)
+-- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+-- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+-- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+-- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+-- Using RMW implementation 'rmw_fastrtps_cpp' as default
+-- Found eigen3_cmake_module: 0.1.1 (/opt/ros/humble/share/eigen3_cmake_module/cmake)
+-- Ensuring Eigen3 include directory is part of orocos-kdl CMake target
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/pablo-portatil/GITHUB/TFG/project_ws/build/bonxai_ros
+[35m[1mConsolidate compiler generated dependencies of target bonxai_server_node[0m
+[  0%] Built target bonxai_core
+[35m[1mConsolidate compiler generated dependencies of target tutorial[0m
+[35m[1mConsolidate compiler generated dependencies of target bonxai_map[0m
+[35m[1mConsolidate compiler generated dependencies of target test_serialization[0m
+[ 18%] Built target bonxai_server_node
+[ 36%] Built target test_serialization
+[ 54%] Built target tutorial
+[ 81%] Built target bonxai_map
+[35m[1mConsolidate compiler generated dependencies of target bonxai_server[0m
+[100%] Built target bonxai_server
+-- Install configuration: "RelWithDebInfo"
+-- Up-to-date: /home/pablo-portatil/GITHUB/TFG/project_ws/install/bonxai_ros/lib/bonxai_ros/bonxai_server_node
+-- Up-to-date: /home/pablo-portatil/GITHUB/TFG/project_ws/install/bonxai_ros/share/bonxai_ros/environment/library_path.sh
+-- Installing: /home/pablo-portatil/GITHUB/TFG/project_ws/install/bonxai_ros/share/bonxai_ros/environment/library_path.dsv
+-- Up-to-date: /home/pablo-portatil/GITHUB/TFG/project_ws/install/bonxai_ros/lib/libbonxai_server.so
+-- Up-to-date: /home/pablo-portatil/GITHUB/TFG/project_ws/install/bonxai_ros/share/bonxai_ros/launch
+-- Up-to-date: /home/pablo-portatil/GITHUB/TFG/project_ws/install/bonxai_ros/share/bonxai_ros/launch/bonxai_mapping.launch.xml
+-- Up-to-date: /home/pablo-portatil/GITHUB/TFG/project_ws/install/bonxai_ros/share/bonxai_ros/launch/bonxai_mapping.launch.py
+-- Up-to-date: /home/pablo-portatil/GITHUB/TFG/project_ws/install/bonxai_ros/share/bonxai_ros/rviz
+-- Up-to-date: /home/pablo-portatil/GITHUB/TFG/project_ws/install/bonxai_ros/share/bonxai_ros/rviz/bonxai.rviz
+-- Up-to-date: /home/pablo-portatil/GITHUB/TFG/project_ws/install/bonxai_ros/share/bonxai_ros/params
+-- Up-to-date: /home/pablo-portatil/GITHUB/TFG/project_ws/install/bonxai_ros/share/bonxai_ros/params/bonxai_params.yaml
+-- Up-to-date: /home/pablo-portatil/GITHUB/TFG/project_ws/install/bonxai_ros/share/ament_index/resource_index/package_run_dependencies/bonxai_ros
+-- Up-to-date: /home/pablo-portatil/GITHUB/TFG/project_ws/install/bonxai_ros/share/ament_index/resource_index/parent_prefix_path/bonxai_ros
+-- Up-to-date: /home/pablo-portatil/GITHUB/TFG/project_ws/install/bonxai_ros/share/bonxai_ros/environment/ament_prefix_path.sh
+-- Installing: /home/pablo-portatil/GITHUB/TFG/project_ws/install/bonxai_ros/share/bonxai_ros/environment/ament_prefix_path.dsv
+-- Up-to-date: /home/pablo-portatil/GITHUB/TFG/project_ws/install/bonxai_ros/share/bonxai_ros/environment/path.sh
+-- Installing: /home/pablo-portatil/GITHUB/TFG/project_ws/install/bonxai_ros/share/bonxai_ros/environment/path.dsv
+-- Up-to-date: /home/pablo-portatil/GITHUB/TFG/project_ws/install/bonxai_ros/share/bonxai_ros/local_setup.bash
+-- Up-to-date: /home/pablo-portatil/GITHUB/TFG/project_ws/install/bonxai_ros/share/bonxai_ros/local_setup.sh
+-- Up-to-date: /home/pablo-portatil/GITHUB/TFG/project_ws/install/bonxai_ros/share/bonxai_ros/local_setup.zsh
+-- Installing: /home/pablo-portatil/GITHUB/TFG/project_ws/install/bonxai_ros/share/bonxai_ros/local_setup.dsv
+-- Installing: /home/pablo-portatil/GITHUB/TFG/project_ws/install/bonxai_ros/share/bonxai_ros/package.dsv
+-- Up-to-date: /home/pablo-portatil/GITHUB/TFG/project_ws/install/bonxai_ros/share/ament_index/resource_index/packages/bonxai_ros
+-- Up-to-date: /home/pablo-portatil/GITHUB/TFG/project_ws/install/bonxai_ros/share/ament_index/resource_index/rclcpp_components/bonxai_ros
+-- Up-to-date: /home/pablo-portatil/GITHUB/TFG/project_ws/install/bonxai_ros/share/bonxai_ros/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Up-to-date: /home/pablo-portatil/GITHUB/TFG/project_ws/install/bonxai_ros/share/bonxai_ros/cmake/ament_cmake_export_libraries-extras.cmake
+-- Up-to-date: /home/pablo-portatil/GITHUB/TFG/project_ws/install/bonxai_ros/share/bonxai_ros/cmake/bonxai_rosConfig.cmake
+-- Up-to-date: /home/pablo-portatil/GITHUB/TFG/project_ws/install/bonxai_ros/share/bonxai_ros/cmake/bonxai_rosConfig-version.cmake
+-- Up-to-date: /home/pablo-portatil/GITHUB/TFG/project_ws/install/bonxai_ros/share/bonxai_ros/package.xml

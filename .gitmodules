@@ -1,0 +1,3 @@
+[submodule "project_ws/src/Bonxai"]
+	path = project_ws/src/Bonxai
+	url = https://github.com/facontidavide/Bonxai.git
