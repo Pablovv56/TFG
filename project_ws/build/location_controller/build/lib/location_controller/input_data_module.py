@@ -193,6 +193,26 @@ class InputData (Node):
                     
     def transform_pcl (self, transform, pcl):
         
+        """
+        Transforms a PointCloud2 message to a new frame using a given transformation.
+        This function takes a PointCloud2 message and applies a transformation to each point
+        in the cloud, converting it to a new coordinate frame. The transformed points are 
+        returned as a new PointCloud2 message.
+        Args:
+            transform (geometry_msgs.msg.TransformStamped): The transformation to apply, 
+                which specifies the target frame and the transformation parameters.
+            pcl (sensor_msgs.msg.PointCloud2): The input point cloud to be transformed.
+        Returns:
+            sensor_msgs.msg.PointCloud2: A new PointCloud2 message containing the transformed 
+            points in the target frame.
+        Raises:
+            Exception: If an error occurs during the transformation process, such as invalid 
+            input data or transformation failure.
+        Notes:
+            - The input point cloud is expected to have fields "x", "y", and "z".
+            - The transformed point cloud will have its frame_id set to "map".
+        """
+        
         try:
 
             # Convert point cloud to list of (x, y, z)
