@@ -10,12 +10,22 @@ import sensor_msgs_py.point_cloud2 as pc2
 from rclpy.node import Node
 
 class NoisyCloud (Node):
+
     
     # Parameters
     mean = 0.0
     std_dev = 0.05
 
     def __init__(self, input_topic : str):
+        
+        """
+        Initializes the NoisyCloudModule node.
+        Args:
+            input_topic (str): The name of the input ROS topic to subscribe to for receiving PointCloud2 messages.
+        Attributes:
+            noisy_cloud_ (Subscription): A ROS 2 subscription to the specified input topic for receiving PointCloud2 messages.
+            noisy_cloud_publisher_ (Publisher): A ROS 2 publisher to publish the noisy PointCloud2 messages on the 'noisy_cloud' topic.
+        """
 
         #Initialize node
         super().__init__("noisy_cloud")
@@ -27,6 +37,20 @@ class NoisyCloud (Node):
         self.noisy_cloud_publisher_ = self.create_publisher(PointCloud2, 'noisy_cloud', 10)
 
     def add_noise (self, msg : PointCloud2):
+        
+        """
+        Adds Gaussian noise to the y-axis of a PointCloud2 message.
+        This function takes a PointCloud2 message, applies Gaussian noise to the 
+        y-axis of each point, and publishes the resulting noisy point cloud.
+        Args:
+            msg (PointCloud2): The input PointCloud2 message containing the original point cloud data.
+        Returns:
+            None
+        Notes:
+            - The Gaussian noise is applied using the mean and standard deviation 
+              (`self.mean` and `self.std_dev`) defined in the class instance.
+            - The noisy point cloud is published using the `self.noisy_cloud_publisher_` publisher.
+        """
         
         # Transform the pcd into a stream of data
         pc_data = pc2.read_points(msg, field_names=("x", "y", "z"), skip_nans=True)
