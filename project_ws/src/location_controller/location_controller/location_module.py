@@ -9,7 +9,7 @@ import open3d as o3d
 import tf_transformations as tf
 
 from location_controller.utils import draw_registration_result, pointcloud2_to_open3d
-from geometry_msgs.msg import PoseStamped
+from geometry_msgs.msg import PoseStamped, TransformStamped
 from sensor_msgs.msg import PointCloud2
 from rclpy.node import Node
 
@@ -63,6 +63,9 @@ class LocationNode (Node):
         
         # Create a publisher that will provide the actual pose
         self.location_publisher_ = self.create_publisher(PoseStamped, 'new_pose', 10)
+        
+        # Create a publisher for the transformation matrix
+        self.transformation_publisher_ = self.create_publisher(TransformStamped, 'pointcloud_transform', 10)
 
         # Variable for indexing messages
         self.index = 0
@@ -168,8 +171,8 @@ class LocationNode (Node):
                                 
                 self.logging_data += "RMSE: " + str(reg_p2p.inlier_rmse) + " / Mean:" + str(self.mean_error) + "\n"
                 
-                # if (self.mean_error < reg_p2p.inlier_rmse) or (reg_p2p.inlier_rmse == 0.0):
-                #    draw_registration_result(source_down, target_down, reg_p2p.transformation)
+                if (self.mean_error < reg_p2p.inlier_rmse) or (reg_p2p.inlier_rmse == 0.0):
+                   draw_registration_result(source_temp, target_temp, reg_p2p.transformation)
             
             # Compute the inverse of the transformation matrix
             transformation_inv = np.linalg.inv(reg_p2p.transformation)
@@ -189,6 +192,10 @@ class LocationNode (Node):
             
             # Convert actual pose to PoseStamped
             stamped_pose = self.matrix_to_pose_stamped(self.actual_pose)
+
+            # Publish the transformation matrix
+            transformation_msg = self.matrix_to_transform_stamped(reg_p2p.transformation)
+            self.transformation_publisher_.publish(transformation_msg)
 
             # Publish the stamped pose
             self.location_publisher_.publish(stamped_pose)
@@ -334,6 +341,24 @@ class LocationNode (Node):
     
     def matrix_to_pose_stamped(self, matrix, frame_id="map"):
         
+        """
+        Converts a transformation matrix into a ROS PoseStamped message.
+        Args:
+            matrix (numpy.ndarray): A 4x4 transformation matrix representing the pose.
+            frame_id (str, optional): The reference frame ID for the PoseStamped message. 
+                                      Defaults to "map".
+        Returns:
+            PoseStamped: A ROS PoseStamped message containing the position and orientation 
+                         extracted from the transformation matrix.
+        Notes:
+            - The translation component is extracted from the matrix and assigned to the 
+              position field of the PoseStamped message.
+            - The rotation component is extracted as a quaternion and assigned to the 
+              orientation field of the PoseStamped message.
+            - The header of the PoseStamped message includes the provided frame_id and 
+              a timestamp based on the `self.index` attribute.
+        """
+        
         # Extraer la traslación
         translation = tf.translation_from_matrix(matrix)
         
@@ -357,3 +382,42 @@ class LocationNode (Node):
         pose_stamped.pose.orientation.w = quaternion[3]
         
         return pose_stamped
+
+    def matrix_to_transform_stamped(self, matrix, frame_id="map"):
+        
+        """
+        Converts a 4x4 transformation matrix into a ROS TransformStamped message.
+
+        Args:
+            matrix (numpy.ndarray): A 4x4 transformation matrix representing the 
+                translation and rotation in homogeneous coordinates.
+            frame_id (str, optional): The reference frame ID for the TransformStamped 
+                message. Defaults to "map".
+
+        Returns:
+            TransformStamped: A ROS TransformStamped message containing the 
+                translation and rotation extracted from the input matrix.
+
+        Raises:
+            ValueError: If the input matrix is not a valid 4x4 transformation matrix.
+        """
+        
+        translation = tf.translation_from_matrix(matrix)
+        quaternion = tf.quaternion_from_matrix(matrix)
+
+        transform_stamped = TransformStamped()
+        transform_stamped.header.frame_id = frame_id
+        transform_stamped.header.stamp.sec = self.index
+
+        # Set translation
+        transform_stamped.transform.translation.x = translation[0]
+        transform_stamped.transform.translation.y = translation[1]
+        transform_stamped.transform.translation.z = translation[2]
+
+        # Set rotation
+        transform_stamped.transform.rotation.x = quaternion[0]
+        transform_stamped.transform.rotation.y = quaternion[1]
+        transform_stamped.transform.rotation.z = quaternion[2]
+        transform_stamped.transform.rotation.w = quaternion[3]
+
+        return transform_stamped

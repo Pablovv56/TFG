@@ -1,5 +1,0 @@
-  File "/home/pablo-portatil/GITHUB/TFG/project_ws/install/location_controller/lib/python3.10/site-packages/location_controller/location_module.py", line 21
-    actual_pose = [[-1.227*10**(⁻18), 0, 0, 4.44*10**(-16)],
-                                ^
-SyntaxError: invalid character '⁻' (U+207B)
-

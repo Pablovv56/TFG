@@ -1,5 +1,0 @@
-  File "/home/pablo-portatil/GITHUB/TFG/project_ws/install/location_controller/lib/python3.10/site-packages/location_controller/input_data_module.py", line 208
-    float(point.point.x), float(point.point.y), float(point.point.z) = p# (float(x), float(y),float(z))
-                                                ^^^^^^^^^^^^^^^^^^^^
-SyntaxError: cannot assign to function call here. Maybe you meant '==' instead of '='?
-
