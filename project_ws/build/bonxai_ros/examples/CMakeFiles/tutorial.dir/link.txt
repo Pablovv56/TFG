@@ -1,1 +1,0 @@
-/usr/bin/c++ -O2 -g -DNDEBUG CMakeFiles/tutorial.dir/tutorial.cpp.o -o tutorial 
