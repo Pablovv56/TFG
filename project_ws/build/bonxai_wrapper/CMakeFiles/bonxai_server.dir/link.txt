@@ -1,0 +1,2 @@
+/usr/bin/ar qc libbonxai_server.a CMakeFiles/bonxai_server.dir/Bonxai/bonxai_ros/src/bonxai_server.cpp.o
+/usr/bin/ranlib libbonxai_server.a

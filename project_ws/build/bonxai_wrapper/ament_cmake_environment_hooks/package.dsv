@@ -1,0 +1,4 @@
+source;share/bonxai_wrapper/local_setup.bash
+source;share/bonxai_wrapper/local_setup.dsv
+source;share/bonxai_wrapper/local_setup.sh
+source;share/bonxai_wrapper/local_setup.zsh

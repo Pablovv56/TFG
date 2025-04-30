@@ -1,0 +1,15 @@
+[0.019s] Invoking command in '/home/pablo-pc/GITHUB/TFG/project_ws/build/mapping_controller': CMAKE_PREFIX_PATH=/home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper:/home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller:/home/pablo-pc/GITHUB/TFG/project_ws/install/location_controller:/opt/ros/humble /usr/bin/cmake --build /home/pablo-pc/GITHUB/TFG/project_ws/build/mapping_controller -- -j16 -l16
+[0.099s] [35m[1mConsolidate compiler generated dependencies of target mapping_node[0m
+[0.151s] [ 50%] [32mBuilding CXX object CMakeFiles/mapping_node.dir/src/mapping_node.cpp.o[0m
+[7.059s] [01m[K/home/pablo-pc/GITHUB/TFG/project_ws/src/mapping_controller/src/mapping_node.cpp:[m[K In member function ‘[01m[Kvoid MappingNode::pointcloudTransformCallback(geometry_msgs::msg::TransformStamped_<std::allocator<void> >::SharedPtr)[m[K’:
+[7.059s] [01m[K/home/pablo-pc/GITHUB/TFG/project_ws/src/mapping_controller/src/mapping_node.cpp:65:35:[m[K [01;31m[Kerror: [m[K‘[01m[Kvirtual void bonxai_server::BonxaiServer::publishAll(const rclcpp::Time&)[m[K’ is protected within this context
+[7.059s]    65 |         [01;31m[Kbonxai_server_->publishAll(this->now())[m[K;
+[7.059s]       |         [01;31m[K~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~[m[K
+[7.059s] In file included from [01m[K/home/pablo-pc/GITHUB/TFG/project_ws/src/mapping_controller/src/mapping_node.cpp:2[m[K:
+[7.059s] [01m[K/home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/include/bonxai_server.hpp:50:16:[m[K [01;36m[Knote: [m[Kdeclared protected here
+[7.059s]    50 |   virtual void [01;36m[KpublishAll[m[K(const rclcpp::Time& rostime);
+[7.059s]       |                [01;36m[K^~~~~~~~~~[m[K
+[11.770s] gmake[2]: *** [CMakeFiles/mapping_node.dir/build.make:76: CMakeFiles/mapping_node.dir/src/mapping_node.cpp.o] Error 1
+[11.770s] gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/mapping_node.dir/all] Error 2
+[11.770s] gmake: *** [Makefile:146: all] Error 2
+[11.773s] Invoked command in '/home/pablo-pc/GITHUB/TFG/project_ws/build/mapping_controller' returned '2': CMAKE_PREFIX_PATH=/home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper:/home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller:/home/pablo-pc/GITHUB/TFG/project_ws/install/location_controller:/opt/ros/humble /usr/bin/cmake --build /home/pablo-pc/GITHUB/TFG/project_ws/build/mapping_controller -- -j16 -l16

@@ -1,0 +1,16 @@
+/home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/lib/mapping_controller/mapping_node
+/home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/ament_index/resource_index/package_run_dependencies/mapping_controller
+/home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/ament_index/resource_index/parent_prefix_path/mapping_controller
+/home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/mapping_controller/environment/ament_prefix_path.sh
+/home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/mapping_controller/environment/ament_prefix_path.dsv
+/home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/mapping_controller/environment/path.sh
+/home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/mapping_controller/environment/path.dsv
+/home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/mapping_controller/local_setup.bash
+/home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/mapping_controller/local_setup.sh
+/home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/mapping_controller/local_setup.zsh
+/home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/mapping_controller/local_setup.dsv
+/home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/mapping_controller/package.dsv
+/home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/ament_index/resource_index/packages/mapping_controller
+/home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/mapping_controller/cmake/mapping_controllerConfig.cmake
+/home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/mapping_controller/cmake/mapping_controllerConfig-version.cmake
+/home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/mapping_controller/package.xml

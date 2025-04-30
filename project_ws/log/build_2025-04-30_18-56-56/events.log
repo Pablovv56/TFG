@@ -1,0 +1,287 @@
+[0.000000] (-) TimerEvent: {}
+[0.000540] (bonxai_wrapper) JobQueued: {'identifier': 'bonxai_wrapper', 'dependencies': OrderedDict()}
+[0.000578] (location_controller) JobQueued: {'identifier': 'location_controller', 'dependencies': OrderedDict()}
+[0.000616] (mapping_controller) JobQueued: {'identifier': 'mapping_controller', 'dependencies': OrderedDict([('bonxai_wrapper', '/home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper')])}
+[0.000727] (bonxai_wrapper) JobStarted: {'identifier': 'bonxai_wrapper'}
+[0.004381] (location_controller) JobStarted: {'identifier': 'location_controller'}
+[0.008593] (bonxai_wrapper) JobProgress: {'identifier': 'bonxai_wrapper', 'progress': 'cmake'}
+[0.010692] (bonxai_wrapper) JobProgress: {'identifier': 'bonxai_wrapper', 'progress': 'build'}
+[0.010741] (bonxai_wrapper) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/pablo-pc/GITHUB/TFG/project_ws/build/bonxai_wrapper', '--', '-j16', '-l16'], 'cwd': '/home/pablo-pc/GITHUB/TFG/project_ws/build/bonxai_wrapper', 'env': OrderedDict([('GJS_DEBUG_TOPICS', 'JS ERROR;JS LOG'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'pablo-pc'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/pablo-pc'), ('OLDPWD', '/home/pablo-pc/GITHUB/TFG'), ('DESKTOP_SESSION', 'ubuntu'), ('GIO_LAUNCHED_DESKTOP_FILE', '/usr/share/applications/terminator.desktop'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('MANAGERPID', '1997'), ('SYSTEMD_EXEC_PID', '2171'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('TERMINATOR_DBUS_NAME', 'net.tenshu.Terminator25ef4b219e3b005583550f2b0f9f990c3'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '16161'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/pablo-pc/GITHUB/TFG/project_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'pablo-pc'), ('JOURNAL_STREAM', '8:17250'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'pablo-pc'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/home/pablo-pc/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/pablopc-AORUS-15-9KF:@/tmp/.ICE-unix/2142,unix/pablopc-AORUS-15-9KF:/tmp/.ICE-unix/2142'), ('INVOCATION_ID', '378cca3e803e41f0b2c2ea1cd0a4c3b5'), ('XDG_MENU_PREFIX', 'gnome-'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('TERMINATOR_DBUS_PATH', '/net/tenshu/Terminator2'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('IBUS_DISABLE_SNOOPER', '1'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.TFXV52'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller:/home/pablo-pc/GITHUB/TFG/project_ws/install/location_controller:/home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('TERMINATOR_UUID', 'urn:uuid:9b603353-95f7-48de-b51a-0e2ea7594cb8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('GJS_DEBUG_OUTPUT', 'stderr'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/pablo-pc/GITHUB/TFG/project_ws/build/bonxai_wrapper'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/pablo-pc/GITHUB/TFG/project_ws/install/location_controller/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller:/home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper:/home/pablo-pc/GITHUB/TFG/project_ws/install/location_controller:/opt/ros/humble')]), 'shell': False}
+[0.074604] (bonxai_wrapper) StdoutLine: {'line': b'[ 60%] Built target bonxai_map\n'}
+[0.099914] (-) TimerEvent: {}
+[0.113286] (bonxai_wrapper) StdoutLine: {'line': b'[100%] Built target bonxai_server\n'}
+[0.200127] (-) TimerEvent: {}
+[0.205491] (bonxai_wrapper) CommandEnded: {'returncode': 0}
+[0.206329] (bonxai_wrapper) JobProgress: {'identifier': 'bonxai_wrapper', 'progress': 'install'}
+[0.216597] (bonxai_wrapper) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/pablo-pc/GITHUB/TFG/project_ws/build/bonxai_wrapper'], 'cwd': '/home/pablo-pc/GITHUB/TFG/project_ws/build/bonxai_wrapper', 'env': OrderedDict([('GJS_DEBUG_TOPICS', 'JS ERROR;JS LOG'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'pablo-pc'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/pablo-pc'), ('OLDPWD', '/home/pablo-pc/GITHUB/TFG'), ('DESKTOP_SESSION', 'ubuntu'), ('GIO_LAUNCHED_DESKTOP_FILE', '/usr/share/applications/terminator.desktop'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('MANAGERPID', '1997'), ('SYSTEMD_EXEC_PID', '2171'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('TERMINATOR_DBUS_NAME', 'net.tenshu.Terminator25ef4b219e3b005583550f2b0f9f990c3'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '16161'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/pablo-pc/GITHUB/TFG/project_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'pablo-pc'), ('JOURNAL_STREAM', '8:17250'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'pablo-pc'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/home/pablo-pc/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/pablopc-AORUS-15-9KF:@/tmp/.ICE-unix/2142,unix/pablopc-AORUS-15-9KF:/tmp/.ICE-unix/2142'), ('INVOCATION_ID', '378cca3e803e41f0b2c2ea1cd0a4c3b5'), ('XDG_MENU_PREFIX', 'gnome-'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('TERMINATOR_DBUS_PATH', '/net/tenshu/Terminator2'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('IBUS_DISABLE_SNOOPER', '1'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.TFXV52'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller:/home/pablo-pc/GITHUB/TFG/project_ws/install/location_controller:/home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('TERMINATOR_UUID', 'urn:uuid:9b603353-95f7-48de-b51a-0e2ea7594cb8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('GJS_DEBUG_OUTPUT', 'stderr'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/pablo-pc/GITHUB/TFG/project_ws/build/bonxai_wrapper'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/pablo-pc/GITHUB/TFG/project_ws/install/location_controller/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller:/home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper:/home/pablo-pc/GITHUB/TFG/project_ws/install/location_controller:/opt/ros/humble')]), 'shell': False}
+[0.224365] (bonxai_wrapper) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[0.224792] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/lib/libbonxai_server.a\n'}
+[0.224868] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/lib/libbonxai_map.a\n'}
+[0.224925] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/cmake/bonxai_serverConfig.cmake\n'}
+[0.224978] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/cmake/bonxai_serverConfig-noconfig.cmake\n'}
+[0.225032] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/include\n'}
+[0.225099] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/include/bonxai_server.hpp\n'}
+[0.225149] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/include\n'}
+[0.225195] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/include/bonxai_map\n'}
+[0.225241] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/include/bonxai_map/pcl_utils.hpp\n'}
+[0.225285] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/include/bonxai_map/probabilistic_map.hpp\n'}
+[0.225338] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/include\n'}
+[0.225384] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/include/bonxai\n'}
+[0.225475] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/include/bonxai/serialization.hpp\n'}
+[0.225755] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/include/bonxai/grid_coord.hpp\n'}
+[0.225829] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/include/bonxai/grid_allocator.hpp\n'}
+[0.225881] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/include/bonxai/mask.hpp\n'}
+[0.225931] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/include/bonxai/bonxai.hpp\n'}
+[0.225980] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/environment/library_path.sh\n'}
+[0.226025] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/environment/library_path.dsv\n'}
+[0.226065] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/ament_index/resource_index/package_run_dependencies/bonxai_wrapper\n'}
+[0.226112] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/ament_index/resource_index/parent_prefix_path/bonxai_wrapper\n'}
+[0.226162] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/environment/ament_prefix_path.sh\n'}
+[0.226214] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/environment/ament_prefix_path.dsv\n'}
+[0.226261] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/environment/path.sh\n'}
+[0.226315] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/environment/path.dsv\n'}
+[0.226362] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/local_setup.bash\n'}
+[0.226445] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/local_setup.sh\n'}
+[0.226498] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/local_setup.zsh\n'}
+[0.226544] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/local_setup.dsv\n'}
+[0.226590] (bonxai_wrapper) StdoutLine: {'line': b'-- Installing: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/package.dsv\n'}
+[0.226679] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/ament_index/resource_index/packages/bonxai_wrapper\n'}
+[0.226733] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/cmake/bonxai_serverExport.cmake\n'}
+[0.226789] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/cmake/bonxai_serverExport-noconfig.cmake\n'}
+[0.226848] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[0.226897] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/cmake/ament_cmake_export_targets-extras.cmake\n'}
+[0.226991] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/cmake/ament_cmake_export_libraries-extras.cmake\n'}
+[0.227039] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[0.227082] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/cmake/bonxai_wrapperConfig.cmake\n'}
+[0.227124] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/cmake/bonxai_wrapperConfig-version.cmake\n'}
+[0.227166] (bonxai_wrapper) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/package.xml\n'}
+[0.229274] (bonxai_wrapper) CommandEnded: {'returncode': 0}
+[0.250425] (bonxai_wrapper) JobEnded: {'identifier': 'bonxai_wrapper', 'rc': 0}
+[0.251124] (mapping_controller) JobStarted: {'identifier': 'mapping_controller'}
+[0.258316] (mapping_controller) JobProgress: {'identifier': 'mapping_controller', 'progress': 'cmake'}
+[0.260482] (mapping_controller) JobProgress: {'identifier': 'mapping_controller', 'progress': 'build'}
+[0.260613] (mapping_controller) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/pablo-pc/GITHUB/TFG/project_ws/build/mapping_controller', '--', '-j16', '-l16'], 'cwd': '/home/pablo-pc/GITHUB/TFG/project_ws/build/mapping_controller', 'env': OrderedDict([('GJS_DEBUG_TOPICS', 'JS ERROR;JS LOG'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'pablo-pc'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/pablo-pc'), ('OLDPWD', '/home/pablo-pc/GITHUB/TFG'), ('DESKTOP_SESSION', 'ubuntu'), ('GIO_LAUNCHED_DESKTOP_FILE', '/usr/share/applications/terminator.desktop'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('MANAGERPID', '1997'), ('SYSTEMD_EXEC_PID', '2171'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('TERMINATOR_DBUS_NAME', 'net.tenshu.Terminator25ef4b219e3b005583550f2b0f9f990c3'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '16161'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/pablo-pc/GITHUB/TFG/project_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'pablo-pc'), ('JOURNAL_STREAM', '8:17250'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'pablo-pc'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/home/pablo-pc/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/pablopc-AORUS-15-9KF:@/tmp/.ICE-unix/2142,unix/pablopc-AORUS-15-9KF:/tmp/.ICE-unix/2142'), ('INVOCATION_ID', '378cca3e803e41f0b2c2ea1cd0a4c3b5'), ('XDG_MENU_PREFIX', 'gnome-'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('TERMINATOR_DBUS_PATH', '/net/tenshu/Terminator2'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('IBUS_DISABLE_SNOOPER', '1'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.TFXV52'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller:/home/pablo-pc/GITHUB/TFG/project_ws/install/location_controller:/home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('TERMINATOR_UUID', 'urn:uuid:9b603353-95f7-48de-b51a-0e2ea7594cb8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('GJS_DEBUG_OUTPUT', 'stderr'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/pablo-pc/GITHUB/TFG/project_ws/build/mapping_controller'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/pablo-pc/GITHUB/TFG/project_ws/install/location_controller/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper:/home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller:/home/pablo-pc/GITHUB/TFG/project_ws/install/location_controller:/opt/ros/humble')]), 'shell': False}
+[0.289079] (mapping_controller) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[0.300282] (-) TimerEvent: {}
+[0.400580] (mapping_controller) StdoutLine: {'line': b'-- Found rclcpp: 16.0.12 (/opt/ros/humble/share/rclcpp/cmake)\n'}
+[0.400826] (-) TimerEvent: {}
+[0.426829] (mapping_controller) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[0.428983] (mapping_controller) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[0.434504] (mapping_controller) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[0.446948] (mapping_controller) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[0.459218] (mapping_controller) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[0.484448] (mapping_controller) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[0.485672] (mapping_controller) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[0.491593] (location_controller) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/location_controller', 'build', '--build-base', '/home/pablo-pc/GITHUB/TFG/project_ws/build/location_controller/build', 'install', '--record', '/home/pablo-pc/GITHUB/TFG/project_ws/build/location_controller/install.log', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/pablo-pc/GITHUB/TFG/project_ws/src/location_controller', 'env': {'GJS_DEBUG_TOPICS': 'JS ERROR;JS LOG', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'pablo-pc', 'XDG_SESSION_TYPE': 'wayland', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib', 'HOME': '/home/pablo-pc', 'OLDPWD': '/home/pablo-pc/GITHUB/TFG', 'DESKTOP_SESSION': 'ubuntu', 'GIO_LAUNCHED_DESKTOP_FILE': '/usr/share/applications/terminator.desktop', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'MANAGERPID': '1997', 'SYSTEMD_EXEC_PID': '2171', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'TERMINATOR_DBUS_NAME': 'net.tenshu.Terminator25ef4b219e3b005583550f2b0f9f990c3', 'GIO_LAUNCHED_DESKTOP_FILE_PID': '16161', 'IM_CONFIG_PHASE': '1', 'WAYLAND_DISPLAY': 'wayland-0', 'COLCON_PREFIX_PATH': '/home/pablo-pc/GITHUB/TFG/project_ws/install', 'ROS_DISTRO': 'humble', 'LOGNAME': 'pablo-pc', 'JOURNAL_STREAM': '8:17250', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'pablo-pc', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/opt/ros/humble/bin:/home/pablo-pc/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/pablopc-AORUS-15-9KF:@/tmp/.ICE-unix/2142,unix/pablopc-AORUS-15-9KF:/tmp/.ICE-unix/2142', 'INVOCATION_ID': '378cca3e803e41f0b2c2ea1cd0a4c3b5', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0', 'TERMINATOR_DBUS_PATH': '/net/tenshu/Terminator2', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'IBUS_DISABLE_SNOOPER': '1', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/.mutter-Xwaylandauth.TFXV52', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'SSH_AGENT_LAUNCHER': 'gnome-keyring', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller:/home/pablo-pc/GITHUB/TFG/project_ws/install/location_controller:/home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper:/opt/ros/humble', 'SHELL': '/bin/bash', 'TERMINATOR_UUID': 'urn:uuid:9b603353-95f7-48de-b51a-0e2ea7594cb8', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'GJS_DEBUG_OUTPUT': 'stderr', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/pablo-pc/GITHUB/TFG/project_ws/build/location_controller', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/pablo-pc/GITHUB/TFG/project_ws/build/location_controller/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/pablo-pc/GITHUB/TFG/project_ws/install/location_controller/lib/python3.10/site-packages:/home/pablo-pc/GITHUB/TFG/project_ws/install/location_controller/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'COLCON': '1', 'VTE_VERSION': '6800', 'CMAKE_PREFIX_PATH': '/home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller:/home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper'}, 'shell': False}
+[0.500905] (-) TimerEvent: {}
+[0.567612] (mapping_controller) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[0.601124] (-) TimerEvent: {}
+[0.603631] (mapping_controller) StdoutLine: {'line': b'-- Found bonxai_wrapper: 0.0.0 (/home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/cmake)\n'}
+[0.669571] (location_controller) StdoutLine: {'line': b'running egg_info\n'}
+[0.670146] (location_controller) StdoutLine: {'line': b'writing ../../build/location_controller/location_controller.egg-info/PKG-INFO\n'}
+[0.670284] (location_controller) StdoutLine: {'line': b'writing dependency_links to ../../build/location_controller/location_controller.egg-info/dependency_links.txt\n'}
+[0.670344] (location_controller) StdoutLine: {'line': b'writing entry points to ../../build/location_controller/location_controller.egg-info/entry_points.txt\n'}
+[0.670628] (location_controller) StdoutLine: {'line': b'writing requirements to ../../build/location_controller/location_controller.egg-info/requires.txt\n'}
+[0.670737] (location_controller) StdoutLine: {'line': b'writing top-level names to ../../build/location_controller/location_controller.egg-info/top_level.txt\n'}
+[0.672433] (location_controller) StdoutLine: {'line': b"reading manifest file '../../build/location_controller/location_controller.egg-info/SOURCES.txt'\n"}
+[0.673419] (location_controller) StdoutLine: {'line': b"writing manifest file '../../build/location_controller/location_controller.egg-info/SOURCES.txt'\n"}
+[0.673600] (location_controller) StdoutLine: {'line': b'running build\n'}
+[0.673718] (location_controller) StdoutLine: {'line': b'running build_py\n'}
+[0.674032] (location_controller) StdoutLine: {'line': b'running install\n'}
+[0.674160] (location_controller) StdoutLine: {'line': b'running install_lib\n'}
+[0.675439] (location_controller) StdoutLine: {'line': b'running install_data\n'}
+[0.675612] (location_controller) StdoutLine: {'line': b'running install_egg_info\n'}
+[0.676966] (location_controller) StdoutLine: {'line': b"removing '/home/pablo-pc/GITHUB/TFG/project_ws/install/location_controller/lib/python3.10/site-packages/location_controller-0.0.0-py3.10.egg-info' (and everything under it)\n"}
+[0.677109] (location_controller) StdoutLine: {'line': b'Copying ../../build/location_controller/location_controller.egg-info to /home/pablo-pc/GITHUB/TFG/project_ws/install/location_controller/lib/python3.10/site-packages/location_controller-0.0.0-py3.10.egg-info\n'}
+[0.677455] (location_controller) StdoutLine: {'line': b'running install_scripts\n'}
+[0.692649] (location_controller) StdoutLine: {'line': b'Installing input_data_node script to /home/pablo-pc/GITHUB/TFG/project_ws/install/location_controller/lib/location_controller\n'}
+[0.692880] (location_controller) StdoutLine: {'line': b'Installing location_node script to /home/pablo-pc/GITHUB/TFG/project_ws/install/location_controller/lib/location_controller\n'}
+[0.692987] (location_controller) StdoutLine: {'line': b'Installing noisy_cloud_node script to /home/pablo-pc/GITHUB/TFG/project_ws/install/location_controller/lib/location_controller\n'}
+[0.693230] (location_controller) StdoutLine: {'line': b"writing list of installed files to '/home/pablo-pc/GITHUB/TFG/project_ws/build/location_controller/install.log'\n"}
+[0.701386] (-) TimerEvent: {}
+[0.710212] (location_controller) CommandEnded: {'returncode': 0}
+[0.715554] (location_controller) JobEnded: {'identifier': 'location_controller', 'rc': 0}
+[0.727550] (mapping_controller) StdoutLine: {'line': b'-- Eigen found (include: /usr/include/eigen3, version: 3.4.0)\n'}
+[0.751606] (mapping_controller) StdoutLine: {'line': b'-- FLANN found (include: /usr/include, lib: /usr/lib/x86_64-linux-gnu/libflann_cpp.so)\n'}
+[0.801623] (-) TimerEvent: {}
+[0.902027] (-) TimerEvent: {}
+[0.988802] (mapping_controller) StdoutLine: {'line': b'-- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)\n'}
+[0.994103] (mapping_controller) StdoutLine: {'line': b'-- OpenNI2 found (version: 2.2.0.33, include: /usr/include/openni2, lib: /usr/lib/x86_64-linux-gnu/libOpenNI2.so;libusb::libusb)\n'}
+[1.002147] (-) TimerEvent: {}
+[1.102536] (-) TimerEvent: {}
+[1.117406] (mapping_controller) StdoutLine: {'line': b'-- Eigen found (include: /usr/include/eigen3, version: 3.4.0)\n'}
+[1.123177] (mapping_controller) StdoutLine: {'line': b'-- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)\n'}
+[1.130335] (mapping_controller) StdoutLine: {'line': b'-- OpenNI2 found (version: 2.2.0.33, include: /usr/include/openni2, lib: /usr/lib/x86_64-linux-gnu/libOpenNI2.so;libusb::libusb)\n'}
+[1.202801] (-) TimerEvent: {}
+[1.245860] (mapping_controller) StdoutLine: {'line': b'-- Found Qhull version 8.0.2\n'}
+[1.303001] (-) TimerEvent: {}
+[1.362903] (mapping_controller) StdoutLine: {'line': b'-- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)\n'}
+[1.403240] (-) TimerEvent: {}
+[1.499667] (mapping_controller) StdoutLine: {'line': b'-- Found tf2_eigen: 0.25.12 (/opt/ros/humble/share/tf2_eigen/cmake)\n'}
+[1.503424] (-) TimerEvent: {}
+[1.508322] (mapping_controller) StdoutLine: {'line': b'-- Found tf2_sensor_msgs: 0.25.12 (/opt/ros/humble/share/tf2_sensor_msgs/cmake)\n'}
+[1.523194] (mapping_controller) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.12.12 (/opt/ros/humble/share/ament_lint_auto/cmake)\n'}
+[1.578567] (mapping_controller) StdoutLine: {'line': b"-- Added test 'cppcheck' to perform static code analysis on C / C++ code\n"}
+[1.579070] (mapping_controller) StdoutLine: {'line': b'-- Configured cppcheck include dirs: \n'}
+[1.579175] (mapping_controller) StdoutLine: {'line': b'-- Configured cppcheck exclude dirs and/or files: \n'}
+[1.579331] (mapping_controller) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[1.579716] (mapping_controller) StdoutLine: {'line': b"-- Added test 'uncrustify' to check C / C++ code style\n"}
+[1.579787] (mapping_controller) StdoutLine: {'line': b'-- Configured uncrustify additional arguments: \n'}
+[1.580055] (mapping_controller) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[1.580589] (mapping_controller) StdoutLine: {'line': b'-- Configuring done\n'}
+[1.602091] (mapping_controller) StdoutLine: {'line': b'-- Generating done\n'}
+[1.603688] (-) TimerEvent: {}
+[1.608645] (mapping_controller) StdoutLine: {'line': b'-- Build files have been written to: /home/pablo-pc/GITHUB/TFG/project_ws/build/mapping_controller\n'}
+[1.639733] (mapping_controller) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target mapping_node\x1b[0m\n'}
+[1.669072] (mapping_controller) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/mapping_node.dir/src/mapping_node.cpp.o\x1b[0m\n'}
+[1.703871] (-) TimerEvent: {}
+[1.804238] (-) TimerEvent: {}
+[1.904646] (-) TimerEvent: {}
+[2.005041] (-) TimerEvent: {}
+[2.105439] (-) TimerEvent: {}
+[2.205801] (-) TimerEvent: {}
+[2.306196] (-) TimerEvent: {}
+[2.406557] (-) TimerEvent: {}
+[2.506930] (-) TimerEvent: {}
+[2.607326] (-) TimerEvent: {}
+[2.707696] (-) TimerEvent: {}
+[2.808087] (-) TimerEvent: {}
+[2.846428] (mapping_controller) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/home/pablo-pc/GITHUB/TFG/project_ws/src/mapping_controller/src/mapping_node.cpp:5\x1b[m\x1b[K:\n'}
+[2.846707] (mapping_controller) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/tf2_sensor_msgs/tf2_sensor_msgs.h:32:2:\x1b[m\x1b[K \x1b[01;35m\x1b[Kwarning: \x1b[m\x1b[K#warning is a GCC extension\n'}
+[2.847271] (mapping_controller) StderrLine: {'line': b'   32 | #\x1b[01;35m\x1b[Kwarning\x1b[m\x1b[K This header is obsolete, please include tf2_sensor_msgs/tf2_sensor_msgs.hpp instead\n'}
+[2.847435] (mapping_controller) StderrLine: {'line': b'      |  \x1b[01;35m\x1b[K^~~~~~~\x1b[m\x1b[K\n'}
+[2.847564] (mapping_controller) StderrLine: {'line': b'\x1b[01m\x1b[K/opt/ros/humble/include/tf2_sensor_msgs/tf2_sensor_msgs.h:32:2:\x1b[m\x1b[K \x1b[01;35m\x1b[Kwarning: \x1b[m\x1b[K#warning This header is obsolete, please include tf2_sensor_msgs/tf2_sensor_msgs.hpp instead [\x1b[01;35m\x1b[K\x1b]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wcpp\x07-Wcpp\x1b]8;;\x07\x1b[m\x1b[K]\n'}
+[2.908319] (-) TimerEvent: {}
+[3.008750] (-) TimerEvent: {}
+[3.109178] (-) TimerEvent: {}
+[3.209639] (-) TimerEvent: {}
+[3.310170] (-) TimerEvent: {}
+[3.410565] (-) TimerEvent: {}
+[3.510964] (-) TimerEvent: {}
+[3.611347] (-) TimerEvent: {}
+[3.711818] (-) TimerEvent: {}
+[3.812161] (-) TimerEvent: {}
+[3.912719] (-) TimerEvent: {}
+[4.013062] (-) TimerEvent: {}
+[4.113383] (-) TimerEvent: {}
+[4.213830] (-) TimerEvent: {}
+[4.314163] (-) TimerEvent: {}
+[4.414480] (-) TimerEvent: {}
+[4.514807] (-) TimerEvent: {}
+[4.615107] (-) TimerEvent: {}
+[4.715414] (-) TimerEvent: {}
+[4.815789] (-) TimerEvent: {}
+[4.916162] (-) TimerEvent: {}
+[5.016482] (-) TimerEvent: {}
+[5.116855] (-) TimerEvent: {}
+[5.217236] (-) TimerEvent: {}
+[5.317614] (-) TimerEvent: {}
+[5.417997] (-) TimerEvent: {}
+[5.518377] (-) TimerEvent: {}
+[5.618767] (-) TimerEvent: {}
+[5.719034] (-) TimerEvent: {}
+[5.819397] (-) TimerEvent: {}
+[5.919780] (-) TimerEvent: {}
+[6.020156] (-) TimerEvent: {}
+[6.120535] (-) TimerEvent: {}
+[6.220828] (-) TimerEvent: {}
+[6.321227] (-) TimerEvent: {}
+[6.421617] (-) TimerEvent: {}
+[6.522008] (-) TimerEvent: {}
+[6.622381] (-) TimerEvent: {}
+[6.722760] (-) TimerEvent: {}
+[6.823025] (-) TimerEvent: {}
+[6.923396] (-) TimerEvent: {}
+[7.023776] (-) TimerEvent: {}
+[7.124148] (-) TimerEvent: {}
+[7.224531] (-) TimerEvent: {}
+[7.324946] (-) TimerEvent: {}
+[7.425280] (-) TimerEvent: {}
+[7.525754] (-) TimerEvent: {}
+[7.626144] (-) TimerEvent: {}
+[7.726533] (-) TimerEvent: {}
+[7.826937] (-) TimerEvent: {}
+[7.927314] (-) TimerEvent: {}
+[8.027643] (-) TimerEvent: {}
+[8.128031] (-) TimerEvent: {}
+[8.228415] (-) TimerEvent: {}
+[8.328798] (-) TimerEvent: {}
+[8.429206] (-) TimerEvent: {}
+[8.529589] (-) TimerEvent: {}
+[8.629884] (-) TimerEvent: {}
+[8.730177] (-) TimerEvent: {}
+[8.830593] (-) TimerEvent: {}
+[8.931014] (-) TimerEvent: {}
+[9.031396] (-) TimerEvent: {}
+[9.131780] (-) TimerEvent: {}
+[9.232172] (-) TimerEvent: {}
+[9.332531] (-) TimerEvent: {}
+[9.432926] (-) TimerEvent: {}
+[9.533295] (-) TimerEvent: {}
+[9.633677] (-) TimerEvent: {}
+[9.734049] (-) TimerEvent: {}
+[9.834353] (-) TimerEvent: {}
+[9.934723] (-) TimerEvent: {}
+[10.035094] (-) TimerEvent: {}
+[10.135474] (-) TimerEvent: {}
+[10.235849] (-) TimerEvent: {}
+[10.336227] (-) TimerEvent: {}
+[10.436584] (-) TimerEvent: {}
+[10.536847] (-) TimerEvent: {}
+[10.637210] (-) TimerEvent: {}
+[10.737576] (-) TimerEvent: {}
+[10.837971] (-) TimerEvent: {}
+[10.938344] (-) TimerEvent: {}
+[11.038716] (-) TimerEvent: {}
+[11.139082] (-) TimerEvent: {}
+[11.239448] (-) TimerEvent: {}
+[11.339815] (-) TimerEvent: {}
+[11.440194] (-) TimerEvent: {}
+[11.540552] (-) TimerEvent: {}
+[11.640979] (-) TimerEvent: {}
+[11.741355] (-) TimerEvent: {}
+[11.841727] (-) TimerEvent: {}
+[11.942094] (-) TimerEvent: {}
+[12.042514] (-) TimerEvent: {}
+[12.142845] (-) TimerEvent: {}
+[12.243235] (-) TimerEvent: {}
+[12.343608] (-) TimerEvent: {}
+[12.444008] (-) TimerEvent: {}
+[12.544411] (-) TimerEvent: {}
+[12.644816] (-) TimerEvent: {}
+[12.647029] (mapping_controller) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable mapping_node\x1b[0m\n'}
+[12.745031] (-) TimerEvent: {}
+[12.845418] (-) TimerEvent: {}
+[12.945804] (-) TimerEvent: {}
+[13.046229] (-) TimerEvent: {}
+[13.146628] (-) TimerEvent: {}
+[13.246918] (-) TimerEvent: {}
+[13.347237] (-) TimerEvent: {}
+[13.447604] (-) TimerEvent: {}
+[13.547881] (-) TimerEvent: {}
+[13.623199] (mapping_controller) StdoutLine: {'line': b'[100%] Built target mapping_node\n'}
+[13.634210] (mapping_controller) CommandEnded: {'returncode': 0}
+[13.634682] (mapping_controller) JobProgress: {'identifier': 'mapping_controller', 'progress': 'install'}
+[13.635212] (mapping_controller) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/pablo-pc/GITHUB/TFG/project_ws/build/mapping_controller'], 'cwd': '/home/pablo-pc/GITHUB/TFG/project_ws/build/mapping_controller', 'env': OrderedDict([('GJS_DEBUG_TOPICS', 'JS ERROR;JS LOG'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'pablo-pc'), ('XDG_SESSION_TYPE', 'wayland'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/pablo-pc'), ('OLDPWD', '/home/pablo-pc/GITHUB/TFG'), ('DESKTOP_SESSION', 'ubuntu'), ('GIO_LAUNCHED_DESKTOP_FILE', '/usr/share/applications/terminator.desktop'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('MANAGERPID', '1997'), ('SYSTEMD_EXEC_PID', '2171'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('TERMINATOR_DBUS_NAME', 'net.tenshu.Terminator25ef4b219e3b005583550f2b0f9f990c3'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '16161'), ('IM_CONFIG_PHASE', '1'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/pablo-pc/GITHUB/TFG/project_ws/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'pablo-pc'), ('JOURNAL_STREAM', '8:17250'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'pablo-pc'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/home/pablo-pc/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin'), ('SESSION_MANAGER', 'local/pablopc-AORUS-15-9KF:@/tmp/.ICE-unix/2142,unix/pablopc-AORUS-15-9KF:/tmp/.ICE-unix/2142'), ('INVOCATION_ID', '378cca3e803e41f0b2c2ea1cd0a4c3b5'), ('XDG_MENU_PREFIX', 'gnome-'), ('GNOME_SETUP_DISPLAY', ':1'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':0'), ('TERMINATOR_DBUS_PATH', '/net/tenshu/Terminator2'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('IBUS_DISABLE_SNOOPER', '1'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/.mutter-Xwaylandauth.TFXV52'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller:/home/pablo-pc/GITHUB/TFG/project_ws/install/location_controller:/home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('TERMINATOR_UUID', 'urn:uuid:9b603353-95f7-48de-b51a-0e2ea7594cb8'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('GJS_DEBUG_OUTPUT', 'stderr'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/pablo-pc/GITHUB/TFG/project_ws/build/mapping_controller'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/pablo-pc/GITHUB/TFG/project_ws/install/location_controller/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper:/home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller:/home/pablo-pc/GITHUB/TFG/project_ws/install/location_controller:/opt/ros/humble')]), 'shell': False}
+[13.644286] (mapping_controller) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[13.644402] (mapping_controller) StdoutLine: {'line': b'-- Installing: /home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/lib/mapping_controller/mapping_node\n'}
+[13.647998] (-) TimerEvent: {}
+[13.651508] (mapping_controller) StdoutLine: {'line': b'-- Set runtime path of "/home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/lib/mapping_controller/mapping_node" to ""\n'}
+[13.651669] (mapping_controller) StdoutLine: {'line': b'-- Installing: /home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/ament_index/resource_index/package_run_dependencies/mapping_controller\n'}
+[13.651747] (mapping_controller) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/ament_index/resource_index/parent_prefix_path/mapping_controller\n'}
+[13.651805] (mapping_controller) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/mapping_controller/environment/ament_prefix_path.sh\n'}
+[13.651867] (mapping_controller) StdoutLine: {'line': b'-- Installing: /home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/mapping_controller/environment/ament_prefix_path.dsv\n'}
+[13.652115] (mapping_controller) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/mapping_controller/environment/path.sh\n'}
+[13.652186] (mapping_controller) StdoutLine: {'line': b'-- Installing: /home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/mapping_controller/environment/path.dsv\n'}
+[13.652239] (mapping_controller) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/mapping_controller/local_setup.bash\n'}
+[13.652290] (mapping_controller) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/mapping_controller/local_setup.sh\n'}
+[13.652351] (mapping_controller) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/mapping_controller/local_setup.zsh\n'}
+[13.652399] (mapping_controller) StdoutLine: {'line': b'-- Installing: /home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/mapping_controller/local_setup.dsv\n'}
+[13.652445] (mapping_controller) StdoutLine: {'line': b'-- Installing: /home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/mapping_controller/package.dsv\n'}
+[13.652491] (mapping_controller) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/ament_index/resource_index/packages/mapping_controller\n'}
+[13.652541] (mapping_controller) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/mapping_controller/cmake/mapping_controllerConfig.cmake\n'}
+[13.652587] (mapping_controller) StdoutLine: {'line': b'-- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/mapping_controller/cmake/mapping_controllerConfig-version.cmake\n'}
+[13.652634] (mapping_controller) StdoutLine: {'line': b'-- Installing: /home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/mapping_controller/package.xml\n'}
+[13.654086] (mapping_controller) CommandEnded: {'returncode': 0}
+[13.664782] (mapping_controller) JobEnded: {'identifier': 'mapping_controller', 'rc': 0}
+[13.665682] (-) EventReactorShutdown: {}

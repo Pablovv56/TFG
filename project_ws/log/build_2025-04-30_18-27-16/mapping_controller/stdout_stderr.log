@@ -1,0 +1,8 @@
+[ 50%] [32mBuilding CXX object CMakeFiles/mapping_node.dir/src/mapping_node.cpp.o[0m
+[01m[K/home/pablo-pc/GITHUB/TFG/project_ws/src/mapping_controller/src/mapping_node.cpp:[m[K In member function ‘[01m[Kvoid MappingNode::pointcloudTransformCallback(geometry_msgs::msg::TransformStamped_<std::allocator<void> >::SharedPtr)[m[K’:
+[01m[K/home/pablo-pc/GITHUB/TFG/project_ws/src/mapping_controller/src/mapping_node.cpp:49:25:[m[K [01;31m[Kerror: [m[K‘[01m[Kusing element_type = class bonxai_server::BonxaiServer[m[K’ {aka ‘[01m[Kclass bonxai_server::BonxaiServer[m[K’} has no member named ‘[01m[Kupdate_map[m[K’
+   49 |         bonxai_server_->[01;31m[Kupdate_map[m[K(latest_pcl_, msg);
+      |                         [01;31m[K^~~~~~~~~~[m[K
+gmake[2]: *** [CMakeFiles/mapping_node.dir/build.make:76: CMakeFiles/mapping_node.dir/src/mapping_node.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/mapping_node.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

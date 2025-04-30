@@ -1,0 +1,3 @@
+[35m[1mConsolidate compiler generated dependencies of target mapping_node[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/mapping_node.dir/src/mapping_node.cpp.o[0m
+[100%] [32m[1mLinking CXX executable mapping_node[0m
