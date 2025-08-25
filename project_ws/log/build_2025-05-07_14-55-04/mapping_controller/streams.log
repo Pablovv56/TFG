@@ -1,0 +1,24 @@
+[0.015s] Invoking command in '/home/pablo-pc/GITHUB/TFG/project_ws/build/mapping_controller': CMAKE_PREFIX_PATH=/home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper:/home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller:/home/pablo-pc/GITHUB/TFG/project_ws/install/location_controller:/opt/ros/humble /usr/bin/cmake --build /home/pablo-pc/GITHUB/TFG/project_ws/build/mapping_controller -- -j16 -l16
+[0.109s] [ 50%] [32m[1mLinking CXX executable mapping_node[0m
+[1.360s] [100%] Built target mapping_node
+[1.374s] Invoked command in '/home/pablo-pc/GITHUB/TFG/project_ws/build/mapping_controller' returned '0': CMAKE_PREFIX_PATH=/home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper:/home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller:/home/pablo-pc/GITHUB/TFG/project_ws/install/location_controller:/opt/ros/humble /usr/bin/cmake --build /home/pablo-pc/GITHUB/TFG/project_ws/build/mapping_controller -- -j16 -l16
+[1.376s] Invoking command in '/home/pablo-pc/GITHUB/TFG/project_ws/build/mapping_controller': CMAKE_PREFIX_PATH=/home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper:/home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller:/home/pablo-pc/GITHUB/TFG/project_ws/install/location_controller:/opt/ros/humble /usr/bin/cmake --install /home/pablo-pc/GITHUB/TFG/project_ws/build/mapping_controller
+[1.384s] -- Install configuration: ""
+[1.384s] -- Installing: /home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/lib/mapping_controller/mapping_node
+[1.391s] -- Set runtime path of "/home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/lib/mapping_controller/mapping_node" to ""
+[1.392s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/ament_index/resource_index/package_run_dependencies/mapping_controller
+[1.392s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/ament_index/resource_index/parent_prefix_path/mapping_controller
+[1.392s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/mapping_controller/environment/ament_prefix_path.sh
+[1.392s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/mapping_controller/environment/ament_prefix_path.dsv
+[1.393s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/mapping_controller/environment/path.sh
+[1.393s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/mapping_controller/environment/path.dsv
+[1.393s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/mapping_controller/local_setup.bash
+[1.393s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/mapping_controller/local_setup.sh
+[1.394s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/mapping_controller/local_setup.zsh
+[1.394s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/mapping_controller/local_setup.dsv
+[1.394s] -- Installing: /home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/mapping_controller/package.dsv
+[1.394s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/ament_index/resource_index/packages/mapping_controller
+[1.394s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/mapping_controller/cmake/mapping_controllerConfig.cmake
+[1.394s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/mapping_controller/cmake/mapping_controllerConfig-version.cmake
+[1.395s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller/share/mapping_controller/package.xml
+[1.397s] Invoked command in '/home/pablo-pc/GITHUB/TFG/project_ws/build/mapping_controller' returned '0': CMAKE_PREFIX_PATH=/home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper:/home/pablo-pc/GITHUB/TFG/project_ws/install/mapping_controller:/home/pablo-pc/GITHUB/TFG/project_ws/install/location_controller:/opt/ros/humble /usr/bin/cmake --install /home/pablo-pc/GITHUB/TFG/project_ws/build/mapping_controller

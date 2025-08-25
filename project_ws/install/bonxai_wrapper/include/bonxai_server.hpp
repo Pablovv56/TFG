@@ -46,7 +46,6 @@ class BonxaiServer : public rclcpp::Node {
 
   virtual void insertCloudCallback(const PointCloud2::ConstSharedPtr cloud);
 
- protected:
   virtual void publishAll(const rclcpp::Time& rostime);
 
   OnSetParametersCallbackHandle::SharedPtr set_param_res_;

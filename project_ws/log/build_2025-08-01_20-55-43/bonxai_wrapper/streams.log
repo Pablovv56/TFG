@@ -1,0 +1,50 @@
+[0.010s] Invoking command in '/home/pablo-pc/GITHUB/TFG/project_ws/build/bonxai_wrapper': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pablo-pc/GITHUB/TFG/project_ws/install/location_controller:/opt/ros/humble /usr/bin/cmake --build /home/pablo-pc/GITHUB/TFG/project_ws/build/bonxai_wrapper -- -j16 -l16
+[0.053s] [35m[1mConsolidate compiler generated dependencies of target bonxai_map[0m
+[0.069s] [ 60%] Built target bonxai_map
+[0.106s] [ 80%] [32mBuilding CXX object CMakeFiles/bonxai_server.dir/Bonxai/bonxai_ros/src/bonxai_server.cpp.o[0m
+[13.210s] [100%] [32m[1mLinking CXX static library libbonxai_server.a[0m
+[13.404s] [100%] Built target bonxai_server
+[13.418s] Invoked command in '/home/pablo-pc/GITHUB/TFG/project_ws/build/bonxai_wrapper' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pablo-pc/GITHUB/TFG/project_ws/install/location_controller:/opt/ros/humble /usr/bin/cmake --build /home/pablo-pc/GITHUB/TFG/project_ws/build/bonxai_wrapper -- -j16 -l16
+[13.429s] Invoking command in '/home/pablo-pc/GITHUB/TFG/project_ws/build/bonxai_wrapper': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pablo-pc/GITHUB/TFG/project_ws/install/location_controller:/opt/ros/humble /usr/bin/cmake --install /home/pablo-pc/GITHUB/TFG/project_ws/build/bonxai_wrapper
+[13.440s] -- Install configuration: ""
+[13.440s] -- Installing: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/lib/libbonxai_server.a
+[13.452s] -- Installing: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/lib/libbonxai_map.a
+[13.453s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/cmake/bonxai_serverConfig.cmake
+[13.454s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/cmake/bonxai_serverConfig-noconfig.cmake
+[13.454s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/include
+[13.454s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/include/bonxai_server.hpp
+[13.454s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/include
+[13.454s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/include/bonxai_map
+[13.454s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/include/bonxai_map/pcl_utils.hpp
+[13.454s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/include/bonxai_map/probabilistic_map.hpp
+[13.454s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/include
+[13.454s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/include/bonxai
+[13.454s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/include/bonxai/serialization.hpp
+[13.454s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/include/bonxai/grid_coord.hpp
+[13.454s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/include/bonxai/grid_allocator.hpp
+[13.454s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/include/bonxai/mask.hpp
+[13.454s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/include/bonxai/bonxai.hpp
+[13.454s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/environment/library_path.sh
+[13.454s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/environment/library_path.dsv
+[13.454s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/ament_index/resource_index/package_run_dependencies/bonxai_wrapper
+[13.454s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/ament_index/resource_index/parent_prefix_path/bonxai_wrapper
+[13.454s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/environment/ament_prefix_path.sh
+[13.454s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/environment/ament_prefix_path.dsv
+[13.454s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/environment/path.sh
+[13.454s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/environment/path.dsv
+[13.454s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/local_setup.bash
+[13.454s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/local_setup.sh
+[13.454s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/local_setup.zsh
+[13.455s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/local_setup.dsv
+[13.455s] -- Installing: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/package.dsv
+[13.455s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/ament_index/resource_index/packages/bonxai_wrapper
+[13.455s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/cmake/bonxai_serverExport.cmake
+[13.455s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/cmake/bonxai_serverExport-noconfig.cmake
+[13.455s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/cmake/ament_cmake_export_include_directories-extras.cmake
+[13.455s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/cmake/ament_cmake_export_targets-extras.cmake
+[13.455s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/cmake/ament_cmake_export_libraries-extras.cmake
+[13.455s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/cmake/ament_cmake_export_dependencies-extras.cmake
+[13.455s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/cmake/bonxai_wrapperConfig.cmake
+[13.455s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/cmake/bonxai_wrapperConfig-version.cmake
+[13.455s] -- Up-to-date: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/share/bonxai_wrapper/package.xml
+[13.456s] Invoked command in '/home/pablo-pc/GITHUB/TFG/project_ws/build/bonxai_wrapper' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pablo-pc/GITHUB/TFG/project_ws/install/location_controller:/opt/ros/humble /usr/bin/cmake --install /home/pablo-pc/GITHUB/TFG/project_ws/build/bonxai_wrapper

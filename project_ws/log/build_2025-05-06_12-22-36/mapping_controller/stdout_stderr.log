@@ -1,0 +1,48 @@
+[35m[1mConsolidate compiler generated dependencies of target mapping_node[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/mapping_node.dir/src/mapping_node.cpp.o[0m
+[01m[K/home/pablo-pc/GITHUB/TFG/project_ws/src/mapping_controller/src/mapping_node.cpp:[m[K In member function ‘[01m[Kvoid MappingNode::pclCallback(sensor_msgs::msg::PointCloud2_<std::allocator<void> >::SharedPtr)[m[K’:
+[01m[K/home/pablo-pc/GITHUB/TFG/project_ws/src/mapping_controller/src/mapping_node.cpp:72:91:[m[K [01;31m[Kerror: [m[Kno match for ‘[01m[Koperator*[m[K’ (operand type is ‘[01m[Ksensor_msgs::msg::PointCloud2[m[K’ {aka ‘[01m[Ksensor_msgs::msg::PointCloud2_<std::allocator<void> >[m[K’})
+   72 |       bonxai_server_->insertCloudCallback(std::make_shared<sensor_msgs::msg::PointCloud2>([01;31m[K*transformed_cloud[m[K));
+      |                                                                                           [01;31m[K^~~~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/usr/include/eigen3/Eigen/Core:50[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/StdVector:14[m[K,
+                 from [01m[K/usr/include/pcl-1.12/pcl/point_cloud.h:45[m[K,
+                 from [01m[K/usr/include/pcl-1.12/pcl/common/transforms.h:42[m[K,
+                 from [01m[K/home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/include/bonxai_server.hpp:4[m[K,
+                 from [01m[K/home/pablo-pc/GITHUB/TFG/project_ws/src/mapping_controller/src/mapping_node.cpp:2[m[K:
+[01m[K/usr/include/c++/11/complex:392:5:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class _Tp> std::complex<_Tp> std::operator*(const std::complex<_Tp>&, const std::complex<_Tp>&)[m[K’
+  392 |     [01;36m[Koperator[m[K*(const complex<_Tp>& __x, const complex<_Tp>& __y)
+      |     [01;36m[K^~~~~~~~[m[K
+[01m[K/usr/include/c++/11/complex:392:5:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[01m[K/home/pablo-pc/GITHUB/TFG/project_ws/src/mapping_controller/src/mapping_node.cpp:72:92:[m[K [01;36m[Knote: [m[K  ‘[01m[Ksensor_msgs::msg::PointCloud2[m[K’ {aka ‘[01m[Ksensor_msgs::msg::PointCloud2_<std::allocator<void> >[m[K’} is not derived from ‘[01m[Kconst std::complex<_Tp>[m[K’
+   72 |       bonxai_server_->insertCloudCallback(std::make_shared<sensor_msgs::msg::PointCloud2>(*[01;36m[Ktransformed_cloud[m[K));
+      |                                                                                            [01;36m[K^~~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/usr/include/eigen3/Eigen/Core:50[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/StdVector:14[m[K,
+                 from [01m[K/usr/include/pcl-1.12/pcl/point_cloud.h:45[m[K,
+                 from [01m[K/usr/include/pcl-1.12/pcl/common/transforms.h:42[m[K,
+                 from [01m[K/home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/include/bonxai_server.hpp:4[m[K,
+                 from [01m[K/home/pablo-pc/GITHUB/TFG/project_ws/src/mapping_controller/src/mapping_node.cpp:2[m[K:
+[01m[K/usr/include/c++/11/complex:401:5:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class _Tp> std::complex<_Tp> std::operator*(const std::complex<_Tp>&, const _Tp&)[m[K’
+  401 |     [01;36m[Koperator[m[K*(const complex<_Tp>& __x, const _Tp& __y)
+      |     [01;36m[K^~~~~~~~[m[K
+[01m[K/usr/include/c++/11/complex:401:5:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[01m[K/home/pablo-pc/GITHUB/TFG/project_ws/src/mapping_controller/src/mapping_node.cpp:72:92:[m[K [01;36m[Knote: [m[K  ‘[01m[Ksensor_msgs::msg::PointCloud2[m[K’ {aka ‘[01m[Ksensor_msgs::msg::PointCloud2_<std::allocator<void> >[m[K’} is not derived from ‘[01m[Kconst std::complex<_Tp>[m[K’
+   72 |       bonxai_server_->insertCloudCallback(std::make_shared<sensor_msgs::msg::PointCloud2>(*[01;36m[Ktransformed_cloud[m[K));
+      |                                                                                            [01;36m[K^~~~~~~~~~~~~~~~~[m[K
+In file included from [01m[K/usr/include/eigen3/Eigen/Core:50[m[K,
+                 from [01m[K/usr/include/eigen3/Eigen/StdVector:14[m[K,
+                 from [01m[K/usr/include/pcl-1.12/pcl/point_cloud.h:45[m[K,
+                 from [01m[K/usr/include/pcl-1.12/pcl/common/transforms.h:42[m[K,
+                 from [01m[K/home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/include/bonxai_server.hpp:4[m[K,
+                 from [01m[K/home/pablo-pc/GITHUB/TFG/project_ws/src/mapping_controller/src/mapping_node.cpp:2[m[K:
+[01m[K/usr/include/c++/11/complex:410:5:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class _Tp> std::complex<_Tp> std::operator*(const _Tp&, const std::complex<_Tp>&)[m[K’
+  410 |     [01;36m[Koperator[m[K*(const _Tp& __x, const complex<_Tp>& __y)
+      |     [01;36m[K^~~~~~~~[m[K
+[01m[K/usr/include/c++/11/complex:410:5:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[01m[K/home/pablo-pc/GITHUB/TFG/project_ws/src/mapping_controller/src/mapping_node.cpp:72:92:[m[K [01;36m[Knote: [m[K  candidate expects 2 arguments, 1 provided
+   72 |       bonxai_server_->insertCloudCallback(std::make_shared<sensor_msgs::msg::PointCloud2>(*[01;36m[Ktransformed_cloud[m[K));
+      |                                                                                            [01;36m[K^~~~~~~~~~~~~~~~~[m[K
+gmake[2]: *** [CMakeFiles/mapping_node.dir/build.make:76: CMakeFiles/mapping_node.dir/src/mapping_node.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/mapping_node.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

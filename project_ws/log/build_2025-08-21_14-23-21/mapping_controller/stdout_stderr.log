@@ -1,0 +1,51 @@
+[ 50%] [32m[1mLinking CXX executable mapping_node[0m
+/usr/bin/ld: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/lib/libbonxai_server.a(bonxai_server.cpp.o): in function `bonxai_server::BonxaiServer::BonxaiServer(rclcpp::NodeOptions const&)':
+bonxai_server.cpp:(.text+0x9a0): undefined reference to `YAML::LoadFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)'
+/usr/bin/ld: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/lib/libbonxai_server.a(bonxai_server.cpp.o): in function `YAML::Exception::Exception(YAML::Mark const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)':
+bonxai_server.cpp:(.text._ZN4YAML9ExceptionC2ERKNS_4MarkERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE[_ZN4YAML9ExceptionC5ERKNS_4MarkERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE]+0x61): undefined reference to `vtable for YAML::Exception'
+/usr/bin/ld: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/lib/libbonxai_server.a(bonxai_server.cpp.o): in function `YAML::RepresentationException::RepresentationException(YAML::Mark const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)':
+bonxai_server.cpp:(.text._ZN4YAML23RepresentationExceptionC2ERKNS_4MarkERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE[_ZN4YAML23RepresentationExceptionC5ERKNS_4MarkERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE]+0x32): undefined reference to `vtable for YAML::RepresentationException'
+/usr/bin/ld: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/lib/libbonxai_server.a(bonxai_server.cpp.o): in function `YAML::InvalidNode::InvalidNode(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)':
+bonxai_server.cpp:(.text._ZN4YAML11InvalidNodeC2ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE[_ZN4YAML11InvalidNodeC5ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE]+0x71): undefined reference to `vtable for YAML::InvalidNode'
+/usr/bin/ld: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/lib/libbonxai_server.a(bonxai_server.cpp.o): in function `YAML::BadConversion::BadConversion(YAML::Mark const&)':
+bonxai_server.cpp:(.text._ZN4YAML13BadConversionC2ERKNS_4MarkE[_ZN4YAML13BadConversionC5ERKNS_4MarkE]+0x7c): undefined reference to `vtable for YAML::BadConversion'
+/usr/bin/ld: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/lib/libbonxai_server.a(bonxai_server.cpp.o): in function `YAML::detail::memory_holder::create_node()':
+bonxai_server.cpp:(.text._ZN4YAML6detail13memory_holder11create_nodeEv[_ZN4YAML6detail13memory_holder11create_nodeEv]+0x20): undefined reference to `YAML::detail::memory::create_node()'
+/usr/bin/ld: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/lib/libbonxai_server.a(bonxai_server.cpp.o): in function `YAML::detail::node_ref::mark_defined()':
+bonxai_server.cpp:(.text._ZN4YAML6detail8node_ref12mark_definedEv[_ZN4YAML6detail8node_ref12mark_definedEv]+0x20): undefined reference to `YAML::detail::node_data::mark_defined()'
+/usr/bin/ld: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/lib/libbonxai_server.a(bonxai_server.cpp.o): in function `YAML::detail::node_ref::set_null()':
+bonxai_server.cpp:(.text._ZN4YAML6detail8node_ref8set_nullEv[_ZN4YAML6detail8node_ref8set_nullEv]+0x20): undefined reference to `YAML::detail::node_data::set_null()'
+/usr/bin/ld: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/lib/libbonxai_server.a(bonxai_server.cpp.o): in function `YAML::detail::node_ref::set_scalar(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)':
+bonxai_server.cpp:(.text._ZN4YAML6detail8node_ref10set_scalarERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE[_ZN4YAML6detail8node_ref10set_scalarERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE]+0x2e): undefined reference to `YAML::detail::node_data::set_scalar(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)'
+/usr/bin/ld: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/lib/libbonxai_server.a(bonxai_server.cpp.o): in function `YAML::Node::EnsureNodeExists() const':
+bonxai_server.cpp:(.text._ZNK4YAML4Node16EnsureNodeExistsEv[_ZNK4YAML4Node16EnsureNodeExistsEv]+0x44): undefined reference to `YAML::InvalidNode::~InvalidNode()'
+/usr/bin/ld: bonxai_server.cpp:(.text._ZNK4YAML4Node16EnsureNodeExistsEv[_ZNK4YAML4Node16EnsureNodeExistsEv]+0x4e): undefined reference to `typeinfo for YAML::InvalidNode'
+/usr/bin/ld: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/lib/libbonxai_server.a(bonxai_server.cpp.o): in function `YAML::Node::Mark() const':
+bonxai_server.cpp:(.text._ZNK4YAML4Node4MarkEv[_ZNK4YAML4Node4MarkEv]+0x44): undefined reference to `YAML::InvalidNode::~InvalidNode()'
+/usr/bin/ld: bonxai_server.cpp:(.text._ZNK4YAML4Node4MarkEv[_ZNK4YAML4Node4MarkEv]+0x4e): undefined reference to `typeinfo for YAML::InvalidNode'
+/usr/bin/ld: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/lib/libbonxai_server.a(bonxai_server.cpp.o): in function `YAML::Node::Type() const':
+bonxai_server.cpp:(.text._ZNK4YAML4Node4TypeEv[_ZNK4YAML4Node4TypeEv]+0x44): undefined reference to `YAML::InvalidNode::~InvalidNode()'
+/usr/bin/ld: bonxai_server.cpp:(.text._ZNK4YAML4Node4TypeEv[_ZNK4YAML4Node4TypeEv]+0x4e): undefined reference to `typeinfo for YAML::InvalidNode'
+/usr/bin/ld: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/lib/libbonxai_server.a(bonxai_server.cpp.o): in function `YAML::Node::Scalar[abi:cxx11]() const':
+bonxai_server.cpp:(.text._ZNK4YAML4Node6ScalarB5cxx11Ev[_ZNK4YAML4Node6ScalarB5cxx11Ev]+0x44): undefined reference to `YAML::InvalidNode::~InvalidNode()'
+/usr/bin/ld: bonxai_server.cpp:(.text._ZNK4YAML4Node6ScalarB5cxx11Ev[_ZNK4YAML4Node6ScalarB5cxx11Ev]+0x4e): undefined reference to `typeinfo for YAML::InvalidNode'
+/usr/bin/ld: bonxai_server.cpp:(.text._ZNK4YAML4Node6ScalarB5cxx11Ev[_ZNK4YAML4Node6ScalarB5cxx11Ev]+0x7d): undefined reference to `YAML::detail::node_data::empty_scalar[abi:cxx11]()'
+/usr/bin/ld: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/lib/libbonxai_server.a(bonxai_server.cpp.o): in function `int YAML::Node::as<int>() const':
+bonxai_server.cpp:(.text._ZNK4YAML4Node2asIiEET_v[_ZNK4YAML4Node2asIiEET_v]+0x53): undefined reference to `YAML::InvalidNode::~InvalidNode()'
+/usr/bin/ld: bonxai_server.cpp:(.text._ZNK4YAML4Node2asIiEET_v[_ZNK4YAML4Node2asIiEET_v]+0x5d): undefined reference to `typeinfo for YAML::InvalidNode'
+/usr/bin/ld: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/lib/libbonxai_server.a(bonxai_server.cpp.o): in function `YAML::TypedBadConversion<int>::~TypedBadConversion()':
+bonxai_server.cpp:(.text._ZN4YAML18TypedBadConversionIiED2Ev[_ZN4YAML18TypedBadConversionIiED5Ev]+0x2a): undefined reference to `YAML::BadConversion::~BadConversion()'
+/usr/bin/ld: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/lib/libbonxai_server.a(bonxai_server.cpp.o): in function `YAML::detail::node& YAML::detail::node_data::get<char [11]>(char const (&) [11], std::shared_ptr<YAML::detail::memory_holder>)':
+bonxai_server.cpp:(.text._ZN4YAML6detail9node_data3getIA11_cEERNS0_4nodeERKT_St10shared_ptrINS0_13memory_holderEE[_ZN4YAML6detail9node_data3getIA11_cEERNS0_4nodeERKT_St10shared_ptrINS0_13memory_holderEE]+0xd3): undefined reference to `YAML::detail::node_data::convert_to_map(std::shared_ptr<YAML::detail::memory_holder> const&)'
+/usr/bin/ld: bonxai_server.cpp:(.text._ZN4YAML6detail9node_data3getIA11_cEERNS0_4nodeERKT_St10shared_ptrINS0_13memory_holderEE[_ZN4YAML6detail9node_data3getIA11_cEERNS0_4nodeERKT_St10shared_ptrINS0_13memory_holderEE]+0x103): undefined reference to `YAML::BadSubscript::~BadSubscript()'
+/usr/bin/ld: bonxai_server.cpp:(.text._ZN4YAML6detail9node_data3getIA11_cEERNS0_4nodeERKT_St10shared_ptrINS0_13memory_holderEE[_ZN4YAML6detail9node_data3getIA11_cEERNS0_4nodeERKT_St10shared_ptrINS0_13memory_holderEE]+0x10d): undefined reference to `typeinfo for YAML::BadSubscript'
+/usr/bin/ld: bonxai_server.cpp:(.text._ZN4YAML6detail9node_data3getIA11_cEERNS0_4nodeERKT_St10shared_ptrINS0_13memory_holderEE[_ZN4YAML6detail9node_data3getIA11_cEERNS0_4nodeERKT_St10shared_ptrINS0_13memory_holderEE]+0x1fb): undefined reference to `YAML::detail::node_data::insert_map_pair(YAML::detail::node&, YAML::detail::node&)'
+/usr/bin/ld: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/lib/libbonxai_server.a(bonxai_server.cpp.o): in function `YAML::BadSubscript::BadSubscript<char [11]>(YAML::Mark const&, char const (&) [11])':
+bonxai_server.cpp:(.text._ZN4YAML12BadSubscriptC2IA11_cEERKNS_4MarkERKT_[_ZN4YAML12BadSubscriptC5IA11_cEERKNS_4MarkERKT_]+0x61): undefined reference to `vtable for YAML::BadSubscript'
+/usr/bin/ld: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/lib/libbonxai_server.a(bonxai_server.cpp.o): in function `YAML::detail::node& YAML::detail::node_data::convert_to_node<char [11]>(char const (&) [11], std::shared_ptr<YAML::detail::memory_holder>)':
+bonxai_server.cpp:(.text._ZN4YAML6detail9node_data15convert_to_nodeIA11_cEERNS0_4nodeERKT_St10shared_ptrINS0_13memory_holderEE[_ZN4YAML6detail9node_data15convert_to_nodeIA11_cEERNS0_4nodeERKT_St10shared_ptrINS0_13memory_holderEE]+0x69): undefined reference to `YAML::detail::memory_holder::merge(YAML::detail::memory_holder&)'
+/usr/bin/ld: /home/pablo-pc/GITHUB/TFG/project_ws/install/bonxai_wrapper/lib/libbonxai_server.a(bonxai_server.cpp.o):(.data.rel.ro._ZTIN4YAML18TypedBadConversionIiEE[_ZTIN4YAML18TypedBadConversionIiEE]+0x10): undefined reference to `typeinfo for YAML::BadConversion'
+collect2: error: ld returned 1 exit status
+gmake[2]: *** [CMakeFiles/mapping_node.dir/build.make:350: mapping_node] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/mapping_node.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

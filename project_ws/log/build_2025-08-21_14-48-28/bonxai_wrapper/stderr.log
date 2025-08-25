@@ -1,0 +1,10 @@
+[01m[K/home/pablo-pc/GITHUB/TFG/project_ws/src/bonxai_wrapper/Bonxai/bonxai_ros/src/bonxai_server.cpp:[m[K In constructor ‘[01m[Kbonxai_server::BonxaiServer::BonxaiServer(const rclcpp::NodeOptions&)[m[K’:
+[01m[K/home/pablo-pc/GITHUB/TFG/project_ws/src/bonxai_wrapper/Bonxai/bonxai_ros/src/bonxai_server.cpp:62:70:[m[K [01;31m[Kerror: [m[Kno match for ‘[01m[Koperator+[m[K’ (operand types are ‘[01m[Kstd::filesystem::__cxx11::path[m[K’ and ‘[01m[Kconst char [32][m[K’)
+   62 |   YAML::Node config = YAML::LoadFile([32m[Kstd::filesystem::current_path()[m[K [01;31m[K+[m[K [34m[K"/src/config/general_config.yaml"[m[K);
+      |                                      [32m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K [01;31m[K^[m[K [34m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+      |                                                                   [32m[K|[m[K    [34m[K|[m[K
+      |                                                                   [32m[K|[m[K    [34m[Kconst char [32][m[K
+      |                                                                   [32m[Kstd::filesystem::__cxx11::path[m[K
+gmake[2]: *** [CMakeFiles/bonxai_server.dir/build.make:76: CMakeFiles/bonxai_server.dir/Bonxai/bonxai_ros/src/bonxai_server.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:139: CMakeFiles/bonxai_server.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

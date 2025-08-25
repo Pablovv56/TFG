@@ -22,6 +22,7 @@ find_package(pcl_conversions REQUIRED)
 find_package(PCL REQUIRED)
 find_package(tf2_eigen REQUIRED)
 find_package(Eigen3 REQUIRED)
+find_package(yaml-cpp REQUIRED)
 
 include_directories(
   Bonxai/bonxai_ros/include
@@ -40,6 +41,7 @@ add_library(bonxai_map
 )
 
 target_link_libraries(bonxai_server bonxai_map Eigen3::Eigen)
+target_link_libraries(bonxai_server yaml-cpp)
 target_link_libraries(bonxai_map ${PCL_LIBRARIES})
 
 target_include_directories(bonxai_map PUBLIC
@@ -82,6 +84,7 @@ ament_target_dependencies(bonxai_server
   pcl_conversions
   PCL
   tf2_eigen
+  yaml-cpp
 )
 
 # Export the library

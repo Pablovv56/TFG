@@ -1995,6 +1995,42 @@ CMakeFiles/bonxai_server.dir/Bonxai/bonxai_ros/src/bonxai_server.cpp.o: /home/pa
   /opt/ros/humble/include/tf2_msgs/tf2_msgs/msg/detail/tf_message__traits.hpp \
   /opt/ros/humble/include/tf2_msgs/tf2_msgs/msg/detail/tf_message__type_support.hpp \
   /opt/ros/humble/include/tf2_ros/tf2_ros/qos.hpp \
+  /usr/include/c++/11/filesystem \
+  /usr/include/c++/11/bits/fs_fwd.h \
+  /usr/include/c++/11/bits/fs_path.h \
+  /usr/include/c++/11/bits/fs_dir.h \
+  /usr/include/c++/11/bits/fs_ops.h \
+  /usr/include/yaml-cpp/yaml.h \
+  /usr/include/yaml-cpp/parser.h \
+  /usr/include/yaml-cpp/dll.h \
+  /usr/include/yaml-cpp/emitter.h \
+  /usr/include/yaml-cpp/binary.h \
+  /usr/include/yaml-cpp/emitterdef.h \
+  /usr/include/yaml-cpp/emittermanip.h \
+  /usr/include/yaml-cpp/null.h \
+  /usr/include/yaml-cpp/ostream_wrapper.h \
+  /usr/include/yaml-cpp/emitterstyle.h \
+  /usr/include/yaml-cpp/stlemitter.h \
+  /usr/include/yaml-cpp/exceptions.h \
+  /usr/include/yaml-cpp/mark.h \
+  /usr/include/yaml-cpp/noexcept.h \
+  /usr/include/yaml-cpp/traits.h \
+  /usr/include/yaml-cpp/node/node.h \
+  /usr/include/yaml-cpp/node/detail/iterator_fwd.h \
+  /usr/include/yaml-cpp/node/ptr.h \
+  /usr/include/yaml-cpp/node/type.h \
+  /usr/include/yaml-cpp/node/impl.h \
+  /usr/include/yaml-cpp/node/detail/memory.h \
+  /usr/include/yaml-cpp/node/detail/node.h \
+  /usr/include/yaml-cpp/node/detail/node_ref.h \
+  /usr/include/yaml-cpp/node/detail/node_data.h \
+  /usr/include/yaml-cpp/node/detail/node_iterator.h \
+  /usr/include/yaml-cpp/node/iterator.h \
+  /usr/include/yaml-cpp/node/detail/iterator.h \
+  /usr/include/yaml-cpp/node/convert.h \
+  /usr/include/yaml-cpp/node/detail/impl.h \
+  /usr/include/yaml-cpp/node/parse.h \
+  /usr/include/yaml-cpp/node/emit.h \
   /opt/ros/humble/include/rclcpp_components/rclcpp_components/register_node_macro.hpp \
   /opt/ros/humble/include/class_loader/class_loader/class_loader.hpp \
   /usr/include/console_bridge/console.h \
@@ -2012,6 +2048,42 @@ CMakeFiles/bonxai_server.dir/Bonxai/bonxai_ros/src/bonxai_server.cpp.o: /home/pa
 /opt/ros/humble/include/rclcpp_components/rclcpp_components/node_factory_template.hpp:
 
 /opt/ros/humble/include/class_loader/class_loader/exceptions.hpp:
+
+/usr/include/yaml-cpp/node/convert.h:
+
+/usr/include/yaml-cpp/node/iterator.h:
+
+/usr/include/yaml-cpp/node/type.h:
+
+/usr/include/yaml-cpp/node/ptr.h:
+
+/usr/include/yaml-cpp/node/detail/iterator_fwd.h:
+
+/usr/include/yaml-cpp/noexcept.h:
+
+/usr/include/yaml-cpp/mark.h:
+
+/usr/include/yaml-cpp/stlemitter.h:
+
+/usr/include/yaml-cpp/null.h:
+
+/usr/include/yaml-cpp/binary.h:
+
+/usr/include/yaml-cpp/emitter.h:
+
+/usr/include/yaml-cpp/dll.h:
+
+/usr/include/yaml-cpp/node/detail/node.h:
+
+/usr/include/yaml-cpp/parser.h:
+
+/usr/include/yaml-cpp/yaml.h:
+
+/usr/include/c++/11/bits/fs_ops.h:
+
+/usr/include/c++/11/bits/fs_path.h:
+
+/usr/include/c++/11/bits/fs_fwd.h:
 
 /opt/ros/humble/include/tf2_ros/tf2_ros/qos.hpp:
 
@@ -2124,6 +2196,8 @@ CMakeFiles/bonxai_server.dir/Bonxai/bonxai_ros/src/bonxai_server.cpp.o: /home/pa
 /opt/ros/humble/include/pcl_msgs/pcl_msgs/msg/detail/model_coefficients__traits.hpp:
 
 /opt/ros/humble/include/pcl_msgs/pcl_msgs/msg/detail/model_coefficients__struct.hpp:
+
+/usr/include/yaml-cpp/ostream_wrapper.h:
 
 /opt/ros/humble/include/tf2_msgs/tf2_msgs/msg/detail/tf_message__builder.hpp:
 
@@ -2691,6 +2765,8 @@ CMakeFiles/bonxai_server.dir/Bonxai/bonxai_ros/src/bonxai_server.cpp.o: /home/pa
 
 /usr/include/boost/algorithm/string/trim.hpp:
 
+/usr/include/yaml-cpp/emitterstyle.h:
+
 /usr/include/pcl-1.12/pcl/io/impl/pcd_io.hpp:
 
 /usr/include/boost/move/core.hpp:
@@ -2892,6 +2968,8 @@ CMakeFiles/bonxai_server.dir/Bonxai/bonxai_ros/src/bonxai_server.cpp.o: /home/pa
 /opt/ros/humble/include/tf2_msgs/tf2_msgs/msg/detail/tf_message__type_support.hpp:
 
 /usr/include/boost/range/detail/safe_bool.hpp:
+
+/usr/include/yaml-cpp/node/detail/memory.h:
 
 /usr/include/boost/range/algorithm/equal.hpp:
 
@@ -3217,6 +3295,8 @@ CMakeFiles/bonxai_server.dir/Bonxai/bonxai_ros/src/bonxai_server.cpp.o: /home/pa
 
 /usr/include/boost/detail/workaround.hpp:
 
+/usr/include/yaml-cpp/node/detail/node_ref.h:
+
 /opt/ros/humble/include/rcl_interfaces/rcl_interfaces/msg/detail/set_parameters_result__traits.hpp:
 
 /usr/include/boost/config/helper_macros.hpp:
@@ -3395,6 +3475,8 @@ CMakeFiles/bonxai_server.dir/Bonxai/bonxai_ros/src/bonxai_server.cpp.o: /home/pa
 
 /usr/include/eigen3/Eigen/src/Core/products/TriangularSolverVector.h:
 
+/usr/include/yaml-cpp/exceptions.h:
+
 /usr/include/c++/11/bits/stl_iterator_base_types.h:
 
 /usr/include/eigen3/Eigen/src/Core/Select.h:
@@ -3481,6 +3563,8 @@ CMakeFiles/bonxai_server.dir/Bonxai/bonxai_ros/src/bonxai_server.cpp.o: /home/pa
 
 /usr/include/eigen3/Eigen/src/Core/ConditionEstimator.h:
 
+/usr/include/yaml-cpp/node/parse.h:
+
 /usr/include/boost/iterator/iterator_traits.hpp:
 
 /opt/ros/humble/include/pcl_msgs/pcl_msgs/msg/detail/model_coefficients__builder.hpp:
@@ -3542,6 +3626,8 @@ CMakeFiles/bonxai_server.dir/Bonxai/bonxai_ros/src/bonxai_server.cpp.o: /home/pa
 /usr/lib/gcc/x86_64-linux-gnu/11/include/stdalign.h:
 
 /usr/include/eigen3/Eigen/src/Core/DenseStorage.h:
+
+/usr/include/yaml-cpp/node/detail/node_data.h:
 
 /usr/include/eigen3/Eigen/src/Core/ArrayBase.h:
 
@@ -3655,6 +3741,8 @@ CMakeFiles/bonxai_server.dir/Bonxai/bonxai_ros/src/bonxai_server.cpp.o: /home/pa
 
 /usr/include/boost/fusion/sequence/intrinsic/end.hpp:
 
+/usr/include/yaml-cpp/node/detail/iterator.h:
+
 /usr/include/eigen3/Eigen/src/Core/arch/Default/TypeCasting.h:
 
 /usr/include/boost/preprocessor/tuple/eat.hpp:
@@ -3762,6 +3850,8 @@ CMakeFiles/bonxai_server.dir/Bonxai/bonxai_ros/src/bonxai_server.cpp.o: /home/pa
 /usr/include/x86_64-linux-gnu/bits/locale.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h:
+
+/usr/include/yaml-cpp/node/detail/node_iterator.h:
 
 /usr/include/boost/type_traits/conditional.hpp:
 
@@ -4301,6 +4391,8 @@ CMakeFiles/bonxai_server.dir/Bonxai/bonxai_ros/src/bonxai_server.cpp.o: /home/pa
 
 /usr/include/boost/mpl/aux_/joint_iter.hpp:
 
+/usr/include/yaml-cpp/emitterdef.h:
+
 /opt/ros/humble/include/libstatistics_collector/libstatistics_collector/moving_average_statistics/moving_average.hpp:
 
 /usr/include/pcl-1.12/pcl/PCLPointCloud2.h:
@@ -4310,6 +4402,8 @@ CMakeFiles/bonxai_server.dir/Bonxai/bonxai_ros/src/bonxai_server.cpp.o: /home/pa
 /usr/include/boost/preprocessor/debug/error.hpp:
 
 /usr/include/eigen3/Eigen/src/Core/BooleanRedux.h:
+
+/usr/include/yaml-cpp/node/impl.h:
 
 /usr/include/boost/mpl/iterator_range.hpp:
 
@@ -4444,6 +4538,8 @@ CMakeFiles/bonxai_server.dir/Bonxai/bonxai_ros/src/bonxai_server.cpp.o: /home/pa
 /usr/include/eigen3/Eigen/src/Core/SolveTriangular.h:
 
 /usr/include/boost/fusion/view/joint_view/detail/next_impl.hpp:
+
+/usr/include/yaml-cpp/traits.h:
 
 /usr/include/x86_64-linux-gnu/sys/types.h:
 
@@ -4853,6 +4949,8 @@ CMakeFiles/bonxai_server.dir/Bonxai/bonxai_ros/src/bonxai_server.cpp.o: /home/pa
 
 /usr/include/boost/mpl/aux_/config/ctps.hpp:
 
+/usr/include/yaml-cpp/node/emit.h:
+
 /usr/include/boost/fusion/sequence/intrinsic/size.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h:
@@ -4916,6 +5014,8 @@ CMakeFiles/bonxai_server.dir/Bonxai/bonxai_ros/src/bonxai_server.cpp.o: /home/pa
 /opt/ros/humble/include/class_loader/class_loader/class_loader_core.hpp:
 
 /usr/include/boost/mpl/aux_/config/typeof.hpp:
+
+/usr/include/c++/11/bits/fs_dir.h:
 
 /usr/include/boost/mpl/long.hpp:
 
@@ -4990,6 +5090,8 @@ CMakeFiles/bonxai_server.dir/Bonxai/bonxai_ros/src/bonxai_server.cpp.o: /home/pa
 /usr/include/boost/fusion/adapted/mpl.hpp:
 
 /usr/include/boost/mpl/vector/aux_/clear.hpp:
+
+/usr/include/yaml-cpp/emittermanip.h:
 
 /usr/include/boost/predef/library/c/gnu.h:
 
@@ -5383,6 +5485,8 @@ CMakeFiles/bonxai_server.dir/Bonxai/bonxai_ros/src/bonxai_server.cpp.o: /home/pa
 
 /usr/include/boost/fusion/support/tag_of_fwd.hpp:
 
+/usr/include/yaml-cpp/node/detail/impl.h:
+
 /usr/include/boost/predef/os/macos.h:
 
 /usr/include/boost/predef/os/bsd.h:
@@ -5590,6 +5694,8 @@ CMakeFiles/bonxai_server.dir/Bonxai/bonxai_ros/src/bonxai_server.cpp.o: /home/pa
 /usr/include/boost/fusion/support/segmented_fold_until.hpp:
 
 /usr/include/boost/fusion/iterator/mpl/convert_iterator.hpp:
+
+/usr/include/c++/11/filesystem:
 
 /usr/include/boost/fusion/iterator/mpl/fusion_iterator.hpp:
 
@@ -5874,6 +5980,8 @@ CMakeFiles/bonxai_server.dir/Bonxai/bonxai_ros/src/bonxai_server.cpp.o: /home/pa
 /opt/ros/humble/include/rclcpp/rclcpp/logging.hpp:
 
 /usr/include/boost/mpl/aux_/push_back_impl.hpp:
+
+/usr/include/yaml-cpp/node/node.h:
 
 /usr/include/c++/11/bits/locale_conv.h:
 

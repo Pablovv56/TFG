@@ -1,19 +1,22 @@
 #!/usr/bin/env python3
-
+import os
 import rclpy
 import time
 import logging
+import yaml
 import numpy as np
 import copy as cp
 import open3d as o3d
-import tf_transformations as tf
 
-from location_controller.utils import draw_registration_result, pointcloud2_to_open3d
-from geometry_msgs.msg import PoseStamped, TransformStamped
+
+from location_controller.utils import pointcloud2_to_open3d, open3d_to_pointcloud2, matrix_to_pose_stamped, preprocess_point_cloud
+from location_controller.key_frame_selector import KeyFrameSelector
+from geometry_msgs.msg import PoseStamped
 from sensor_msgs.msg import PointCloud2
 from rclpy.node import Node
 
 # Global parameters
+YAML_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../../../../src/config/general_config.yaml"))
 
 # Configure logging
 logging.basicConfig(
@@ -28,18 +31,7 @@ logging.basicConfig(
 logger = logging.getLogger("LocatioNode")
 
 class LocationNode (Node):
-
-    # Class variables
     
-    # Adjust fitting parameters
-    VOXEL_SIZE = 0.05
-    THRESHOLD = 0.01
-    VOXEL_REDUCTION_RATIO = 1
-
-    # Preprocess Point Cloud
-    NORMAL_FACTOR = 2
-    FEATURE_FACTOR = 5
-
     def __init__(self, input_topic : str):
         
         """
@@ -61,24 +53,39 @@ class LocationNode (Node):
         # Create subscription to /cloud_in, triggers pose_callback
         self.location_node_ = self.create_subscription(PointCloud2, input_topic, self.pose_callback, 1000)
         
+        # Create subscription to /cloud_in, triggers pose_callback
+        self.map_subscriber = self.create_subscription(PointCloud2, "/bonxai_point_cloud_centers", self.map_callback, 1000)
+        
         # Create a publisher that will provide the actual pose
         self.location_publisher_ = self.create_publisher(PoseStamped, 'new_pose', 10)
         
-        # Create a publisher for the transformation matrix
-        self.transformation_publisher_ = self.create_publisher(TransformStamped, 'pointcloud_transform', 10)
+        # Create a publisher that will provide the actual pose
+        self.transformed_pcl_publisher_ = self.create_publisher(PointCloud2, 'transformed_pcl', 10)
 
         # Variable for indexing messages
         self.index = 0
-    
-        # Last point cloud data recieved
-        self.actual_PCD = None
+        
+        # Variable that stores the index of the last key_frame
+        self.last_update = 1
+        
+        # Last Point Cloud data recieved
+        self.last_PCD = None
+        
+        # Variable for storing the key frame selector class
+        self.key_frame_class = None
+        
+        # Last map update recieved
+        self.map = None
         
         # Last pose data recieved calculated
-        self.actual_pose = np.identity(4)
-        
-        if logger.isEnabledFor(logging.DEBUG):
-            # Mean error
-            self.mean_error = 0
+        self.actual_pose = [[ 0.99630944 ,-0.08583165 ,-0.00065074 , 0.10285288],
+                            [ 0.08583165 , 0.9961947  , 0.01513443 , 0.01087134],
+                            [-0.00065074 ,-0.01513443 , 0.99988526 , 0.01813573],
+                            [ 0.         , 0.         , 0.         , 1.        ]]
+            
+        # Configuration parameters 
+        with open(YAML_PATH, "r") as file:
+            self.config = yaml.safe_load(file)
             
         logger.info("Node Initialization Complete")
 
@@ -115,309 +122,147 @@ class LocationNode (Node):
             None
         """
 
+        # If debug mode is enabled, log the start time
         if logger.isEnabledFor(logging.DEBUG):
             start_time = time.time()
             self.logging_data = ""
         
         # If this is the first message, store it
-        if self.actual_PCD is None:
-
-            # Store the actual pcd
-            self.actual_PCD = pointcloud2_to_open3d(msg)
+        if self.map is None:
             
-            # Convert the matrix pose to a stamped pose
-            stamped_pose = self.matrix_to_pose_stamped(self.actual_pose)
+            # We compute tdownsample, transform and compoute the normals
+            transformed_down_pcd = preprocess_point_cloud(msg, transformation = self.actual_pose)
             
-            # Publish the stamped pose
-            self.location_publisher_.publish(stamped_pose)
+            # Store the last point cloud data
+            self.last_PCD = cp.deepcopy(transformed_down_pcd)
             
+            # We initialize the map
+            self.map = cp.deepcopy(transformed_down_pcd)
+            
+            # Inicializamos la clase de key frame selector
+            self.key_frame_class = KeyFrameSelector(self.actual_pose, transformed_down_pcd)
+            
+            # Convert from open3d to PointCloud2
+            transformed_map_pcd2 = open3d_to_pointcloud2(transformed_down_pcd)
+            
+            # Publish the transformed pcd
+            self.transformed_pcl_publisher_.publish(transformed_map_pcd2)
+            
+            if logger.isEnabledFor(logging.DEBUG):
+                elapsed_time = time.time() - start_time
+                self.logging_data += f"Elapsed time: {elapsed_time:.2f} seconds.\n"
+            
+            # Log the first message
             logger.info("First Message published")
 
         # If this is not the first message, compare it with the previous one
         else:
+            
             # Update variable for indexing the poses
             self.index += 1
+        
+            # Transform the point cloud to the current pose and downsample it
+            new_transformed_down_pcd = preprocess_point_cloud(msg, self.actual_pose)
 
-            # Copy of the previous step
-            source_temp = self.actual_PCD
-            
-            # Copy of the actual step
-            target_temp = pointcloud2_to_open3d(msg)
-            
-            # Preprocess clouds for registration (Downsampling)
-            source_down, target_down, source_fpfh, target_fpfh = self.prepare_dataset(source_temp, target_temp)
-            
-            if logger.isEnabledFor(logging.DEBUG):
-                self.logging_data += "Downsampling: " + str(time.time() - start_time) + "\n"
+            # Compute the new pose and map using ICP logic
+            new_pose, new_map = self.icp_logic(new_transformed_down_pcd, msg)
 
-            # Initial alignment (Ransac or Fast global registration)
-            initial_alignment = self.ransac_global_registration(source_down, target_down, source_fpfh, target_fpfh)
-            
-            if logger.isEnabledFor(logging.DEBUG):
-                self.logging_data += "Initial_alingment: " + str(time.time() - start_time) + "\n"
+            # Update the actual pose
+            self.actual_pose = new_pose
 
-            # ICP registration result using Point to Plane method
-            reg_p2p = o3d.pipelines.registration.registration_icp(
-                source_down, target_down, self.THRESHOLD, initial_alignment.transformation,
-                o3d.pipelines.registration.TransformationEstimationPointToPlane())
+            # Convert from open3d 
+            transformed_map_pcd2 = open3d_to_pointcloud2(new_map)
             
+            # Publish the transformed pcd
+            self.transformed_pcl_publisher_.publish(transformed_map_pcd2)
+            
+            # Publish the elapsed time if debug mode is enabled        
             if logger.isEnabledFor(logging.DEBUG):
-                self.logging_data += "ICP: " + str(time.time() - start_time) + "\n"
-            
-            # Code for debugging
-            if logger.isEnabledFor(logging.DEBUG):
-                
-                self.mean_error += (reg_p2p.inlier_rmse - self.mean_error) / self.index
-                                
-                self.logging_data += "RMSE: " + str(reg_p2p.inlier_rmse) + " / Mean:" + str(self.mean_error) + "\n"
-                
-                if (self.mean_error < reg_p2p.inlier_rmse) or (reg_p2p.inlier_rmse == 0.0):
-                   draw_registration_result(source_temp, target_temp, reg_p2p.transformation)
-            
-            # Compute the inverse of the transformation matrix
-            transformation_inv = np.linalg.inv(reg_p2p.transformation)
-            
-            if reg_p2p.inlier_rmse != 0.0:
-                # Update the actual pose with the new transformation
-                self.actual_pose = np.dot(self.actual_pose, transformation_inv)
-                
-                if logger.isEnabledFor(logging.DEBUG):
-                    self.logging_data += "Pose_updated: " + str(time.time() - start_time) + "\n"
-            
-                # We update the PCD for the next step
-                self.actual_PCD = target_temp
-            
-            elif logger.isEnabledFor(logging.DEBUG):
-                logger.warning("WARNING: Pose not updated due to missalignment (RMSE == 0.0)")
-            
-            # Convert actual pose to PoseStamped
-            stamped_pose = self.matrix_to_pose_stamped(self.actual_pose)
-
-            # Publish the transformation matrix
-            transformation_msg = self.matrix_to_transform_stamped(reg_p2p.transformation)
-            self.transformation_publisher_.publish(transformation_msg)
-
-            # Publish the stamped pose
-            self.location_publisher_.publish(stamped_pose)
-            
-            if logger.isEnabledFor(logging.DEBUG):
-                self.logging_data += "Pose_published: " + str(time.time() - start_time) + "\n"
-                
-                logger.debug("\n" + self.logging_data)
-                     
+                elapsed_time = time.time() - start_time
+                self.logging_data += f"Elapsed time: {elapsed_time:.2f} seconds.\n"
+                    
+            # Log the msg number        
             logger.info(f"MSG Nº {self.index} published")
+    
             
-                      
-    def ransac_global_registration(self, source_down, target_down, source_fpfh, target_fpfh, voxel_size = VOXEL_SIZE, ratio = VOXEL_REDUCTION_RATIO):
+    def map_callback (self, msg: PointCloud2):
         
-        """
-        Perform global registration of two point clouds using the RANSAC algorithm.
-        This method uses RANSAC-based feature matching to estimate the transformation
-        matrix that aligns the source point cloud to the target point cloud.
-        Args:
-            source_down (open3d.geometry.PointCloud): The downsampled source point cloud.
-            target_down (open3d.geometry.PointCloud): The downsampled target point cloud.
-            source_fpfh (open3d.pipelines.registration.Feature): The FPFH features of the source point cloud.
-            target_fpfh (open3d.pipelines.registration.Feature): The FPFH features of the target point cloud.
-            voxel_size (float, optional): The voxel size used for downsampling and determining
-                the distance threshold. Defaults to VOXEL_SIZE.
-        Returns:
-            open3d.pipelines.registration.RegistrationResult: The result of the RANSAC registration,
-            containing the estimated transformation matrix and inlier information.
-        Notes:
-            - The `distance_threshold` is set to 1 by default, which can be adjusted based on
-              the voxel size and the desired level of correspondence.
-            - The RANSAC algorithm uses a combination of correspondence checkers:
-              - Edge length checker with a threshold of 0.9.
-              - Distance checker with the specified `distance_threshold`.
-            - The RANSAC convergence criteria are set to a maximum of 100,000 iterations
-              and a confidence level of 0.999.
-        """
+        # Save the map 
+        self.map = pointcloud2_to_open3d(msg)
+        
+        # Compute the normals of the map
+        self.map.estimate_normals(o3d.geometry.KDTreeSearchParamHybrid(radius=  self.config["NORMAL_FACTOR"] * self.config["VOXEL_SIZE"], max_nn=30))
+        
+        # Update the key frame selector with the new map
+        self.key_frame_class.set_map(self.map)
+        
+        # Convert actual pose to PoseStamped
+        stamped_pose = matrix_to_pose_stamped(self.actual_pose, self.index)
 
-        # Cloud downsampling ratio to determine correspondance between clouds
-        distance_threshold =  voxel_size * ratio
-
-        # Calculates the transformation matrix using ransac
-        result = o3d.pipelines.registration.registration_ransac_based_on_feature_matching(
-            source_down, target_down, source_fpfh, target_fpfh, True,
-            distance_threshold,
-            o3d.pipelines.registration.TransformationEstimationPointToPoint(False),
-            3, [
-                o3d.pipelines.registration.CorrespondenceCheckerBasedOnEdgeLength(
-                    0.9),
-                o3d.pipelines.registration.CorrespondenceCheckerBasedOnDistance(
-                    distance_threshold)
-            ], o3d.pipelines.registration.RANSACConvergenceCriteria(100000, 0.999))
+        # Publish the stamped pose
+        self.location_publisher_.publish(stamped_pose)
+ 
+    
+    def icp_logic(self, actual_transformed_down_pcd, original_msg):
         
-        return result
-    
-    
-    def execute_fast_global_registration(self, source_down, target_down, source_fpfh, target_fpfh, voxel_size = VOXEL_SIZE, ratio = VOXEL_REDUCTION_RATIO):
         """
-        Executes the Fast Global Registration (FGR) algorithm to align two point clouds.
-        This function computes the transformation matrix that aligns the source point cloud
-        to the target point cloud using feature-based matching and the Fast Global Registration method.
+        Main logic for performing ICP registration and updating the key frame.
+        This method checks if the new frame is a valid key frame based on the distance
+        and angle to the current key frame, and updates the key frame if necessary.
         Args:
-            source_down (open3d.geometry.PointCloud): The downsampled source point cloud.
-            target_down (open3d.geometry.PointCloud): The downsampled target point cloud.
-            source_fpfh (open3d.pipelines.registration.Feature): The FPFH features of the source point cloud.
-            target_fpfh (open3d.pipelines.registration.Feature): The FPFH features of the target point cloud.
-            voxel_size (float, optional): The voxel size used for downsampling. Defaults to VOXEL_SIZE.
-        Returns:
-            open3d.pipelines.registration.RegistrationResult: The result of the registration, 
-            including the transformation matrix and fitness score.
-        """
-
-        # Cloud downsampling ratio to determine correspondance between clouds
-        distance_threshold =  voxel_size * ratio
-        
-        # Calculates the transformation matrix using fast global registration
-        result = o3d.pipelines.registration.registration_fgr_based_on_feature_matching(
-            source_down, target_down, source_fpfh, target_fpfh,
-            o3d.pipelines.registration.FastGlobalRegistrationOption(
-                maximum_correspondence_distance = distance_threshold))
-        
-        return result
-    
-    
-    def prepare_dataset(self, source_pcd, target_pcd, voxel_size = VOXEL_SIZE, normal_factor = NORMAL_FACTOR, feature_factor = FEATURE_FACTOR):
-        
-        """
-        Prepares the dataset for point cloud registration by preprocessing the source and target point clouds.
-        Args:
-            source_pcd (open3d.geometry.PointCloud): The source point cloud to be processed.
-            target_pcd (open3d.geometry.PointCloud): The target point cloud to be processed.
-            voxel_size (float, optional): The voxel size used for downsampling the point clouds. Defaults to VOXEL_SIZE.
-            normal_factor (float, optional): The factor used for estimating normals. Defaults to NORMAL_FACTOR.
-            feature_factor (float, optional): The factor used for computing FPFH features. Defaults to FEATUR_FACTOR.
+            actual_transformed_down_pcd (open3d.geometry.PointCloud): The preprocessed point cloud
+            to be registered against the current key frame.
         Returns:
             tuple: A tuple containing:
-                - source_down (open3d.geometry.PointCloud): The downsampled source point cloud.
-                - target_down (open3d.geometry.PointCloud): The downsampled target point cloud.
-                - source_fpfh (open3d.pipelines.registration.Feature): The FPFH features of the source point cloud.
-                - target_fpfh (open3d.pipelines.registration.Feature): The FPFH features of the target point cloud.
-        """
-        
-        # Preprocess pcd with given parameters
-        source_down, source_fpfh = self.preprocess_point_cloud(source_pcd, voxel_size, normal_factor, feature_factor)
-        target_down, target_fpfh = self.preprocess_point_cloud(target_pcd, voxel_size, normal_factor, feature_factor)
-
-        return source_down, target_down, source_fpfh, target_fpfh
-
-
-    def preprocess_point_cloud(self, pcd, voxel_size, normal_factor, feature_factor ):
-        
-        """
-        Preprocesses a point cloud by downsampling, estimating normals, and computing FPFH features.
-        Args:
-            pcd (open3d.geometry.PointCloud): The input point cloud to preprocess.
-            voxel_size (float): The voxel size used for downsampling the point cloud.
-            normal_factor (float): A multiplier for the voxel size to determine the radius for normal estimation.
-            feature_factor (float): A multiplier for the voxel size to determine the radius for FPFH feature computation.
-        Returns:
-            tuple: A tuple containing:
-                - pcd_down (open3d.geometry.PointCloud): The downsampled point cloud.
-                - pcd_fpfh (open3d.pipelines.registration.Feature): The computed FPFH features of the downsampled point cloud.
+                - new_pose (numpy.ndarray): The updated pose after registration.
+                - new_map (open3d.geometry.PointCloud): The transformed point cloud after registration.
         """
 
-        # Donwsamples with using voxel size ratio
-        pcd_down = pcd.voxel_down_sample(voxel_size * normal_factor)
-
-        radius_normal = voxel_size * self.NORMAL_FACTOR
+        # Compute frame to frame ICP registration
+        frame_to_frame_reg = o3d.pipelines.registration.registration_icp(
+                                    source = actual_transformed_down_pcd, 
+                                    target = self.last_PCD,
+                                    max_correspondence_distance = self.config["FTF_CORRESPONDENCE_DISTANCE"],
+                                    estimation_method = o3d.pipelines.registration.TransformationEstimationPointToPlane(),
+                                    criteria = o3d.pipelines.registration.ICPConvergenceCriteria(max_iteration=100, 
+                                                                                                relative_fitness=1e-3,
+                                                                                                relative_rmse=1e-3
+                                                                                                )                      
+                                )   
         
-        # Estimate normal with radius as search criteria
-        pcd_down.estimate_normals(
-            o3d.geometry.KDTreeSearchParamHybrid(radius=radius_normal, max_nn=30))
-
-        radius_feature = voxel_size * feature_factor
+        print("FTF Fitness: " + str(frame_to_frame_reg.fitness) + " / RMSE: " + str(frame_to_frame_reg.inlier_rmse))
         
-        # Coumputes Fast Point Features Histograms with selected search radius
-        pcd_fpfh = o3d.pipelines.registration.compute_fpfh_feature(
-            pcd_down,
-            o3d.geometry.KDTreeSearchParamHybrid(radius=radius_feature, max_nn=100))
-        
-        return pcd_down, pcd_fpfh
-    
-    
-    def matrix_to_pose_stamped(self, matrix, frame_id="map"):
-        
-        """
-        Converts a transformation matrix into a ROS PoseStamped message.
-        Args:
-            matrix (numpy.ndarray): A 4x4 transformation matrix representing the pose.
-            frame_id (str, optional): The reference frame ID for the PoseStamped message. 
-                                      Defaults to "map".
-        Returns:
-            PoseStamped: A ROS PoseStamped message containing the position and orientation 
-                         extracted from the transformation matrix.
-        Notes:
-            - The translation component is extracted from the matrix and assigned to the 
-              position field of the PoseStamped message.
-            - The rotation component is extracted as a quaternion and assigned to the 
-              orientation field of the PoseStamped message.
-            - The header of the PoseStamped message includes the provided frame_id and 
-              a timestamp based on the `self.index` attribute.
-        """
-        
-        # Extraer la traslación
-        translation = tf.translation_from_matrix(matrix)
-        
-        # Extraer la rotación en forma de cuaternión
-        quaternion = tf.quaternion_from_matrix(matrix)
+        # If the fitness is below the threshold or the RMSE is above, we consider if it is a key frame
+        if (frame_to_frame_reg.fitness < self.config["FITNESS_THRESHOLD"]) or \
+            (frame_to_frame_reg.inlier_rmse > self.config["RMSE_THRESHOLD"]) or \
+            (self.index % self.config["MAX_FRAMES_BETWEEN_KEYFRAMES"]) == 0:
 
-        # Crear el mensaje PoseStamped
-        pose_stamped = PoseStamped()
-        pose_stamped.header.frame_id = frame_id
-        pose_stamped.header.stamp.sec = self.index
+            logger.info("\033[31m Checking if it is a key frame...\033[0m")
+
+            # We check if the new frame is a key frame
+            is_key_frame, new_pose, new_map = self.key_frame_class.is_new_key_frame(original_msg)
+
+            # If it is a key frame,             
+            if is_key_frame:
+                
+                logger.info("\033[32mKey frame added\033[0m")
+                
+                # Update the index of the last key frame added
+                self.last_update = self.index
+                
+                self.last_PCD = self.key_frame_class.get_key_frame()
+                
+                # We return the key frame calculated pose and map
+                return new_pose, new_map
+                
+        # Calculate the new pose
+        new_pose = np.dot(self.actual_pose, frame_to_frame_reg.transformation)
         
-        # Asignar la traslación
-        pose_stamped.pose.position.x = translation[0]
-        pose_stamped.pose.position.y = translation[1]
-        pose_stamped.pose.position.z = translation[2]
+        # Transform the last pcd recieved to the new pose
+        transformed_map_pcd2 = actual_transformed_down_pcd.transform(frame_to_frame_reg.transformation)
         
-        # Asignar la rotación
-        pose_stamped.pose.orientation.x = quaternion[0]
-        pose_stamped.pose.orientation.y = quaternion[1]
-        pose_stamped.pose.orientation.z = quaternion[2]
-        pose_stamped.pose.orientation.w = quaternion[3]
+        # Save the last point cloud data
+        self.last_PCD = cp.deepcopy(transformed_map_pcd2)
         
-        return pose_stamped
-
-    def matrix_to_transform_stamped(self, matrix, frame_id="map"):
-        
-        """
-        Converts a 4x4 transformation matrix into a ROS TransformStamped message.
-
-        Args:
-            matrix (numpy.ndarray): A 4x4 transformation matrix representing the 
-                translation and rotation in homogeneous coordinates.
-            frame_id (str, optional): The reference frame ID for the TransformStamped 
-                message. Defaults to "map".
-
-        Returns:
-            TransformStamped: A ROS TransformStamped message containing the 
-                translation and rotation extracted from the input matrix.
-
-        Raises:
-            ValueError: If the input matrix is not a valid 4x4 transformation matrix.
-        """
-        
-        translation = tf.translation_from_matrix(matrix)
-        quaternion = tf.quaternion_from_matrix(matrix)
-
-        transform_stamped = TransformStamped()
-        transform_stamped.header.frame_id = frame_id
-        transform_stamped.header.stamp.sec = self.index
-
-        # Set translation
-        transform_stamped.transform.translation.x = translation[0]
-        transform_stamped.transform.translation.y = translation[1]
-        transform_stamped.transform.translation.z = translation[2]
-
-        # Set rotation
-        transform_stamped.transform.rotation.x = quaternion[0]
-        transform_stamped.transform.rotation.y = quaternion[1]
-        transform_stamped.transform.rotation.z = quaternion[2]
-        transform_stamped.transform.rotation.w = quaternion[3]
-
-        return transform_stamped
+        # As the new frame is not a key frame, we return the last one os that the map does not change
+        return new_pose, self.key_frame_class.get_key_frame()

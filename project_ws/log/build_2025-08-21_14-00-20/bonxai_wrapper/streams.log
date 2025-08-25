@@ -1,0 +1,22 @@
+[0.011s] Invoking command in '/home/pablo-pc/GITHUB/TFG/project_ws/build/bonxai_wrapper': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pablo-pc/GITHUB/TFG/project_ws/install/location_controller:/opt/ros/humble /usr/bin/cmake --build /home/pablo-pc/GITHUB/TFG/project_ws/build/bonxai_wrapper -- -j16 -l16
+[0.064s] [ 60%] Built target bonxai_map
+[0.078s] [35m[1mConsolidate compiler generated dependencies of target bonxai_server[0m
+[0.099s] [ 80%] [32mBuilding CXX object CMakeFiles/bonxai_server.dir/Bonxai/bonxai_ros/src/bonxai_server.cpp.o[0m
+[4.319s] [01m[K/home/pablo-pc/GITHUB/TFG/project_ws/src/bonxai_wrapper/Bonxai/bonxai_ros/src/bonxai_server.cpp:[m[K In constructor ‘[01m[Kbonxai_server::BonxaiServer::BonxaiServer(const rclcpp::NodeOptions&)[m[K’:
+[4.319s] [01m[K/home/pablo-pc/GITHUB/TFG/project_ws/src/bonxai_wrapper/Bonxai/bonxai_ros/src/bonxai_server.cpp:62:62:[m[K [01;31m[Kerror: [m[Kno matching function for call to ‘[01m[Kcanonical()[m[K’
+[4.319s]    62 |   std::filesystem::path exe_path = [01;31m[Kstd::filesystem::canonical()[m[K.parent_path();
+[4.319s]       |                                    [01;31m[K~~~~~~~~~~~~~~~~~~~~~~~~~~^~[m[K
+[4.319s] In file included from [01m[K/usr/include/c++/11/filesystem:47[m[K,
+[4.319s]                  from [01m[K/home/pablo-pc/GITHUB/TFG/project_ws/src/bonxai_wrapper/Bonxai/bonxai_ros/src/bonxai_server.cpp:3[m[K:
+[4.319s] [01m[K/usr/include/c++/11/bits/fs_ops.h:54:8:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kstd::filesystem::__cxx11::path std::filesystem::canonical(const std::filesystem::__cxx11::path&)[m[K’
+[4.319s]    54 |   path [01;36m[Kcanonical[m[K(const path& __p);
+[4.319s]       |        [01;36m[K^~~~~~~~~[m[K
+[4.320s] [01m[K/usr/include/c++/11/bits/fs_ops.h:54:8:[m[K [01;36m[Knote: [m[K  candidate expects 1 argument, 0 provided
+[4.320s] [01m[K/usr/include/c++/11/bits/fs_ops.h:57:8:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kstd::filesystem::__cxx11::path std::filesystem::canonical(const std::filesystem::__cxx11::path&, std::error_code&)[m[K’
+[4.320s]    57 |   path [01;36m[Kcanonical[m[K(const path& __p, error_code& __ec);
+[4.320s]       |        [01;36m[K^~~~~~~~~[m[K
+[4.320s] [01m[K/usr/include/c++/11/bits/fs_ops.h:57:8:[m[K [01;36m[Knote: [m[K  candidate expects 2 arguments, 0 provided
+[7.768s] gmake[2]: *** [CMakeFiles/bonxai_server.dir/build.make:76: CMakeFiles/bonxai_server.dir/Bonxai/bonxai_ros/src/bonxai_server.cpp.o] Error 1
+[7.768s] gmake[1]: *** [CMakeFiles/Makefile2:139: CMakeFiles/bonxai_server.dir/all] Error 2
+[7.768s] gmake: *** [Makefile:146: all] Error 2
+[7.770s] Invoked command in '/home/pablo-pc/GITHUB/TFG/project_ws/build/bonxai_wrapper' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/pablo-pc/GITHUB/TFG/project_ws/install/location_controller:/opt/ros/humble /usr/bin/cmake --build /home/pablo-pc/GITHUB/TFG/project_ws/build/bonxai_wrapper -- -j16 -l16

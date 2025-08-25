@@ -1,0 +1,5 @@
+  File "/home/pablo-pc/GITHUB/TFG/project_ws/install/location_controller/lib/python3.10/site-packages/location_controller/location_module.py", line 347
+    self.logging_data += 
+                         ^
+SyntaxError: invalid syntax
+
