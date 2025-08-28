@@ -8,7 +8,7 @@ def main (args = None):
     rclpy.init(args = args)
 
     # Creates the node using the original pcd as input
-    node = NoisyCloud("/cloud_in")
+    node = NoisyCloud("/clean_pcl")
     rclpy.spin(node)
 
     rclpy.shutdown()

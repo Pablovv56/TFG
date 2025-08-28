@@ -11,10 +11,9 @@ from rclpy.node import Node
 
 class NoisyCloud (Node):
 
-    
     # Parameters
     mean = 0.0
-    std_dev = 0.05
+    std_dev = 0.02
 
     def __init__(self, input_topic : str):
         

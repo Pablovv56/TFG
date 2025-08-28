@@ -9,7 +9,7 @@ import copy as cp
 import open3d as o3d
 
 
-from location_controller.utils import pointcloud2_to_open3d, open3d_to_pointcloud2, matrix_to_pose_stamped, preprocess_point_cloud
+from location_controller.utils import pointcloud2_to_open3d, open3d_to_pointcloud2, matrix_to_pose_stamped, preprocess_point_cloud, pose_distance
 from location_controller.key_frame_selector import KeyFrameSelector
 from geometry_msgs.msg import PoseStamped
 from sensor_msgs.msg import PointCloud2
@@ -20,7 +20,7 @@ YAML_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../..
 
 # Configure logging
 logging.basicConfig(
-    level=logging.INFO,  # Set the logging level to DEBUG to capture all log messages
+    level=logging.DEBUG,  # Set the logging level to DEBUG to capture all log messages
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',  # Log format
     handlers=[
         logging.StreamHandler()  # Output logs to the console
@@ -87,6 +87,19 @@ class LocationNode (Node):
         with open(YAML_PATH, "r") as file:
             self.config = yaml.safe_load(file)
             
+        if logger.isEnabledFor(logging.DEBUG):
+            self.fitness_error_counter = 0
+            self.fitness_mean_error = 0
+            
+            self.rmse_error_counter = 0
+            self.rmse_mean_error = 0
+            
+            self.distance_error_counter = 0
+            self.distance_mean_error = 0
+            
+            self.angle_error_counter = 0
+            self.angle_mean_error = 0
+            
         logger.info("Node Initialization Complete")
 
 
@@ -139,7 +152,7 @@ class LocationNode (Node):
             # We initialize the map
             self.map = cp.deepcopy(transformed_down_pcd)
             
-            # Inicializamos la clase de key frame selector
+            # Instanciate key frame selector
             self.key_frame_class = KeyFrameSelector(self.actual_pose, transformed_down_pcd)
             
             # Convert from open3d to PointCloud2
@@ -151,9 +164,10 @@ class LocationNode (Node):
             if logger.isEnabledFor(logging.DEBUG):
                 elapsed_time = time.time() - start_time
                 self.logging_data += f"Elapsed time: {elapsed_time:.2f} seconds.\n"
+                logger.debug(self.logging_data)
             
-            # Log the first message
-            logger.info("First Message published")
+            # Log the msg number        
+            logger.info(f"MSG Nº {self.index} published \n")
 
         # If this is not the first message, compare it with the previous one
         else:
@@ -179,10 +193,12 @@ class LocationNode (Node):
             # Publish the elapsed time if debug mode is enabled        
             if logger.isEnabledFor(logging.DEBUG):
                 elapsed_time = time.time() - start_time
-                self.logging_data += f"Elapsed time: {elapsed_time:.2f} seconds.\n"
+                self.logging_data += f"\tElapsed time: {elapsed_time:.2f} seconds.\n"
+                logger.debug(self.logging_data)
                     
             # Log the msg number        
-            logger.info(f"MSG Nº {self.index} published")
+            logger.info(f"MSG Nº {self.index} published \n")
+            logger.info("------------------------------------------------------------------------------")
     
             
     def map_callback (self, msg: PointCloud2):
@@ -191,7 +207,7 @@ class LocationNode (Node):
         self.map = pointcloud2_to_open3d(msg)
         
         # Compute the normals of the map
-        self.map.estimate_normals(o3d.geometry.KDTreeSearchParamHybrid(radius=  self.config["NORMAL_FACTOR"] * self.config["VOXEL_SIZE"], max_nn=30))
+        self.map.estimate_normals(o3d.geometry.KDTreeSearchParamHybrid(radius=  self.config["MAP_NORMAL_FACTOR"] * self.config["VOXEL_SIZE"], max_nn=30))
         
         # Update the key frame selector with the new map
         self.key_frame_class.set_map(self.map)
@@ -218,51 +234,110 @@ class LocationNode (Node):
                 - new_map (open3d.geometry.PointCloud): The transformed point cloud after registration.
         """
 
-        # Compute frame to frame ICP registration
-        frame_to_frame_reg = o3d.pipelines.registration.registration_icp(
-                                    source = actual_transformed_down_pcd, 
-                                    target = self.last_PCD,
-                                    max_correspondence_distance = self.config["FTF_CORRESPONDENCE_DISTANCE"],
-                                    estimation_method = o3d.pipelines.registration.TransformationEstimationPointToPlane(),
-                                    criteria = o3d.pipelines.registration.ICPConvergenceCriteria(max_iteration=100, 
-                                                                                                relative_fitness=1e-3,
-                                                                                                relative_rmse=1e-3
-                                                                                                )                      
-                                )   
+        # If its been less than MAX_FRAMES_BETWEEN_KEYFRAMES since the last key frame, we skip the key frame check
+        if (((self.index - self.last_update) % self.config["FTF_MAX_FRAMES_BETWEEN_KEYFRAMES"]) != 0):
         
-        print("FTF Fitness: " + str(frame_to_frame_reg.fitness) + " / RMSE: " + str(frame_to_frame_reg.inlier_rmse))
+            # Compute frame to frame ICP registration
+            frame_to_frame_reg = o3d.pipelines.registration.registration_icp(
+                                        source = actual_transformed_down_pcd, 
+                                        target = self.last_PCD,
+                                        max_correspondence_distance = self.config["FTF_CORRESPONDENCE_DISTANCE"],
+                                        estimation_method = o3d.pipelines.registration.TransformationEstimationPointToPlane(),
+                                        criteria = o3d.pipelines.registration.ICPConvergenceCriteria(max_iteration=100, 
+                                                                                                    relative_fitness=1e-3,
+                                                                                                    relative_rmse=1e-3
+                                                                                                    )                      
+                                    )   
         
-        # If the fitness is below the threshold or the RMSE is above, we consider if it is a key frame
-        if (frame_to_frame_reg.fitness < self.config["FITNESS_THRESHOLD"]) or \
-            (frame_to_frame_reg.inlier_rmse > self.config["RMSE_THRESHOLD"]) or \
-            (self.index % self.config["MAX_FRAMES_BETWEEN_KEYFRAMES"]) == 0:
+            # Calculate the new pose temporarily to check if the movement is not too large
+            temp_new_pose = np.dot(self.actual_pose, frame_to_frame_reg.transformation)
+            
+            # Calculate the distance and angle between the new pose and the actual pose
+            distance, angle = pose_distance(self.actual_pose, temp_new_pose)
+        
+            if logger.isEnabledFor(logging.DEBUG):
+                
+                logging_stats = "\tFTF STATS:\n"
+                
+                if (frame_to_frame_reg.fitness < self.config["FTF_FITNESS_THRESHOLD"]):
+                    self.fitness_error_counter += 1
+                    logging_stats += f"\033[31m\tFitness: {str(frame_to_frame_reg.fitness)}\033[0m | "
+                else:
+                    logging_stats += f"\033[32m\tFitness: {str(frame_to_frame_reg.fitness)}\033[0m | "
+                
+                self.fitness_mean_error = ((self.fitness_mean_error * (self.index - 1)) + frame_to_frame_reg.fitness) / self.index
+                logging_stats += f"Fitness errors: {self.fitness_error_counter} | Fitness mean: {self.fitness_mean_error} \n"
+                    
+                if (frame_to_frame_reg.inlier_rmse > self.config["FTF_RMSE_THRESHOLD"]):
+                    self.rmse_error_counter += 1
+                    logging_stats += f"\033[31m\tRMSE: {str(frame_to_frame_reg.inlier_rmse)}\033[0m | "
+                else:
+                    logging_stats += f"\033[32m\tRMSE: {frame_to_frame_reg.inlier_rmse}\033[0m | "
+                    
+                self.rmse_mean_error = ((self.rmse_mean_error * (self.index - 1)) + frame_to_frame_reg.inlier_rmse) / self.index
+                logging_stats += f"RMSE errors: {self.rmse_error_counter} | RMSE mean: {self.rmse_mean_error} \n"
+                    
+                if (distance > self.config["FTF_DISTANCE_THRESHOLD"]):
+                    self.distance_error_counter += 1
+                    logging_stats += f"\033[31m\tDistance: {str(distance)}\033[0m | "
+                else:
+                    logging_stats += f"\033[32m\tDistance: {str(distance)}\033[0m | "
+                    
+                self.distance_mean_error = ((self.distance_mean_error * (self.index - 1)) + distance) / self.index
+                logging_stats += f"Distance errors: {self.distance_error_counter} | Distance mean: {self.distance_mean_error} \n"
+                    
+                if (angle > self.config["FTF_ANGLE_THRESHOLD"]):
+                    self.angle_error_counter += 1
+                    logging_stats += f"\033[31m\tAngle: {str(angle)}\033[0m | "
+                else:
+                    logging_stats += f"\033[32m\tAngle: {str(angle)}\033[0m | "
+                              
+                self.angle_mean_error = ((self.angle_mean_error * (self.index - 1)) + angle) / self.index
+                logging_stats += f"Angle errors: {self.angle_error_counter} | Angle mean: {self.distance_mean_error}"
+            
+                logger.debug(logging_stats)
+                
+            # If the fitness and inlier_rmse are good enough and the transition is smooth, we skip the key frame check
+            if (frame_to_frame_reg.fitness > self.config["FTF_FITNESS_THRESHOLD"]) and \
+               (frame_to_frame_reg.inlier_rmse < self.config["FTF_RMSE_THRESHOLD"]) and \
+               (distance < self.config["FTF_DISTANCE_THRESHOLD"]) and \
+               (angle < self.config["FTF_ANGLE_THRESHOLD"]):
 
-            logger.info("\033[31m Checking if it is a key frame...\033[0m")
+                # We accept the new pose
+                new_pose = temp_new_pose
+                
+                # Transform the last pcd recieved to the new pose
+                new_frame = actual_transformed_down_pcd.transform(frame_to_frame_reg.transformation)
+                
+                # Save the last point cloud data
+                self.last_PCD = cp.deepcopy(new_frame)
 
-            # We check if the new frame is a key frame
-            is_key_frame, new_pose, new_map = self.key_frame_class.is_new_key_frame(original_msg)
+                logger.info("\033[34mFrame-to-Frame ICP Accepted\033[0m")
+                
+                # The FTF registration is good, so we return the new pose and the new frame
+                return new_pose, self.key_frame_class.get_key_frame()
+                
+        # If we reach this point, we need to check if the new frame is a key frame
+        is_key_frame, new_pose, new_frame = self.key_frame_class.is_new_key_frame(original_msg)
 
-            # If it is a key frame,             
-            if is_key_frame:
-                
-                logger.info("\033[32mKey frame added\033[0m")
-                
-                # Update the index of the last key frame added
-                self.last_update = self.index
-                
-                self.last_PCD = self.key_frame_class.get_key_frame()
-                
-                # We return the key frame calculated pose and map
-                return new_pose, new_map
-                
-        # Calculate the new pose
-        new_pose = np.dot(self.actual_pose, frame_to_frame_reg.transformation)
+        # If it is not a key frame, we update the last point cloud data
+        self.last_PCD = new_frame
+
+        # If it is a key frame, we update the last key frame index and keep the new frame            
+        if is_key_frame:
+            
+            logger.info("\033[32mKey frame added\033[0m")
+            
+            # Update the index of the last key frame added
+            self.last_update = self.index
         
-        # Transform the last pcd recieved to the new pose
-        transformed_map_pcd2 = actual_transformed_down_pcd.transform(frame_to_frame_reg.transformation)
-        
-        # Save the last point cloud data
-        self.last_PCD = cp.deepcopy(transformed_map_pcd2)
+        # If it is not a key frame, we keep the last pose and the last point cloud data
+        else:
+            
+            # Revert to the last pose key frame
+            new_frame = self.key_frame_class.get_key_frame()
+            
+            logger.info("\033[33mKey-Frame ICP Rejected\033[0m")
         
         # As the new frame is not a key frame, we return the last one os that the map does not change
-        return new_pose, self.key_frame_class.get_key_frame()
+        return new_pose, new_frame

@@ -2,6 +2,7 @@ import os
 import yaml
 import rclpy
 import struct
+import math
 import open3d as o3d
 import copy as cp
 import numpy as np
@@ -312,12 +313,10 @@ def execute_fast_global_registration(source_down, target_down, voxel_size = CONF
     
 def multi_res_icp(current_pose, source_msg, target_msg, resolutions = CONFIG["MULTI_VOXEL_RES_SIZES"], normal_factor = CONFIG["NORMAL_FACTOR"]):
     
-    source_msg_transformed = preprocess_point_cloud(source_msg, current_pose, downsample=False)
-    
     for res in resolutions:
         
         # Downsample the point clouds
-        new_frame_down = cp.deepcopy(source_msg_transformed)
+        new_frame_down = cp.deepcopy(source_msg)
         new_frame_down = new_frame_down.voxel_down_sample(voxel_size=res)
 
         key_frame_down = cp.deepcopy(target_msg)
@@ -331,7 +330,7 @@ def multi_res_icp(current_pose, source_msg, target_msg, resolutions = CONFIG["MU
         reg_p2p = o3d.pipelines.registration.registration_icp(
                     source = new_frame_down, 
                     target = key_frame_down,
-                    max_correspondence_distance = 0.5* res,
+                    max_correspondence_distance = 0.5 * res,
                     estimation_method = o3d.pipelines.registration.TransformationEstimationPointToPlane(),
                     criteria = o3d.pipelines.registration.ICPConvergenceCriteria(max_iteration=100, 
                                                                                 relative_fitness=1e-6,
@@ -341,6 +340,38 @@ def multi_res_icp(current_pose, source_msg, target_msg, resolutions = CONFIG["MU
         
         current_pose = np.dot(current_pose, reg_p2p.transformation)
     
-        relative_new_frame = relative_new_frame.transform(reg_p2p.transformation)
+        source_msg = source_msg.transform(reg_p2p.transformation)
         
-    return current_pose, relative_new_frame
+    return current_pose, source_msg
+
+
+def pose_distance(pose1, pose2):
+        """
+        Calcula distancia traslacional (m) y rotacional (deg) entre dos poses 4x4.
+        T1, T2: np.ndarray 4x4
+        """
+        
+        T1 = np.array(pose1, dtype=np.float64)
+        T2 = np.array(pose2, dtype=np.float64)
+        
+        assert T1.shape == (4, 4) and T2.shape == (4, 4), "Las poses deben ser 4x4"
+        
+        # Traslación
+        p1 = T1[0:3, 3]
+        p2 = T2[0:3, 3]
+        trans_dist = np.linalg.norm(p2 - p1)
+        
+        # Rotación relativa
+        R1 = T1[0:3, 0:3]
+        R2 = T2[0:3, 0:3]
+        R_rel = R1.T @ R2  # rotación que lleva R1 a R2
+        
+        # Asegurar rango numérico
+        trace_val = np.trace(R_rel)
+        trace_val = np.clip(trace_val, -1.0, 3.0)
+        
+        # Ángulo (en radianes → grados)
+        rot_angle_rad = math.acos((trace_val - 1.0) / 2.0)
+        rot_angle_deg = math.degrees(rot_angle_rad)
+        
+        return trans_dist, rot_angle_deg

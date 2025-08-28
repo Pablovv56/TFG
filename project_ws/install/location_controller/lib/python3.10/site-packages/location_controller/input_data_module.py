@@ -120,7 +120,7 @@ class InputData (Node):
         if self.reader.has_next():
             
             # Read the next message in the queue
-            topic, msg, t = self.reader.read_next()
+            topic, msg, _ = self.reader.read_next()
             
             # Filter topics
             if topic == self.PCL_TOPIC:
