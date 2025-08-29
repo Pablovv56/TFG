@@ -190,7 +190,7 @@ def draw_registration_result(source, target, transformation = None):
                                     up=[-0.3402, -0.9189, -0.1996])
     
     
-def preprocess_point_cloud(msg, transformation = None, downsample = True, voxel_size = CONFIG["VOXEL_SIZE"], normal_factor = CONFIG["NORMAL_FACTOR"]):
+def preprocess_point_cloud(msg, downsample = True, clean_pcd = True, transformation = None,  voxel_size = CONFIG["VOXEL_SIZE"], normal_factor = CONFIG["NORMAL_FACTOR"]):
     
     """
     Preprocesses a point cloud by downsampling, estimating normals, and computing FPFH features.
@@ -211,6 +211,9 @@ def preprocess_point_cloud(msg, transformation = None, downsample = True, voxel_
     if downsample:
         # Downsample the point cloud using voxel grid filtering
         pcd = pcd.voxel_down_sample(voxel_size)
+    
+    if clean_pcd:
+        pcd, _ = pcd.remove_statistical_outlier(nb_neighbors=20, std_ratio=2.0)
     
     if transformation is not None:
         # Move the map to the position from where it was seen

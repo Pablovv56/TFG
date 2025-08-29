@@ -380,9 +380,25 @@ Entre ellos encontramos:
       nodos de ROS2 simultáneamente, facilitando la depuración y el control del flujo de datos entre los diferentes componentes del sistema.
 \end{itemize}
 
+\section{Pipeline de Localización y Mapeo Simultaneo}
 
+En esta sección primero describiremos las funciones y componentes claves que entran en juego en el proceso. Posteriormente pasaremos a 
+describir el flujo de datos y la interacción entre los diferentes componentes del sistema y por tanto describiremos el flujo de trabajo 
+completo de la aplicacion.
 
-%% Bibliography
+\subsection{Conceptos, componentes y funciones clave}
+En esta sección describiremos los conceptos, componentes y funciones clave que forman parte del sistema de localización y mapeo
+simultáneo basado en nubes de puntos y mapas voxelizados.
+
+\subsubsection{Gestion y sincronización de mensajes}
+La gestión y sincronización de mensajes es un aspecto crucial en sistemas roboticos distribuidos, donde múltiples nodos trabajan de forma 
+conjunta para lograr tareas complejas. En el contexto de ROS2, los nodos se comunican entre sí mediante el intercambio de mensajes a
+través de tópicos, servicios y acciones. La sincronización adecuada de estos mensajes es esencial para garantizar que los datos se procesen 
+en el orden correcto y que las operaciones dependientes de múltiples fuentes se realicen de manera coherente. \newline
+Para lograr una gestión y sincronización correcta de los mensajes para este proyecto y dado que la fuente de datos esta almacenada en un 
+archivo de tipo rosbag, se ha optado por el desarrollo un nodo que se encargue de reproducir los mensajes adecuados bajo demanda de los 
+principales nodos de procesamiento
+
 \begin{thebibliography}{9}
     \bibitem{latexcompanion} 
     Robotnik Automation S.L

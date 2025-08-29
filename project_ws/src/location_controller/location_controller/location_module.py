@@ -144,7 +144,7 @@ class LocationNode (Node):
         if self.map is None:
             
             # We compute tdownsample, transform and compoute the normals
-            transformed_down_pcd = preprocess_point_cloud(msg, transformation = self.actual_pose)
+            transformed_down_pcd = preprocess_point_cloud(msg = msg, transformation = self.actual_pose)
             
             # Store the last point cloud data
             self.last_PCD = cp.deepcopy(transformed_down_pcd)
@@ -176,7 +176,7 @@ class LocationNode (Node):
             self.index += 1
         
             # Transform the point cloud to the current pose and downsample it
-            new_transformed_down_pcd = preprocess_point_cloud(msg, self.actual_pose)
+            new_transformed_down_pcd = preprocess_point_cloud(msg = msg, transformation = self.actual_pose)
 
             # Compute the new pose and map using ICP logic
             new_pose, new_map = self.icp_logic(new_transformed_down_pcd, msg)
@@ -243,7 +243,7 @@ class LocationNode (Node):
                                         target = self.last_PCD,
                                         max_correspondence_distance = self.config["FTF_CORRESPONDENCE_DISTANCE"],
                                         estimation_method = o3d.pipelines.registration.TransformationEstimationPointToPlane(),
-                                        criteria = o3d.pipelines.registration.ICPConvergenceCriteria(max_iteration=100, 
+                                        criteria = o3d.pipelines.registration.ICPConvergenceCriteria(max_iteration=50, 
                                                                                                     relative_fitness=1e-3,
                                                                                                     relative_rmse=1e-3
                                                                                                     )                      

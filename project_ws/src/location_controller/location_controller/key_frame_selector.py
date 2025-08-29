@@ -55,7 +55,7 @@ class KeyFrameSelector:
         """
 
         # Preprocess the original frame
-        new_frame = preprocess_point_cloud(original_new_frame, self.key_pose)
+        new_frame = preprocess_point_cloud(msg = original_new_frame, transformation = self.key_pose)
         
         # Initial alignment using RANSAC
         initial_alingment = ransac_global_registration(new_frame, self.key_frame)
@@ -72,7 +72,7 @@ class KeyFrameSelector:
             target = self.key_frame,
             max_correspondence_distance = self.config["KF_CORRESPONDENCE_DISTANCE"],
             estimation_method = o3d.pipelines.registration.TransformationEstimationPointToPlane(),
-            criteria = o3d.pipelines.registration.ICPConvergenceCriteria(max_iteration=100, 
+            criteria = o3d.pipelines.registration.ICPConvergenceCriteria(max_iteration=50, 
                                                                         relative_fitness=1e-6,
                                                                         relative_rmse=1e-6
                                                                         )                      
@@ -198,11 +198,3 @@ class KeyFrameSelector:
         Returns the current key frame.
         """
         return cp.deepcopy(self.key_frame)
-    
-    
-    def set_key_frame_and_pose(self, new_key_frame, new_key_pose):
-        """
-        Sets the current key frame and its pose to new values.
-        """
-        self.key_frame = cp.deepcopy(new_key_frame)
-        self.key_pose = new_key_pose
