@@ -18,7 +18,7 @@ public:
 
     // Subscription to /transformed_pcl
     pcl_subscription_ = this->create_subscription<sensor_msgs::msg::PointCloud2>(
-      "/transformed_pcl", 10,
+      "/new_pcl", 10,
       [this](const sensor_msgs::msg::PointCloud2::SharedPtr msg) {
         pclCallback(msg);
       });

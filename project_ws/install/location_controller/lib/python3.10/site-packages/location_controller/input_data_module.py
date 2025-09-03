@@ -136,9 +136,6 @@ class InputData (Node):
                     # We add an index to track pcls
                     deserialized_msg.header.stamp.sec = self.index
                     
-                    # Transform the pcl to position it correctly on the map
-                    # transformed_pcl = self.transform_pcl(self.temp_tf, deserialized_msg)
-                    
                     # Publish the point cloud
                     self.input_data_publisher_pcl.publish(deserialized_msg)
                     
@@ -164,8 +161,8 @@ class InputData (Node):
                     # We change the frame id to make sure its "map"
                     deserialized_msg.header.frame_id = self.FRAME_ID
  
+                    # We store the pose for later use
                     self.temp_pose = deserialized_msg
-                    # self.input_data_publisher_pose.publish(deserialized_msg)
                     
                     # Continue reading the file until we find the next PCL
                     self.input_data_callback(None)
@@ -193,55 +190,3 @@ class InputData (Node):
                 # Continue reading the file until we find the next PCL
                 self.input_data_callback(None)
                     
-                    
-    def transform_pcl (self, transform, pcl):
-        
-        """
-        Transforms a PointCloud2 message to a new frame using a given transformation.
-        This function takes a PointCloud2 message and applies a transformation to each point
-        in the cloud, converting it to a new coordinate frame. The transformed points are 
-        returned as a new PointCloud2 message.
-        Args:
-            transform (geometry_msgs.msg.TransformStamped): The transformation to apply, 
-                which specifies the target frame and the transformation parameters.
-            pcl (sensor_msgs.msg.PointCloud2): The input point cloud to be transformed.
-        Returns:
-            sensor_msgs.msg.PointCloud2: A new PointCloud2 message containing the transformed 
-            points in the target frame.
-        Raises:
-            Exception: If an error occurs during the transformation process, such as invalid 
-            input data or transformation failure.
-        Notes:
-            - The input point cloud is expected to have fields "x", "y", and "z".
-            - The transformed point cloud will have its frame_id set to "map".
-        """
-        
-        try:
-
-            # Convert point cloud to list of (x, y, z)
-            points = np.array(list(pc2.read_points(pcl, field_names=("x", "y", "z"), skip_nans=True)))
-
-            transformed_points = []
-            
-            for p in points:
-                
-                point = tf2_geometry_msgs.PointStamped()
-                point.header.frame_id = pcl.header.frame_id
-                x, y ,z = p
-                point.point.x, point.point.y, point.point.z = (float(x), float(y),float(z))
-                point_transformed = tf2_geometry_msgs.do_transform_point(point, transform)
-                transformed_points.append((point_transformed.point.x, point_transformed.point.y, point_transformed.point.z))
-
-            # Create new PointCloud2 message
-            transformed_cloud = pc2.create_cloud_xyz32(pcl.header, transformed_points)
-            transformed_cloud.header.frame_id = "map"
-            
-            return transformed_cloud
-
-        except Exception as e:
-            logger.error(f"TF Transform Error: {e}")
-                
-        
-        
-        
-        

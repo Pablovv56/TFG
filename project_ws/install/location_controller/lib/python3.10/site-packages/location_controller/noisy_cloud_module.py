@@ -43,7 +43,7 @@ class NoisyCloud (Node):
         self.noisy_cloud_ = self.create_subscription(PointCloud2, input_topic, self.add_noise, 10)
 
         # Create a publisher that will provide the noisy cloud
-        self.noisy_cloud_publisher_ = self.create_publisher(PointCloud2, 'noisy_cloud', 10)
+        self.noisy_cloud_publisher_ = self.create_publisher(PointCloud2, 'noisy_pcl', 10)
 
 
     def add_noise (self, msg : PointCloud2):

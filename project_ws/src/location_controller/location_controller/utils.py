@@ -70,7 +70,7 @@ def pointcloud2_to_open3d(data_msg):
         colors = np.array([r.reshape(-1), g.reshape(-1), b.reshape(-1)]).reshape((-1,3))
         pcd.colors = o3d.utility.Vector3dVector(colors.astype(float) / 255.0)
 
-    return pcd        
+    return pcd
 
 
 def open3d_to_pointcloud2(o3d_cloud, frame_id="map"):

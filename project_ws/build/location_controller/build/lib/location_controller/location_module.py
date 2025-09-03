@@ -60,7 +60,8 @@ class LocationNode (Node):
         self.location_publisher_ = self.create_publisher(PoseStamped, 'new_pose', 10)
         
         # Create a publisher that will provide the actual pose
-        self.transformed_pcl_publisher_ = self.create_publisher(PointCloud2, 'transformed_pcl', 10)
+        self.transformed_pcl_publisher_ = self.create_publisher(PointCloud2, 'new_pcl', 10)
+
 
         # Variable for indexing messages
         self.index = 0
@@ -184,11 +185,22 @@ class LocationNode (Node):
             # Update the actual pose
             self.actual_pose = new_pose
 
-            # Convert from open3d 
-            transformed_map_pcd2 = open3d_to_pointcloud2(new_map)
+            if new_map is None:
+                    
+                # Convert actual pose to PoseStamped
+                stamped_pose = matrix_to_pose_stamped(self.actual_pose, self.index)
+
+                # Publish the stamped pose
+                self.location_publisher_.publish(stamped_pose)
             
-            # Publish the transformed pcd
-            self.transformed_pcl_publisher_.publish(transformed_map_pcd2)
+            else:
+                
+                # Convert from open3d 
+                transformed_map_pcd2 = open3d_to_pointcloud2(new_map)
+                
+                # Publish the transformed pcd
+                self.transformed_pcl_publisher_.publish(transformed_map_pcd2)
+            
             
             # Publish the elapsed time if debug mode is enabled        
             if logger.isEnabledFor(logging.DEBUG):
@@ -315,7 +327,7 @@ class LocationNode (Node):
                 logger.info("\033[34mFrame-to-Frame ICP Accepted\033[0m")
                 
                 # The FTF registration is good, so we return the new pose and the new frame
-                return new_pose, self.key_frame_class.get_key_frame()
+                return new_pose, None
                 
         # If we reach this point, we need to check if the new frame is a key frame
         is_key_frame, new_pose, new_frame = self.key_frame_class.is_new_key_frame(original_msg)
@@ -335,7 +347,7 @@ class LocationNode (Node):
         else:
             
             # Revert to the last pose key frame
-            new_frame = self.key_frame_class.get_key_frame()
+            new_frame = None
             
             logger.info("\033[33mKey-Frame ICP Rejected\033[0m")
         
