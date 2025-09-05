@@ -12,13 +12,19 @@
 \contentsline {subsection}{\numberline {3.2}Entorno, software y herramientas de desarrollo}{19}{}%
 \contentsline {section}{\numberline {4}Pipeline de Localización y Mapeo Simultaneo}{23}{}%
 \contentsline {subsection}{\numberline {4.1}Conceptos, componentes y funciones clave}{23}{}%
-\contentsline {subsubsection}{\numberline {4.1.1}Gestion y sincronización de mensajes}{23}{}%
+\contentsline {subsubsection}{\numberline {4.1.1}Gestión y sincronización de mensajes}{23}{}%
 \contentsline {paragraph}{Conceptos clave:}{24}{}%
 \contentsline {paragraph}{Funcionamiento del componente:}{25}{}%
 \contentsline {subsubsection}{\numberline {4.1.2}Adición de ruido a los datos originales}{26}{}%
 \contentsline {paragraph}{Conceptos clave:}{26}{}%
 \contentsline {paragraph}{Funcionamiento del componente:}{27}{}%
-\contentsline {subsubsection}{\numberline {4.1.3}Calculo de la localización}{27}{}%
+\contentsline {subsubsection}{\numberline {4.1.3}Calculo de la localización}{28}{}%
 \contentsline {paragraph}{Conceptos Clave:}{28}{}%
-\contentsline {paragraph}{Funcionamiento del componente:}{29}{}%
-\contentsline {section}{Appendix \numberline {A}Installation \\ Manual}{35}{}%
+\contentsline {paragraph}{Funcionamiento del componente:}{32}{}%
+\contentsline {subsubsection}{\numberline {4.1.4}Seleccion de fotogramas clave}{35}{}%
+\contentsline {paragraph}{Conceptos Clave:}{35}{}%
+\contentsline {paragraph}{Funcionamiento del componente:}{36}{}%
+\contentsline {subsubsection}{\numberline {4.1.5}Construcción del mapa}{37}{}%
+\contentsline {paragraph}{Conceptos clave:}{38}{}%
+\contentsline {paragraph}{Funcionamiento del componente:}{39}{}%
+\contentsline {section}{Appendix \numberline {A}Installation \\ Manual}{43}{}%

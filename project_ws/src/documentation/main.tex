@@ -3,6 +3,8 @@
 %% Preamble
 \usepackage{umatfgenglish}
 \usepackage{blindtext}
+\usepackage{amssymb}
+\usepackage{amsmath}
 \usepackage{graphicx}
 \graphicspath{ {./images/} }
 
@@ -388,120 +390,130 @@ Entre ellos encontramos:
 
 \section{Pipeline de Localización y Mapeo Simultaneo}
 
-En esta sección primero describiremos las funciones y componentes claves que entran en juego en el proceso. Posteriormente pasaremos a 
-describir el flujo de datos y la interacción entre los diferentes componentes del sistema y por tanto describiremos el flujo de trabajo 
-completo de la aplicacion.
+En esta sección primero describiremos las funciones y componentes claves que entran en juego en el proceso. Posteriormente, pasaremos a 
+describir el flujo de datos y la interacción entre los diferentes componentes del sistema y, por tanto, describiremos el flujo de trabajo 
+completo de la aplicación.
 
 \subsection{Conceptos, componentes y funciones clave}
 En esta sección iremos detallando cada uno de los componentes clave que entran en juego en el flujo de trabajo del sistema, definiremos su base,
-las funcionos que desempeñan, los conceptos que lo sustentan y los detalles de su implementación.
+las funciones que desempeñan, los conceptos que lo sustentan y los detalles de su implementación.
 
-\subsubsection{Gestion y sincronización de mensajes}
-La gestión y sincronización de mensajes es un aspecto crucial en sistemas roboticos distribuidos, donde múltiples nodos trabajan de forma 
+\subsubsection{Gestión y sincronización de mensajes}
+La gestión y sincronización de mensajes es un aspecto crucial en sistemas robóticos distribuidos, donde múltiples nodos trabajan de forma 
 conjunta para lograr tareas complejas. En el contexto de ROS2, los nodos se comunican entre sí mediante el intercambio de mensajes a
 través de tópicos, servicios y acciones. La sincronización adecuada de estos mensajes es esencial para garantizar que los datos se procesen 
 en el orden correcto y que las operaciones dependientes de múltiples fuentes se realicen de manera coherente. \newline
-Para lograr una gestión y sincronización correcta de los mensajes para este proyecto y dado que la fuente de datos esta almacenada en un 
-archivo de tipo rosbag, se ha optado por el desarrollo un nodo que se encargue de reproducir los mensajes adecuados en función de la dispobibilidad 
+Para lograr una gestión y sincronización correcta de los mensajes para este proyecto y dado que la fuente de datos está almacenada en un 
+archivo de tipo rosbag, se ha optado por el desarrollo de un nodo que se encargue de reproducir los mensajes adecuados en función de la disponibilidad 
 de los principales nodos de procesamiento.\newline
-Este nodo llamado ''input\textunderscore data \textunderscore node'' se encarga de crear una estructura de datos que almacena los mensajes contenidos 
-en el archivo rosbag (grabación con los datos) ya que estos vienen serializados. Una vez leido este archivo y creada esta estructura de datos con los 
-datos serializados, se iran leyendo los mensajes de forma ordenada, deserializando, formateando segun el tipo de datos al que corresponda el mensaje 
-y publicandolos en los tópicos correspondientes.
+Este nodo llamado ''input\textunderscore data\textunderscore node'' se encarga de crear una estructura de datos que almacena los mensajes contenidos 
+en el archivo rosbag (grabación con los datos) ya que estos vienen serializados. Una vez leído este archivo y creada esta estructura de datos con los 
+datos serializados, se irán leyendo los mensajes de forma ordenada, deserializando, formateando según el tipo de datos al que corresponda el mensaje 
+y publicándolos en los tópicos correspondientes.
 
 \paragraph{Conceptos clave:}
 Los conceptos clave que sustentan este nodo son:
 \begin{itemize}
   \item \textbf{Archivos rosbag}: Un rosbag es un archivo usado en ROS (Robot Operating System) para registrar y reproducir datos de tópicos. Los 
-  archivos rosbag se almacenan en formato binario guardando la secuencia de mensajes ROS capturados. Esto mensajes incluyen cabeceras, marcas de tiempo 
+  archivos rosbag se almacenan en formato binario guardando la secuencia de mensajes ROS capturados. Estos mensajes incluyen cabeceras, marcas de tiempo 
   y datos serializados. En nuestro caso, usaremos un archivo de este tipo para leer una grabación realizada previamente sobre un entorno simulado que 
   intentaremos recrear usando nuestro proceso de localización y mapeo.
   \item \textbf{Serialización y deserialización de mensajes}: La serialización es el proceso de convertir un objeto o estructura de datos en una secuencia 
-  de bytes para su almacenamiento y la deserialización es el proceso inverso, es decir, convertir una secuencia de bytes en un objeto o estructura de datos. 
-  En ROS2, los mensajes se serializan para su transmisión a través de la red o su almacenamiento en archivos rosbag. En nuestro caso, los mensajes leidos del 
-  archivo rosbag vienen serializados, por lo que es necesario deserializarlos antes de poder usarlos. Esta acción sera clave una vez leido el archivo rosbag 
+  de bytes para su almacenamiento, y la deserialización es el proceso inverso, es decir, convertir una secuencia de bytes en un objeto o estructura de datos. 
+  En ROS2, los mensajes se serializan para su transmisión a través de la red o su almacenamiento en archivos rosbag. En nuestro caso, los mensajes leídos del 
+  archivo rosbag vienen serializados, por lo que es necesario deserializarlos antes de poder usarlos. Esta acción será clave una vez leído el archivo rosbag 
   y antes de publicar los mensajes en los tópicos correspondientes.
   \item \textbf{Publicación y suscripción a tópicos}: En ROS2, los nodos pueden publicar mensajes en tópicos y suscribirse a ellos para recibir mensajes.
   La publicación y suscripción a tópicos es un mecanismo de comunicación fundamental en ROS2, que permite la comunicación asíncrona entre nodos. En nuestro caso, 
-  el nodo ''input\textunderscore data \textunderscore node'' publicará los mensajes deserializados en el topico ''clean\textunderscore pcl'' para los datos que 
-  correspondan a las nubes de puntos que se usaran para el proceso de mapeo y localización y el tópico ''clean\textunderscore pose'' para los datos que correspondan 
-  a la pose original del robot que se usara para aislar la pose real desde donde se capturaron las nubes de puntos y poder sacar métricas de precisión respecto a 
+  el nodo ''input\textunderscore data\textunderscore node'' publicará los mensajes deserializados en el tópico ''clean\textunderscore pcl'' para los datos que 
+  correspondan a las nubes de puntos que se usarán para el proceso de mapeo y localización y el tópico ''clean\textunderscore pose'' para los datos que correspondan 
+  a la pose original del robot que se usará para aislar la pose real desde donde se capturaron las nubes de puntos y poder sacar métricas de precisión respecto a 
   esta pose.  
 \end{itemize}
 
 \paragraph{Funcionamiento del componente:}
-Tal y como hemos ido describiendo, el nodo ''input\textunderscore data \textunderscore node'' se encargará de leer el archivo rosbag, deserializar los mensajes y
+Tal y como se ha descrito, el nodo ''input\textunderscore data \textunderscore node'' se encargará de leer el archivo rosbag, deserializar los mensajes y
 publicarlos en los tópicos correspondientes. El flujo de trabajo del nodo se puede describir de la siguiente manera:
 \begin{itemize}
-  \item \textbf{Inicialización}: La inicialización de este nodo esta conformada por los siguientes pasos:
+  \item \textbf{Inicialización}: La inicialización de este nodo está conformada por los siguientes pasos:
   \begin{itemize}
-    \item \textbf{Inicialización de publicadores y subscriptores}: Al instanciar el nodo, se inicia la escucha y se prepara para la recepción de mensajes de los 
+    \item \textbf{Inicialización de publicadores y suscriptores}: Al instanciar el nodo, se inicia la escucha y se prepara para la recepción de mensajes de los 
     siguientes tópicos:
     \begin{itemize}
-      \item \textbf{Publicación de ''clean\textunderscore pose''}: Este servicio de publicación se encargara de enviar la pose original desde la que se capturo el mensaje.
-      \item \textbf{Publicación de ''clean\textunderscore pcl''}: Este servicio de publicación se encargara de enviar los mensajes conteniendo la nube de puntos original.
-      \item \textbf{Subscripción a ''new\textunderscore pose''}: Este subscriptor recibira mensajes de tipo ''PoseStamped'' conteniendo la nueva pose calculada en función 
-      del calculo realizado por el servicio de publicación.
+      \item \textbf{Publicación de ''clean\textunderscore pose''}: Este servicio de publicación se encargará de enviar de enviar mensajes de tipo ''PointCloud2'' que 
+      contienen la pose original desde la que se capturó el mensaje.
+      \item \textbf{Publicación de ''clean\textunderscore pcl''}: Este servicio de publicación se encargará de enviar de enviar mensajes de tipo ''PointCloud2'' que 
+      contienen la nube de puntos original.
+      \item \textbf{Suscripción a ''new\textunderscore pose''}: Este suscriptor recibirá mensajes de tipo ''PoseStamped'' conteniendo la nueva pose calculada en función 
+      del cálculo realizado por el servicio de publicación.
     \end{itemize}
-    \item \textbf{Inicialización de lectura del archivo rosbag}: Tambien es necesario inicializar el sistema de lectura del archivo rosbag para que se pueda iterar facilmente
+    \item \textbf{Inicialización de lectura del archivo rosbag}: Es necesario inicializar el sistema de lectura del archivo rosbag para que se pueda iterar fácilmente
     a través de los mensajes que este contiene.
-    \item \textbf{Inicialización de variables auxiliares para la ejecucción}: Por ultimo, se inicializaran algunas variables auxiliares como indices entre otras, necesarias 
+    \item \textbf{Inicialización de variables auxiliares para la ejecución}: Es necesario inicializar algunas variables auxiliares como índices, entre otras,  
     para la correcta ejecución del nodo.
   \end{itemize}
-  \item \textbf{Respuestas provocada por la recepción de mensajes a traves del tópico ''new\textunderscore pose''}: Cada vez que se recive un mensaje a traves del tópico 
+  \item \textbf{Respuestas provocadas por la recepción de mensajes a través del tópico ''new\textunderscore pose''}: Cada vez que se recibe un mensaje a través del tópico 
   ''new\textunderscore pose'' se inicia un proceso de respuesta que involucra los siguientes pasos:
   \begin{itemize}
-    \item \textbf{Obtención de la última pose antes de la publicación de la nube de puntos}: Se leera el archivo rosbag almacenando siempre el último mensaje con etiqueta 
+    \item \textbf{Obtención de la última pose antes de la publicación de la nube de puntos}: Se leerá el archivo rosbag almacenando siempre el último mensaje con etiqueta 
     ''gt\textunderscore odom'' de forma que cuando se encuentre un mensaje conteniendo la nueva nube de puntos, se pueda deserializar y rellenar un mensaje de tipo ''PoseStamped'' 
-    que contendra la ultima pose asociada a este mensaje por el tópico ''clean\textunderscore pose''.
-    \item \textbf{Obtención de las nubes de puntos}: Se continuara la lectura de los mensajes del archivo rosbag hasta que se encuentre uno con la etiqueta 
-    ''cloud\textunderscore in'', entonces se deserializaran los datos del mensaje y se rellenaran aquellos campos necesarios para publicar un mensaje de tipo ''PointCloud2''.
-    Una vez tenemos este mensaje de tipo ''PointCloud2'' relleno, este se publicara a traves del tópico ''clean\textunderscore pcl''.
+    que contendrá la última pose asociada a este mensaje por el tópico ''clean\textunderscore pose''.
+    \item \textbf{Obtención de las nubes de puntos}: Se continuará la lectura de los mensajes del archivo rosbag hasta que se encuentre uno con la etiqueta 
+    ''cloud\textunderscore in'', entonces se deserializarán los datos del mensaje y se rellenarán aquellos campos necesarios para publicar un mensaje de tipo ''PointCloud2''.
+    Una vez tenemos este mensaje de tipo ''PointCloud2'' relleno, este se publicará a través del tópico ''clean\textunderscore pcl'' junto con la pose asociada por el tópico 
+    correspondiente.
   \end{itemize}
 \end{itemize}
-En resumen, este nodo se encarga de iniciar el flujo de datos de entrada publicando los mensajes asociados con la nubes de puntos y la pose asocidada. Una vez se ha iniciado
-este flujo, continuara plublicando estos mensajes cada vez que reciba un mensaje por parte del nodo de localización (determinando asi que este esta listo para recibir otro)
-y asi hasta que se complete la lectura.
+En resumen, este nodo se encarga de iniciar el flujo de datos de entrada publicando los mensajes asociados con las nubes de puntos y la pose asociada. Una vez se ha iniciado
+este flujo, continuará publicando estos mensajes cada vez que reciba un mensaje por parte del nodo de localización (determinando así que este está listo para recibir otro),
+y así hasta que se complete la lectura.
 
 \subsubsection{Adición de ruido a los datos originales}
-Comprobar la resiliencia de nuestro flujo de trabajo frente al ruido es una parte esencial de nuestro estudio, es por esto que se ha desarrollado un nodo llamado
-''noisy\textunderscore cloud'' que se encarga de recepcionar los mensajes de tipo ''PointCloud2'' publicado a traves del tópico ''clean\textunderscore pose'' que 
-contienen la nube de puntos libre de errores y En base a unos parametros determinados, añadira cierto error de forma aleatoria a los puntos contenido en la nube. 
-Esta parte del proceso se usara solo cuando queramos probar la resiliencia frente a errores, es decir, el flujo de trabajo tambien esta preparado para trabajar 
-directamente con la nube sin error como es de esperar ya que la presencia de error añade complejidad al proceso.
+Comprobar la resiliencia de nuestro flujo de trabajo frente al ruido es una parte esencial de este estudio, ya que acerca la simulación de la que disponemos 
+a lo que podría ser una ejecución en el entorno real. Es por esto que se ha desarrollado un nodo llamado ''noisy\textunderscore cloud'', que se encarga de recepcionar 
+los mensajes de tipo ''PointCloud2'' publicados a través del tópico ''clean\textunderscore pose'', que contienen la nube de puntos libre de errores. En base a unos 
+parámetros determinados, añadirá cierto error de forma aleatoria a los puntos contenidos en la nube. Esta parte del proceso se usará solo cuando queramos probar la 
+resiliencia frente a errores, es decir, el flujo de trabajo también está preparado para trabajar directamente con la nube sin error, como es de esperar, ya que la 
+presencia de error añade complejidad al proceso y reducir la complejidad de este no debería impactar negativamente.
 
 \paragraph{Conceptos clave:} 
 Un concepto clave a tener en cuenta para este proceso es la transformación que se aplica a la nube de puntos sin error para que se convierta en una nube de 
-puntos que contenga ruido. En este caso hemos optado por aplicar la siguiente transformación:
+puntos que contenga ruido. En este caso se ha optado por aplicar la siguiente transformación:
 \begin{itemize}
-  \item \textbf{Mascara de ruido}: El ruido se aplica a la nube de puntos a partir de una mascara que al operar con la nube original introducira errores 
-  usando una distribución de probabilidad normal con media N, desviación estandar S y que se aplicara a cualquier punto en cualquiera de sus ejes con una 
-  probabilidad X. El orden de operacion es el siguiente:
+  \item \textbf{Máscara de ruido}: El ruido se aplica a la nube de puntos a partir de una máscara que, al operar con la nube original, introduce errores 
+  usando una distribución de probabilidad normal con media $\mu$, desviación estándar $\sigma$ y que se aplica a cualquier punto en cualquiera de sus ejes 
+  con una probabilidad $p$. El orden de operación es el siguiente:
   \begin{itemize}
-    \item \textbf{Creación de la mascara}: Se asigna una probabilidad aleatoria a cada uno de los puntos de la nube, y los puntos cuya probabilidad sea menor
-    a la especificada, tendran valor 1 en la mascara y por tanto se les aplicara el error.
-    \item \textbf{Distribución Normal}: Se genera un objeto que describe una distribución normal en función de los parametros elegidos en la configuracion.
-    \item \textbf{Aplicación de ruido}: Se aplica el ruido a los puntos seleccionados por la mascara y se modifican en funcion de valor aleatorio generado por 
-    la normal para cada uno de sus ejes (X,Y,Z).
+      \item \textbf{Creación de la máscara}: Se asigna una probabilidad aleatoria $u_i \sim \mathcal{U}(0,1)$ a cada punto $i$ de la nube.  
+      Aquellos puntos para los que $u_i < p$ tendrán valor $1$ en la máscara y, por tanto, se les aplicará el error.
+      
+      \item \textbf{Distribución normal}: Se genera una variable aleatoria $n \sim \mathcal{N}(\mu, \sigma^2)$ que describe la distribución normal en 
+      función de los parámetros elegidos en la configuración.
+      
+      \item \textbf{Aplicación de ruido}: Para cada punto seleccionado por la máscara, se modifica cada coordenada $(x, y, z)$ como:
+      \[
+      x' = x + n_x, \quad y' = y + n_y, \quad z' = z + n_z
+      \]
+      donde $n_x, n_y, n_z \sim \mathcal{N}(\mu, \sigma^2)$ son muestras independientes de la distribución normal.
   \end{itemize}
 \end{itemize}
 
 \paragraph{Funcionamiento del componente:} 
-Tal y como hemos ido describiendo, el nodo ''noisy\textunderscore cloud'' se encargara de añadir ruido a la nube de puntos original para probar la resiliencia 
-del flujo de trabajo. Para ello, el funcionamiento basico de este nodo sera:
+Tal y como hemos ido describiendo, el nodo ''noisy\textunderscore cloud'' se encargará de añadir ruido a la nube de puntos original para probar la resiliencia 
+del flujo de trabajo. Para ello, el funcionamiento básico de este nodo será:
 \begin{itemize}
-  \item \textbf{Inicialización}: Al iniciar el nodo, simplemente creara un subscriptor y un tópico de publicación:
+  \item \textbf{Inicialización}: Al iniciar el nodo, simplemente creará un suscriptor y un tópico de publicación:
   \begin{itemize}
-    \item \textbf{Subscripción al ''clean\textunderscore pcl''}: Este subscriptor recibira mensajes de tipo ''PointCloud2'' conteniendo la nueva nube de puntos
-    a la que se añadira el ruido.
+    \item \textbf{Suscripción al ''clean\textunderscore pcl''}: Este suscriptor recibirá mensajes de tipo ''PointCloud2'' conteniendo la nueva nube de puntos
+    a la que se añadirá el ruido.
     \item \textbf{Publicación de ''noisy\textunderscore pcl''}: Este servicio de publicación se encarga de enviar mensajes de tipo ''PointCloud2'' que 
     contienen la nube de puntos con ruido. 
   \end{itemize}
-  \item \textbf{Respuestas provocada por la recepción de mensajes a traves del tópico ''new\textunderscore pcl''}: La recepción de este tipo de mensajes 
-  provoca la llamada de una función que se encarga de aplicar una mascara de ruido a la nube de puntos recibida y posteriormente publicarla a traves del 
-  tópico ''noisy\textunderscore pcl''
+  \item \textbf{Respuestas provocadas por la recepción de mensajes a través del tópico ''new\textunderscore pcl''}: La recepción de este tipo de mensajes 
+  provoca la llamada de una función que se encarga de aplicar una máscara de ruido a la nube de puntos recibida y, posteriormente, publicarla a través del 
+  tópico ''noisy\textunderscore pcl''.
 \end{itemize}
-En resumen, este nodo se encarga de transformar la nube de puntos original a un estado simulado mas cercano a la realidad de un sensor.
+En resumen, este nodo se encarga de transformar la nube de puntos original a un estado simulado más cercano a la realidad de un sensor.
 
 \subsubsection{Calculo de la localización}
 La piedra angular de este proyecto se asienta sobre las bases de la localización, si sabemos la posición desde la que hemos capturado una nube de puntos
@@ -523,21 +535,114 @@ siguientes:
   del número de puntos agrupandolos en función de la distancia entre ellos). En nuestro caso, la mayoria de transformaciones de preprocesamiento que se aplican 
   son:
   \begin{itemize}
-    \item \textbf{Transformación de formato}: 
+    \item \textbf{Transformación de formato}: Dado que las nubes de puntos son recibidas en formato ''PointCloud2'', es necesario transformarlas a un formato
+      ''open3d.geometry.PointCloud()'' para poder trabajar con ellas usando las librerías Open3D que se usarán a lo largo del proceso. 
+      \item \textbf{Submuestreo (Downsampling)}: Dado que el mapa con el que trabajamos tiene una resolución determinada, es necesario reducir la resolución de
+      las nubes de puntos que recibimos para que esta coincida con la del mapa. Esto se hace para reducir la cantidad de puntos a procesar, lo que mejora la 
+      eficiencia computacional y reduce el ruido. En nuestro caso, se usa un método de submuestreo basado en un voxel grid, donde se agrupan los puntos dentro 
+      de celdas de un tamaño determinado (tamaño del voxel) y se reemplazan por un solo punto representativo (generalmente el centroide de los puntos en esa celda).
+      \item \textbf{Eliminación de outliers}: Las nubes de puntos pueden contener puntos erróneos o aislados que no representan la realidad del entorno. Estos outliers 
+      pueden ser causados por ruido en la captura, errores de medición o reflejos. La eliminación de outliers es crucial para mejorar la calidad de la nube de puntos y 
+      la precisión de los cálculos posteriores. En nuestro caso, se usa un método basado en la distancia media a los vecinos más cercanos, donde se eliminan los puntos 
+      que están demasiado lejos de sus vecinos. Este proceso se realiza después del submuestreo para evitar eliminar puntos que podrían ser relevantes en la nube original.
+      \item \textbf{Traslación al origen}: Las nubes de puntos capturadas suelen estar referenciadas a un sistema de coordenadas distinto al origen (0,0,0). Para facilitar 
+      el cálculo del desplazamiento entre nubes y su emparejamiento con la nube anterior, es necesario trasladarlas al sistema de coordenadas del origen. Esto permite 
+      que las transformaciones posteriores sean más consistentes y precisas.
+      \item \textbf{Cálculo de normales}: El cálculo de las normales de los puntos en la nube es esencial para muchos algoritmos de procesamiento de nubes de puntos,
+      incluyendo el emparejamiento ICP. Las normales proporcionan información sobre la orientación de las superficies representadas por la nube de puntos, lo que ayuda a 
+      mejorar la precisión del emparejamiento. En nuestro caso, se calcula la normal de cada punto en función de sus vecinos más cercanos, usando un método basado en la
+      covarianza local.
   \end{itemize}
-  \item \textbf{ICP (Iterative Closest Point)}:
-  \item \textbf{Selección de fotogramas clave (Key frame selection)}: Como hemos comentado anteriormente, no todos las nube pueden formar parte del mapa ya 
-  que todos los emparejamientos realizados contienen un minimo de error ya que la naturaleza del metodo de emparejamiento es estadistico y no es perfecto. De 
-  forma que si componemos este error que aunque minimo o imperceptible a simple vista entre las capturas iniciales, se va componiendo en el tiempo dando lugar 
-  a que la pose termine por corromperse y dejar de representar de forma correcta la pose real. \newline
-  Esto nos lleva a desarrollar un proceso de curado y selección de frames que si cumplen una serie de requisitos, formaran parte del mapa y por tanto contribuiran 
-  a las siguientes iteraciones, por lo que es de gran interes que esto sean emparejamientos lo mas precisos posibles y que se realizen con una frecuencia justa. 
+  \item \textbf{ICP (Iterative Closest Point)}: El algoritmo \textit{Iterative Closest Point} (ICP) es un método ampliamente utilizado para la alineación de nubes de puntos 
+  en aplicaciones de visión por computadora, robótica y reconstrucción 3D. Su objetivo es encontrar la transformación rígida óptima (rotación y traslación) que minimiza la 
+  distancia entre dos conjuntos de puntos: una nube de puntos \textit{fuente} $\mathcal{P} = \{\mathbf{p}_i\}_{i=1}^{N}$ y una nube de puntos \textit{objetivo} 
+  $\mathcal{Q} = \{\mathbf{q}_j\}_{j=1}^{M}$. Ahora describiremos su formulación matemática y el algoritmo paso a paso.
+  \begin{itemize}
+    \item \textbf{Formulación Matemática}: El problema se modela como la búsqueda de una transformación rígida $(\mathbf{R}, \mathbf{t})$, donde $\mathbf{R} \in SO(3)$ es 
+    una matriz de rotación y $\mathbf{t} \in \mathbb{R}^3$ es un vector de traslación, que minimice la siguiente función de costo:
+    \[
+    \min_{\mathbf{R}, \mathbf{t}} \; 
+    E(\mathbf{R}, \mathbf{t}) =
+    \frac{1}{|\mathcal{C}|} \sum_{(i,j) \in \mathcal{C}}
+    \left\| \mathbf{q}_j - \big(\mathbf{R}\mathbf{p}_i + \mathbf{t}\big) \right\|^2
+    \]
+    donde $\mathcal{C}$ es el conjunto de correspondencias entre puntos de $\mathcal{P}$ y $\mathcal{Q}$ determinado en cada iteración.  
+  
+    \item \textbf{Algoritmo}: El procedimiento estándar de ICP consiste en los siguientes pasos iterativos:
+  
+    \begin{enumerate}
+      \item \textbf{Inicialización:} Se establece una estimación inicial de la transformación $(\mathbf{R}_0, \mathbf{t}_0)$, que puede ser la identidad si no se dispone 
+      de información previa.
+      \item \textbf{Correspondencia:} Para cada punto $\mathbf{p}_i$ en la nube fuente, se busca el punto más cercano $\mathbf{q}_j$ en la nube objetivo según la métrica 
+      euclidiana:
+      \[
+      j = \arg\min_{k} \left\| \mathbf{q}_k - \big(\mathbf{R}\mathbf{p}_i + \mathbf{t}\big) \right\|
+      \]
+      formando así el conjunto de correspondencias $\mathcal{C}$.
+      \item \textbf{Optimización:} Se resuelve el problema de mínimos cuadrados para encontrar la nueva transformación $(\mathbf{R}, \mathbf{t})$ que minimiza el error 
+      cuadrático medio sobre las correspondencias. La solución cerrada se obtiene usando el método de Umeyama o descomposición en valores singulares (SVD):
+      \begin{enumerate}
+        \item Calcular los centroides de los puntos emparejados:
+        \[
+        \bar{\mathbf{p}} = \frac{1}{|\mathcal{C}|} \sum_{(i,j) \in \mathcal{C}} \mathbf{p}_i,
+        \qquad
+        \bar{\mathbf{q}} = \frac{1}{|\mathcal{C}|} \sum_{(i,j) \in \mathcal{C}} \mathbf{q}_j
+        \]
+        \item Construir la matriz de correlación:
+        \[
+        \mathbf{H} = \sum_{(i,j) \in \mathcal{C}}
+        (\mathbf{p}_i - \bar{\mathbf{p}})
+        (\mathbf{q}_j - \bar{\mathbf{q}})^{T}
+        \]
+        \item Obtener $\mathbf{R}$ y $\mathbf{t}$ mediante SVD:
+        \[
+        \mathbf{H} = \mathbf{U} \mathbf{\Sigma} \mathbf{V}^{T}
+        \quad \Rightarrow \quad
+        \mathbf{R} = \mathbf{V} \mathbf{U}^{T},
+        \qquad
+        \mathbf{t} = \bar{\mathbf{q}} - \mathbf{R}\bar{\mathbf{p}}
+        \]
+      \end{enumerate}
+      \item \textbf{Transformación:} Actualizar la nube fuente aplicando la transformación obtenida.
+      \item \textbf{Convergencia:} Repetir los pasos anteriores hasta que el cambio en el error $E(\mathbf{R}, \mathbf{t})$ entre iteraciones esté por debajo de un umbral 
+      $\varepsilon$ o se alcance el número máximo de iteraciones.
+    \end{enumerate}
+    \item \textbf{Variantes de ICP}: Existen variantes que mejoran la robustez y velocidad del algoritmo, entre ellas:
+    \begin{itemize}
+      \item \textbf{ICP punto a punto (Point-to-Point):} Minimiza la distancia euclidiana entre puntos correspondientes (como en la formulación anterior).
+      \item \textbf{ICP punto a plano (Point-to-Plane):} Minimiza la distancia entre el punto transformado y el plano tangente en $\mathbf{q}_j$, lo que conduce a una 
+      convergencia más rápida:
+      \[
+      E(\mathbf{R}, \mathbf{t}) =
+      \frac{1}{|\mathcal{C}|} \sum_{(i,j) \in \mathcal{C}}
+      \left( \mathbf{n}_j^{T} \big(\mathbf{q}_j - (\mathbf{R}\mathbf{p}_i + \mathbf{t}) \big) \right)^{2}
+      \]
+      donde $\mathbf{n}_j$ es el vector normal asociado a $\mathbf{q}_j$.
+    \end{itemize}
+    \item \textbf{Implementación en Open3D}: La librería \texttt{Open3D} proporciona una implementación optimizada de ICP en C++ y Python. Su función principal 
+    \texttt{registration\_icp()} permite elegir entre varias métricas de alineación (\texttt{TransformationEstimationPointToPoint}, 
+    \texttt{TransformationEstimationPointToPlane}) y utiliza aceleradores de búsqueda de vecinos como KD-Trees para obtener correspondencias eficientes.
+    Además, Open3D admite:
+    \begin{itemize}
+        \item \textbf{Jerarquía multiescala:} aplicación de ICP en niveles de resolución decreciente para mejorar la convergencia global.
+        \item \textbf{Criterios de parada:} tolerancia de convergencia en función de la reducción relativa del error y límite de iteraciones.
+        \item \textbf{Transformación inicial:} opción de especificar $(\mathbf{R}_0, \mathbf{t}_0)$ para mejorar los resultados cuando se dispone de una estimación previa.
+    \end{itemize}
+  \end{itemize}
+  \item \textbf{Selección de fotogramas clave (Key frame selection)}: Anteriormente se comenta cómo no todas las nubes pueden formar parte del mapa, ya que todos 
+  los emparejamientos realizados contienen un mínimo de error debido a que la naturaleza del método de emparejamiento es estadística y no es perfecta. De forma que, 
+  si componemos este error, aunque mínimo o imperceptible a simple vista entre las capturas iniciales, se va acumulando con el tiempo, dando lugar a que la pose termine 
+  por corromperse y deje de representar de forma correcta la pose real. \newline
+  Esto nos lleva a desarrollar un proceso de curado y selección de fotogramas que, si cumplen una serie de requisitos, formarán parte del mapa y, por tanto, 
+  contribuirán a las siguientes iteraciones. Por ello, es de gran interés que estos emparejamientos sean lo más precisos posibles y que se realicen con una frecuencia 
+  adecuada. En concreto, se ha desarrollado una clase llamada ''KeyFrameSelector'' que se encarga de gestionar este proceso. Esta clase se discutira mas en profundidad 
+  mas adelante.
 \end{itemize}
 
 \paragraph{Funcionamiento del componente:}
-Como se comenta, el nodo ''localization\textunderscore node'' se encargara de orquestar una serie de tareas cruciales que conciernen tanto a la localización 
-global como a la construcción del mapa, por lo que detallar los pasos que este sigue, es clave para comprender el funcionamiento de la herramienta. Para ello 
-vamos a describir los pasos que sigue:
+Tal y como se ha ido introduciendo, el nodo ''localization\textunderscore node'' se encargara de orquestar una serie de tareas cruciales que conciernen tanto 
+a la localización global como a la construcción del mapa, por lo que detallar los pasos que este sigue, es clave para comprender el funcionamiento de la herramienta. 
+A contuación se describen los pasos que sigue:
 \begin{itemize}
   \item \textbf{Inicialización}: La inicialización de este nodo esta conformada por los siguientes pasos:
   \begin{itemize}
@@ -581,13 +686,162 @@ vamos a describir los pasos que sigue:
       \item \textbf{Logica ICP:} Esta es la logica principal, encargada de suministrar la nueva pose y nube de puntos trasaladada a esa posición. Para implementar esta 
       lógica, se ha creado una función llamada ''icp\textunderscore logic'' que sigue el siguiente esquema:
       \begin{itemize}
-        \item \textbf{PDTE} 
+        \item \textbf{Pendiente: Resumen actual} 
+        \item \textbf{El numero de frames es que han pasado desde la ultima comprobación es menor que un umbral} Se calcula ICP entre la nube de puntos actual y la anterior, 
+        se obtiene la transformación resultante y se compone con la pose.
+        \textbf{Si FITNESS, RMSE, TRANSLATION y ROTATION cumplen los requisitos} Se actualiza la pose y se almacena la nube de puntos actual como la anterior
+        \item \textbf{El numero de frames es que han pasado desde la ultima comprobación es mayor o igual que el umbral o el emparejamiento no cumple los requisitos anteiores}
+        Se comprueba si el frame actual puede ser una imagen clave.
       \end{itemize}
       \item \textbf{Guardado de la nueva pose y publicación de la nueva información del mapa:} Se guarda la pose calculada por la logica ICP para puclicarla una vez que el 
       mapa ha integrado la nueva nube de puntos en caso de que haya nueva información que añadir.
     \end{itemize}
   \end{itemize}
 \end{itemize}
+
+\subsubsection{Seleccion de fotogramas clave}
+El principio fundamental de la tecninca de emparejamiento que se usa en este proyecto (ICP), al ser un metodo estadistico, es que siempre va a contener un minimo de error.
+Aunque este error sea minimo, si se va acumulando con el tiempo, puede llegar a corromper la pose y que esta deje de representar la realidad. Por ello, es necesario un proceso
+de curado y seleccion de fotogramas que construyan el mapa. Este proceso debe ser riguroso ya que si se aceptan muchas nubes de puntos, el error se acumulara mas rapidamente y 
+si se aceptan pocas, el mapa sera pobre, no representara la realidad y hara mas complicado que se encuentren emparejamientos entre la nube actual y el mapa. \newline
+
+\paragraph{Conceptos Clave:}
+El unico concepto clave que sustenta este proceso es el siguiente:
+\begin{itemize}
+  \item \textbf{Criterios de selección de fotogramas clave}: La selección de fotogramas clave se basa en la evaluación de varios criterios que determinan si una nube
+  de puntos debe ser añadida al mapa. Estos criterios incluyen:
+  \begin{itemize}
+    \item \textbf{Distancia mínima desde la última clave}: Se define una distancia mínima que la nueva nube de puntos debe tener respecto a la última nube clave añadida al mapa.
+      Esto asegura que las nubes de puntos añadidas al mapa estén suficientemente separadas espacialmente, lo que ayuda a cubrir más área del entorno y reduce la redundancia.
+      Matemáticamente, si $\mathbf{p}_{\text{new}}$ es el centroide de la nueva nube de puntos y $\mathbf{p}_{\text{last}}$ es el centroide de la última nube clave, se requiere que:
+      \[
+      \|\mathbf{p}_{\text{new}} - \mathbf{p}_{\text{last}}\| > d_{\text{min}}
+      \]
+      donde $d_{\text{min}}$ es la distancia mínima requerida.
+    \item \textbf{Cambio angular mínimo}: Se establece un umbral de cambio angular que la nueva nube de puntos debe superar respecto a la última nube clave. Esto garantiza que las 
+      nubes de puntos se capturen desde diferentes orientaciones, lo que mejora la diversidad de perspectivas en el mapa.
+      Matemáticamente, si $\mathbf{R}_{\text{new}}$ y $\mathbf{R}_{\text{last}}$ son las matrices de rotación asociadas a las nubes, el cambio angular $\theta$ se calcula como:
+      \[
+      \theta = \arccos\left(\frac{\text{trace}(\mathbf{R}_{\text{new}} \mathbf{R}_{\text{last}}^\top) - 1}{2}\right)
+      \]
+      y se requiere que $\theta > \theta_{\text{min}}$, donde $\theta_{\text{min}}$ es el umbral mínimo de cambio angular.
+    \item \textbf{Ratio de superposición}: Se calcula el ratio de superposición entre la nueva nube de puntos y el mapa existente. Si este ratio es demasiado alto, indica que la nueva nube no aporta
+      información significativa al mapa, por lo que no se añade.
+      Matemáticamente, si $N_{\text{overlap}}$ es el número de puntos de la nueva nube que coinciden con el mapa y $N_{\text{total}}$ es el número total de puntos en la nueva nube, el ratio de superposición $r$ se define como:
+      \[
+      r = \frac{N_{\text{overlap}}}{N_{\text{total}}}
+      \]
+      y se requiere que $r < r_{\text{max}}$, donde $r_{\text{max}}$ es el umbral máximo permitido.
+  \end{itemize}
+\end{itemize}
+
+\paragraph{Funcionamiento del componente:}
+La clase ''KeyFrameSelector'' se encargara de gestionar este proceso de selección, almacenamiento y gestion de nubes clave. El funcionamiento de esta clase se puede describir 
+de la siguiente manera:
+\begin{itemize}
+  \item \textbf{Inicialización}: La inicialización de esta clase esta involucra al primer frame del proceso ya que este sera el frame de referencia. Ademas se compone 
+  por los siguientes pasos:
+  \begin{itemize}
+    \item \textbf{Inicialización de variables esenciales}: Con la inicialización de la clase, se inicializan una serie de variables esenciales para el correcto funcionamiento 
+    de la clase, como la última nube clave, su pose asociada y el mapa actual, que en este punto unicamente contiene la primera nube de puntos.
+    \item \textbf{Lectura del archivo de configuración}: Es necesario leer un archivo de configuración de tipo YAML que contiene los parametros de evaluación de 
+    las condiciones para aceptar una nueva nube como clave.
+  \end{itemize}
+  \item \textbf{Evaluación de nuevas nubes de puntos}: Este proceso recibe la nube de puntos actual sin ninguna transformacion, es decir en el tipo original del mensaje (''PointClou2), 
+  por lo que es necesario aplicar un preprocesamiento que en este caso incluye la transformar la nube al tipo ''open3d.geometry.PointCloud()'', realizar un submuestreo para igualar su 
+  resolción a la del mapa, trasladarla a la ultima pose en la que se añadio una nube clave, es decir correcta desde nuestra ultima estimación, eliminacion de outliers y calculo de normales. 
+  Una vez tenemos la nube de puntos preprocesada, se sigue el siguiente esquema:
+  \begin{itemize}
+    \item \textbf{Pendiente: Resumen actual:}: 
+    Al ser nubes de puntos que pueden estar mas alejadas de lo normal o complicar el emparejamiento por ICP, primero se realiza un alineamiento inicial usando un metodo de
+    alineamiento global basado en características (RANSAC) que nos da una estimación inicial de la transformación entre la nube actual y el mapa. Esta estimación inicial ayuda 
+    a mejorar la convergencia del ICP posterior. Posteriormente, se realiza un emparejamiento ICP (Iterative Closest Point) entre la nube actual y la ultima nube clave del mapa. 
+    Con esta ultima transformacion se calculan las metricas de evaluación. En caso de que las cumpla, se empareja de nuevo esta nube pero esta vez con el mapa completo, y se devuelve
+    la transformación resultante al nodo de localización. En caso de que no se cumpla igualmente se devulve la transformación resultante del emparejamiento con la ultima nube clave, ya que
+    ayuda a reanclar la pose al mapa y reducir el drift, pero sin actualizar el mapa.
+  \end{itemize}
+\end{itemize}
+
+\subsubsection{Construcción del mapa}
+El mapeo es un componente esencial en aplicaciones de robótica y visión por computadora, donde la representación eficiente y precisa del entorno 3D es crucial.
+En este contexto, las nubes de puntos seleccionadas como fotogramas clave se integran en una estructura de datos que permite almacenar y consultar información espacial 
+de manera eficiente. Para este propósito se ha diseñado un nodo llamado ''mapping\textunderscore node'' que utiliza la biblioteca \texttt{Bonxai} para gestionar el mapa 3D.
+\texttt{Bonxai} es una biblioteca de código abierto diseñada para la representación, manipulación y consulta eficiente de datos volumétricos en 3D mediante una estructura 
+jerárquica y dispersa de tipo \textit{Voxel Grid}. Su objetivo es proporcionar una alternativa moderna y de alto rendimiento a bibliotecas como \texttt{Octomap}, 
+manteniendo soporte para entornos de tamaño ilimitado (\textit{unbounded}), almacenamiento eficiente de memoria y tiempos de acceso rápidos.\newline
+La estructura de datos de Bonxai permite representar el espacio 3D como una colección de celdas cúbicas (voxels) de tamaño uniforme \(\Delta \in \mathbb{R}^{+}\), 
+organizadas jerárquicamente para garantizar eficiencia en memoria y operaciones. Esta característica lo hace especialmente útil en aplicaciones de mapeo y localización en robótica, 
+donde la representación del entorno debe ser consistente, escalable y fácilmente actualizable.
+
+\paragraph{Conceptos clave:}
+Los conceptos fundamentales que sustentan la construcción del mapa son conceptos intrinsecos del funcionamiento de Bonxai, siendo estos los siguientes:
+\begin{itemize}
+  \item \textbf{Voxel Grid Jerárquico}:  
+  El espacio continuo \(\mathbb{R}^{3}\) se discretiza en una cuadrícula regular de voxels con resolución \(\Delta\).  
+  Cada punto del espacio \(\mathbf{x} = (x,y,z) \in \mathbb{R}^{3}\) se asigna a un voxel mediante:
+  \[
+  \mathrm{coord}(\mathbf{x}) = \left( 
+  \left\lfloor \frac{x}{\Delta} \right\rfloor,\ 
+  \left\lfloor \frac{y}{\Delta} \right\rfloor,\ 
+  \left\lfloor \frac{z}{\Delta} \right\rfloor
+  \right) \in \mathbb{Z}^{3}
+  \]
+  donde cada coordenada entera representa un índice de voxel.  
+  Esta discretización define una partición del espacio:
+  \[
+  \mathbb{R}^{3} = \bigcup_{\mathbf{k} \in \mathbb{Z}^{3}} V_{\mathbf{k}}, \quad
+  V_{\mathbf{k}} = \{\mathbf{x} \in \mathbb{R}^{3} : \mathrm{coord}(\mathbf{x}) = \mathbf{k}\}
+  \]
+  donde \(V_{\mathbf{k}}\) es la celda cúbica asociada al índice \(\mathbf{k}\).
+  \item \textbf{Estructura jerárquica y esparcida}:  
+  Los voxels se almacenan de forma dispersa usando un árbol jerárquico, donde únicamente las celdas activas (ocupadas o modificadas) se mantienen en memoria.  
+  Esto permite que el costo de almacenamiento sea proporcional al número de celdas activas \(N\):
+  \[
+  \mathcal{O}(\text{memoria}) = \mathcal{O}(N)
+  \]
+  en lugar de depender del volumen total del espacio explorado.
+  \item \textbf{Acceso eficiente mediante Accessor}:  
+  Bonxai proporciona un objeto \texttt{Accessor} que permite acceso de lectura/escritura en tiempo cercano a \(\mathcal{O}(1)\) para operaciones de inserción, actualización y 
+  consulta:
+  \[
+  \text{setValue}: \mathbf{k} \mapsto v, \qquad
+  \text{value}: \mathbf{k} \mapsto v \ \text{o} \ \varnothing
+  \]
+  donde \(v \in T\) es el valor almacenado (por ejemplo, probabilidad de ocupación, intensidad de un sensor, etc.).
+  \item \textbf{Almacenamiento de datos personalizados}:  
+  Cada voxel puede almacenar un tipo de dato arbitrario \(T\), lo que permite utilizar Bonxai no sólo para mapas de ocupación binaria, sino también para mapas de distancia firmada 
+  (ESDF), probabilidades bayesianas de ocupación, valores de intensidad o información semántica.
+  \item \textbf{Escalabilidad y precisión}:  
+  La resolución \(\Delta\) se elige según la aplicación. Con coordenadas enteras de 32 bits, el rango máximo por eje es:
+  \[
+  R_{\max} = 2^{32} \cdot \Delta
+  \]
+  lo que, para \(\Delta = 0.01\ \mathrm{m}\), cubre hasta \(\approx 42\ \mathrm{km}\) por eje, suficiente para la mayoría de aplicaciones robóticas en entornos extensos.
+  \item \textbf{Operaciones principales}:  
+  Además de inserción y consulta, Bonxai soporta iteración eficiente sobre los voxels activos:
+  \[
+  \text{IterateAllCells} : \{\mathbf{k}_1, \dots, \mathbf{k}_N\} \mapsto 
+  \{(\mathbf{k}_i, v_i)\}_{i=1}^{N}
+  \]
+  lo que permite exportar, serializar o realizar operaciones globales sobre el mapa.
+\end{itemize}
+
+\paragraph{Funcionamiento del componente:}
+Bonxai se integra en el nodo ''mapping\textunderscore node'' a traves de un componente facilitado por la propia libreria llamado ''BonxaiServer'' que se encarga de gestionar
+la estructura de datos y proporcionar una interfaz sencilla para interactuar con el mapa. El funcionamiento de este nodo se puede describir de la siguiente manera:
+\begin{itemize}
+  \item \textbf{Inicialización}: La inicialización de este nodo esta conformada por los siguientes pasos:
+  \begin{itemize}
+    \item \textbf{Subscripción de ''new\textunderscore pcl''}: Este subscriptor se encargara de recibir los mensajes de tipo ''PointCloud2'' conteniendo la nube de puntos 
+    trasladada a la posicion calculada por el algoritmo.
+    \item \textbf{Inicialización del servidor Bonxai}: Se crea una instancia del servidor Bonxai como un componente al que podremos acceder para gestionar el mapa.
+  \end{itemize}
+  \item \textbf{Respuestas provocada por la recepción de mensajes a traves del tópico ''new\textunderscore pcl''}:
+  Los mensajes recibidos por el tópico de ''new\textunderscore pcl'' iniciaran el proceso de integración de la nueva nube de puntos en el mapa. 
+  La ejecución de esta función comprueba que el mensaje recibido no es nulo, y en caso de que no lo sea, se llama a la funcion proporcionada por el servidor Bonxai
+  para integrar la nube de puntos en el mapa y ademas publicar el mapa actualizado a traves de un tópico llamado ''bonxai\textunderscore point\textunderscore cloud\textunderscore centers''.
+\end{itemize}
+
 
 \begin{thebibliography}{9}
     \bibitem{latexcompanion} 
