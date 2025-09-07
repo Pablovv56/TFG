@@ -79,7 +79,7 @@ class KeyFrameSelector:
         )
         
         # Transform the new frame using the refined alignment
-        new_frame_alinged = new_frame.transform(reg_p2p.transformation)
+        new_frame_alinged = new_frame_corrected.transform(reg_p2p.transformation)
         
         # Current pose aligned with the refined alignment
         current_pose_alinged = np.dot(reg_p2p.transformation, current_pose_corrected)

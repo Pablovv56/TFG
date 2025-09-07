@@ -27,4 +27,46 @@
 \contentsline {subsubsection}{\numberline {4.1.5}Construcción del mapa}{37}{}%
 \contentsline {paragraph}{Conceptos clave:}{38}{}%
 \contentsline {paragraph}{Funcionamiento del componente:}{39}{}%
-\contentsline {section}{Appendix \numberline {A}Installation \\ Manual}{43}{}%
+\contentsline {section}{\numberline {5}Pruebas y validación de resultados}{41}{}%
+\contentsline {subsection}{\numberline {5.1}Métricas de interés}{41}{}%
+\contentsline {subsubsection}{\numberline {5.1.1}Métricas de Evaluación de Localización}{41}{}%
+\contentsline {paragraph}{Absolute Trajectory Error (ATE)}{41}{}%
+\contentsline {subparagraph}{Definición matemática}{42}{}%
+\contentsline {subparagraph}{Motivación:}{42}{}%
+\contentsline {subparagraph}{Área de interés:}{42}{}%
+\contentsline {subparagraph}{Interpretación:}{42}{}%
+\contentsline {subparagraph}{Resultados:}{42}{}%
+\contentsline {paragraph}{Relative Pose Error (RPE)}{42}{}%
+\contentsline {subparagraph}{Definición matemática:}{43}{}%
+\contentsline {subparagraph}{Motivación:}{43}{}%
+\contentsline {subparagraph}{Área de interés:}{43}{}%
+\contentsline {subparagraph}{Interpretación:}{43}{}%
+\contentsline {subparagraph}{Resultados:}{43}{}%
+\contentsline {paragraph}{KITTI-style Drift:}{43}{}%
+\contentsline {subparagraph}{Definición matemática:}{44}{}%
+\contentsline {subparagraph}{Motivación:}{44}{}%
+\contentsline {subparagraph}{Área de interés:}{44}{}%
+\contentsline {subparagraph}{Interpretación:}{44}{}%
+\contentsline {subparagraph}{Resultados:}{44}{}%
+\contentsline {subsubsection}{\numberline {5.1.2}Métricas de Evaluación de Mapeo}{44}{}%
+\contentsline {paragraph}{Chamfer Distance (Bidireccional)}{44}{}%
+\contentsline {subparagraph}{Definición matemática:}{45}{}%
+\contentsline {subparagraph}{Descripción:}{45}{}%
+\contentsline {paragraph}{Relevancia en SLAM sin cierre de bucle}{45}{}%
+\contentsline {subparagraph}{Área de interés:}{45}{}%
+\contentsline {subparagraph}{Interpretación:}{45}{}%
+\contentsline {subparagraph}{Resultados:}{45}{}%
+\contentsline {paragraph}{F-score \(\tau \)}{45}{}%
+\contentsline {subparagraph}{Definición matemática:}{46}{}%
+\contentsline {subparagraph}{Descripción:}{46}{}%
+\contentsline {subparagraph}{Área de interés:}{46}{}%
+\contentsline {subparagraph}{Interpretación:}{46}{}%
+\contentsline {subparagraph}{Resultados:}{46}{}%
+\contentsline {paragraph}{Distribución de Errores (Percentiles)}{46}{}%
+\contentsline {subparagraph}{Definición matemática:}{46}{}%
+\contentsline {subparagraph}{Descripción:}{47}{}%
+\contentsline {subparagraph}{Relevancia en SLAM sin cierre de bucle:}{47}{}%
+\contentsline {subparagraph}{Área de interés:}{47}{}%
+\contentsline {subparagraph}{Interpretación:}{47}{}%
+\contentsline {subparagraph}{Resultados:}{47}{}%
+\contentsline {section}{Appendix \numberline {A}Installation \\ Manual}{51}{}%

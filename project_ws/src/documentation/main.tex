@@ -842,6 +842,260 @@ la estructura de datos y proporcionar una interfaz sencilla para interactuar con
   para integrar la nube de puntos en el mapa y ademas publicar el mapa actualizado a traves de un tópico llamado ''bonxai\textunderscore point\textunderscore cloud\textunderscore centers''.
 \end{itemize}
 
+\section{Pruebas y validación de resultados}
+La validación de los resultados obtenidos por el sistema de localización y mapeo es crucial para asegurar su precisión y fiabilidad en aplicaciones del mundo real. Para ello, se han diseñado y 
+ejecutado una serie de pruebas que evalúan el rendimiento del sistema tanto a nivel de localización como de construcción del mapa. A continuación, se describen las metricas de interes en cada caso, 
+metodologías empleadas, los escenarios de prueba y los resultados obtenidos.\newline
+
+\subsection{Métricas de interés}
+Antes de comenzar a describir las pruebas realizadas, es importante definir las métricas clave que se utilizarán para evaluar el rendimiento del sistema. Ademas de esto, como debemos evaluar las dos 
+salidas principales del sistema (pose y mapa), las métricas se dividen en dos categorías: métricas de localización y métricas de mapeo.
+
+\subsubsection{Métricas de Evaluación de Localización}
+
+En el contexto de \textit{SLAM} sin cierre de bucle, es fundamental cuantificar 
+la precisión de la estimación de la trayectoria del robot a lo largo del tiempo. 
+En esta sección se describen tres métricas ampliamente utilizadas: 
+\textbf{Absolute Trajectory Error (ATE)}, 
+\textbf{Relative Pose Error (RPE)} y 
+\textbf{KITTI-style Drift}, incluyendo su formulación matemática, motivación y forma de interpretación.
+
+\paragraph{Absolute Trajectory Error (ATE)}
+
+\subparagraph{Definición matemática}:
+Sea $\mathbf{T}^{gt}_i \in SE(3)$ la pose de referencia (ground-truth) en el instante $i$ 
+y $\mathbf{T}^{est}_i \in SE(3)$ la pose estimada por el sistema SLAM.
+El ATE mide el error de traslación absoluto después de alinear la trayectoria estimada 
+con la de referencia mediante una transformación de similitud rígida $S \in Sim(3)$
+(obtenida mediante un ajuste de mínimos cuadrados de tipo Horn o Umeyama):
+\[
+\text{ATE}_{rmse} = 
+\sqrt{\frac{1}{N}\sum_{i=1}^{N} 
+\left\| 
+\mathrm{trans}\!\left(
+(\mathbf{T}^{gt}_i)^{-1} \cdot (S \mathbf{T}^{est}_i)
+\right)
+\right\|^2 }
+\]
+donde $\mathrm{trans}(\cdot)$ extrae el vector de traslación de la transformación homogénea.
+
+\subparagraph{Motivación:}
+El ATE evalúa el error acumulado de la trayectoria en coordenadas globales.
+Es especialmente relevante en escenarios sin cierre de bucle porque 
+revela de manera directa la \textbf{deriva acumulada} en posición a lo largo de la secuencia.
+
+\subparagraph{Área de interés:}
+\begin{itemize}
+  \item Precisión global de localización
+  \item Consistencia con el sistema de referencia absoluto
+  \item Comparación directa de trayectorias completas
+\end{itemize}
+
+\subparagraph{Interpretación:}
+\begin{itemize}
+  \item Valores bajos de ATE indican que la trayectoria estimada está bien alineada con la de referencia.
+  \item Un incremento progresivo de ATE a lo largo del tiempo es indicativo de deriva acumulativa.
+  \item El ATE es sensible a errores de escala (en monocular SLAM) y a falta de cierre de bucle.
+\end{itemize}
+
+\subparagraph{Resultados:}
+
+\paragraph{Relative Pose Error (RPE)}
+
+\subparagraph{Definición matemática:}
+El RPE mide la consistencia local de la estimación de movimiento entre poses 
+separadas por un intervalo temporal $\Delta t$.
+Definimos el error relativo entre la transformación de referencia y la estimada como:
+\[
+\mathbf{E}_i =
+\left[
+(\mathbf{T}^{gt}_i)^{-1}\mathbf{T}^{gt}_{i+\Delta}
+\right]^{-1}
+\cdot
+\left[
+(\mathbf{T}^{est}_i)^{-1}\mathbf{T}^{est}_{i+\Delta}
+\right]
+\]
+La métrica RPE de traslación (en RMSE) se calcula como:
+\[
+\text{RPE}_{trans} =
+\sqrt{\frac{1}{M}\sum_{i=1}^{M}
+\|\mathrm{trans}(\mathbf{E}_i)\|^2 }
+\]
+donde $M$ es el número de pares válidos de poses.
+De forma análoga puede calcularse un error angular usando $\mathrm{rot}(\mathbf{E}_i)$.
+
+\subparagraph{Motivación:}
+El RPE mide la \textbf{precisión local del movimiento relativo}, 
+independientemente de la deriva global.
+En ausencia de cierre de bucle, el RPE es muy útil porque 
+puede permanecer bajo incluso si la trayectoria global se ha desviado,
+siempre que las estimaciones locales sean coherentes.
+
+\subparagraph{Área de interés:}
+\begin{itemize}
+  \item Consistencia local del odometría
+  \item Estabilidad de la integración incremental
+  \item Detección de saltos o discontinuidades en la estimación de pose
+\end{itemize}
+
+\subparagraph{Interpretación:}
+\begin{itemize}
+  \item Valores bajos de RPE indican que la odometría es localmente coherente.
+  \item Un RPE alto suele señalar errores en el cálculo de la transformación incremental 
+  (por ejemplo, fallos en la estimación de ICP, ruido excesivo de sensores o reseteos de pose).
+\end{itemize}
+
+\subparagraph{Resultados:}
+
+\paragraph{KITTI-style Drift:}
+
+\subparagraph{Definición matemática:}
+En el benchmark KITTI, la deriva se evalúa sobre tramos de longitud $L$ (p.ej. $L \in \{100,200, \dots,800\}$ m).
+Para cada segmento se calcula el error relativo de traslación y de rotación:
+\[
+\text{drift}(L) = 
+\frac{1}{|S_L|} \sum_{s \in S_L}
+\frac{\| \mathrm{trans}(\mathbf{E}_s)\|}{L}
+\]
+donde $S_L$ es el conjunto de todos los subtramos de longitud $L$ y 
+$\mathbf{E}_s$ es el error relativo de pose en el subtramo.
+
+\subparagraph{Motivación:}
+Esta métrica ofrece una visión \textbf{normalizada por distancia recorrida} 
+de la deriva, lo que permite comparar secuencias de distinta longitud.
+
+\subparagraph{Área de interés:}
+\begin{itemize}
+  \item Tasa de acumulación de error por metro recorrido
+  \item Comparación con otros sistemas de odometría visual/SLAM en datasets estándar
+  \item Identificación de segmentos de trayectoria con peor rendimiento
+\end{itemize}
+
+\subparagraph{Interpretación:}
+\begin{itemize}
+  \item Un drift de traslación bajo (p.ej. $< 1\%$) indica que el sistema es robusto 
+  y que la trayectoria estimada sigue de cerca la referencia en cada tramo.
+  \item Un incremento del drift con $L$ es normal, pero un crecimiento excesivo 
+  puede indicar que la integración de movimiento está acumulando error rápidamente.
+\end{itemize}
+
+\subparagraph{Resultados:}
+
+\subsubsection{Métricas de Evaluación de Mapeo}
+
+En escenarios de \textit{SLAM} sin cierre de bucle, además de la trayectoria, 
+es fundamental evaluar la calidad del mapa reconstruido. 
+Las métricas de mapeo cuantifican tanto la exactitud de los puntos estimados 
+como la cobertura de la escena.
+
+\paragraph{Chamfer Distance (Bidireccional)}
+
+\subparagraph{Definición matemática:}
+Sea $P_{gt}$ el conjunto de puntos de referencia (ground-truth) 
+y $P_{slam}$ el conjunto de puntos reconstruidos por SLAM. 
+La Chamfer distance bidireccional se define como:
+\[
+d_{CD}(P_{gt}, P_{slam}) = \frac{1}{|P_{gt}|} \sum_{p \in P_{gt}} 
+\min_{q \in P_{slam}} \|p - q\|^2
++
+\frac{1}{|P_{slam}|} \sum_{q \in P_{slam}} 
+\min_{p \in P_{gt}} \|q - p\|^2
+\]
+\subparagraph{Descripción:}
+Esta métrica calcula, para cada punto de un conjunto, la distancia al punto más cercano del otro conjunto y 
+hace la media. La primera suma evalúa la cobertura de la reconstrucción (si faltan regiones), mientras que la 
+segunda suma evalúa la exactitud (si se agregaron puntos espurios).
+
+\paragraph{Relevancia en SLAM sin cierre de bucle}
+En ausencia de cierre de bucle, los mapas pueden sufrir deformaciones locales y acumulación de errores. 
+La Chamfer distance permite cuantificar estas desviaciones sin requerir correspondencias explícitas de topología.
+
+\subparagraph{Área de interés:}
+\begin{itemize}
+  \item Precisión global del mapa
+  \item Cobertura y completitud de la escena
+  \item Detección de artefactos o puntos espurios
+\end{itemize}
+
+\subparagraph{Interpretación:}
+\begin{itemize}
+  \item Valores bajos: la reconstrucción es precisa y completa.  
+  \item Valores altos en $P_{gt} \to P_{slam}$: la reconstrucción es incompleta.
+  \item Valores altos en $P_{slam} \to P_{gt}$: hay puntos espurios o ruido.
+\end{itemize}
+
+\subparagraph{Resultados:}
+
+\paragraph{F-score \(\tau\)}
+
+\subparagraph{Definición matemática:}
+Para un umbral de distancia $\tau$, se define:
+\[
+\text{Precision} = \frac{|\{ q \in P_{slam} : \exists p \in P_{gt}, \|q-p\| < \tau \}|}{|P_{slam}|}
+\]
+\[
+\text{Recall} = \frac{|\{ p \in P_{gt} : \exists q \in P_{slam}, \|p-q\| < \tau \}|}{|P_{gt}|}
+\]
+\[
+F\text{-score} = 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}
+\]
+
+\subparagraph{Descripción:}
+El F-score combina precisión y recall para dar un valor global de la calidad del mapa bajo un umbral de tolerancia. 
+Se centra en si los puntos estimados están suficientemente cerca de la referencia y si la reconstrucción cubre la escena.
+Esta métrica es importante en el SLAM sin cierra de bucle ya que permite evaluar la calidad de la reconstrucción sin depender de la alineación 
+perfecta global, lo cual es útil cuando la trayectoria ha acumulado deriva.
+
+\subparagraph{Área de interés:}
+\begin{itemize}
+  \item Completitud vs. exactitud bajo un umbral de tolerancia
+  \item Comparación rápida entre distintas reconstrucciones
+  \item Evaluación de regiones críticas de la escena
+\end{itemize}
+
+\subparagraph{Interpretación:}
+\begin{itemize}
+  \item F-score cercano a 1: buena precisión y cobertura.  
+  \item Baja precisión: muchos puntos espurios.
+  \item Bajo recall: la reconstrucción no cubre todo el mapa.
+\end{itemize}
+
+\subparagraph{Resultados:}
+
+\paragraph{Distribución de Errores (Percentiles)}
+
+\subparagraph{Definición matemática:}
+Sea $d_i = \min_{q \in P_{slam}} \|p_i - q\|$ la distancia del punto $p_i \in P_{gt}$ a su vecino más cercano en $P_{slam}$.  
+Se calculan percentiles $p_{50}, p_{90}, p_{95}, p_{99}$ del conjunto $\{d_i\}$:
+\[
+p_x = \text{percentil}_x(\{ d_i \})
+\]
+
+\subparagraph{Descripción:}
+La distribución de errores permite conocer no solo el error típico (mediana), sino también cómo se comportan los casos más extremos.
+
+\subparagraph{Relevancia en SLAM sin cierre de bucle:}
+Es especialmente útil para detectar zonas donde la reconstrucción falla debido a deriva local, ya que puede haber outliers 
+importantes incluso si la mayoría de la nube es correcta.
+
+\subparagraph{Área de interés:}
+\begin{itemize}
+  \item Errores típicos y extremos
+  \item Detección de outliers
+  \item Evaluación de robustez local de la reconstrucción
+\end{itemize}
+
+\subparagraph{Interpretación:}
+\begin{itemize}
+  \item $p_{50}$: error típico de la mayoría de puntos.  
+  \item $p_{90}$, $p_{95}$: errores significativos de regiones concretas.  
+  \item $p_{99}$: outliers extremos.  
+  \item Histogramas de error ayudan a identificar patrones de error espacial.
+\end{itemize}
+
+\subparagraph{Resultados:}
+
 
 \begin{thebibliography}{9}
     \bibitem{latexcompanion} 
