@@ -1,9 +1,0 @@
-[35m[1mConsolidate compiler generated dependencies of target mapping_node[0m
-[ 50%] [32mBuilding CXX object CMakeFiles/mapping_node.dir/src/mapping_node.cpp.o[0m
-[01m[K/home/pablo-pc/GITHUB/TFG/project_ws/src/mapping_controller/src/mapping_node.cpp:[m[K In member function ‘[01m[Kvoid MappingNode::transformCallback(geometry_msgs::msg::TransformStamped_<std::allocator<void> >::SharedPtr)[m[K’:
-[01m[K/home/pablo-pc/GITHUB/TFG/project_ws/src/mapping_controller/src/mapping_node.cpp:47:52:[m[K [01;31m[Kerror: [m[K‘[01m[Klatest_transform_[m[K’ was not declared in this scope
-   47 |     if (bonxai_server_ && msg->header.stamp.sec == [01;31m[Klatest_transform_[m[K->header.stamp.sec) {
-      |                                                    [01;31m[K^~~~~~~~~~~~~~~~~[m[K
-gmake[2]: *** [CMakeFiles/mapping_node.dir/build.make:76: CMakeFiles/mapping_node.dir/src/mapping_node.cpp.o] Error 1
-gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/mapping_node.dir/all] Error 2
-gmake: *** [Makefile:146: all] Error 2

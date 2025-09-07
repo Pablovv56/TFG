@@ -1,2 +1,0 @@
-/home/pablo-pc/GITHUB/TFG/project_ws/install/location_controller/lib/python3.10/site-packages/location_controller/location_module.py:83: SyntaxWarning: list indices must be integers or slices, not tuple; perhaps you missed a comma?
-  self.actual_pose = [[ 0.99630508 , 0.00065234 , 0.08587957 , 0.10285288]

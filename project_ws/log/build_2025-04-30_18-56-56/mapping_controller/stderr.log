@@ -1,5 +1,0 @@
-In file included from [01m[K/home/pablo-pc/GITHUB/TFG/project_ws/src/mapping_controller/src/mapping_node.cpp:5[m[K:
-[01m[K/opt/ros/humble/include/tf2_sensor_msgs/tf2_sensor_msgs.h:32:2:[m[K [01;35m[Kwarning: [m[K#warning is a GCC extension
-   32 | #[01;35m[Kwarning[m[K This header is obsolete, please include tf2_sensor_msgs/tf2_sensor_msgs.hpp instead
-      |  [01;35m[K^~~~~~~[m[K
-[01m[K/opt/ros/humble/include/tf2_sensor_msgs/tf2_sensor_msgs.h:32:2:[m[K [01;35m[Kwarning: [m[K#warning This header is obsolete, please include tf2_sensor_msgs/tf2_sensor_msgs.hpp instead [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wcpp-Wcpp]8;;[m[K]
