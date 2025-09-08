@@ -228,124 +228,49 @@ def preprocess_point_cloud(msg, downsample = True, clean_pcd = True, transformat
     
     return pcd
 
-              
-def ransac_global_registration(source_down, target_down, feature_radius = CONFIG["FEATURE_RADIUS"]):
-    
+
+def crop_point_cloud(pcd, pose=(0,0,0), voxel_size = CONFIG["VOXEL_SIZE"], normal_factor = CONFIG["NORMAL_FACTOR"],
+                     x_min=CONFIG["KF_FUSION_CROP_SIZE_X_MIN"], x_max=CONFIG["KF_FUSION_CROP_SIZE_X_MAX"],
+                     y_min=CONFIG["KF_FUSION_CROP_SIZE_Y_MIN"], y_max=CONFIG["KF_FUSION_CROP_SIZE_Y_MAX"],
+                     z_min=CONFIG["KF_FUSION_CROP_SIZE_Z_MIN"], z_max=CONFIG["KF_FUSION_CROP_SIZE_Z_MAX"]):
     """
-    Perform global registration of two point clouds using the RANSAC algorithm.
-    This method uses RANSAC-based feature matching to estimate the transformation
-    matrix that aligns the source point cloud to the target point cloud.
-    Args:
-        source_down (open3d.geometry.PointCloud): The downsampled source point cloud.
-        target_down (open3d.geometry.PointCloud): The downsampled target point cloud.
-        source_fpfh (open3d.pipelines.registration.Feature): The FPFH features of the source point cloud.
-        target_fpfh (open3d.pipelines.registration.Feature): The FPFH features of the target point cloud.
-        voxel_size (float, optional): The voxel size used for downsampling and determining
-            the distance threshold. Defaults to VOXEL_SIZE.
-    Returns:
-        open3d.pipelines.registration.RegistrationResult: The result of the RANSAC registration,
-        containing the estimated transformation matrix and inlier information.
-    Notes:
-        - The `distance_threshold` is set to 1 by default, which can be adjusted based on
-            the voxel size and the desired level of correspondence.
-        - The RANSAC algorithm uses a combination of correspondence checkers:
-            - Edge length checker with a threshold of 0.9.
-            - Distance checker with the specified `distance_threshold`.
-        - The RANSAC convergence criteria are set to a maximum of 100,000 iterations
-            and a confidence level of 0.999.
+    Recorta la nube de puntos en un cubo/caja definido alrededor de un centro.
+    
+    pcd: o3d.geometry.PointCloud
+    center: tuple (cx, cy, cz) en las mismas coordenadas que la nube
+    x_min, x_max, ...: límites de recorte RELATIVOS al centro. Usa np.inf para no recortar en ese eje.
+    
+    Devuelve: nueva PointCloud recortada
     """
+    center = pose[:3, 3]  # extraer traslación (x, y, z)
+    pts = np.asarray(pcd.points)
     
-    source_fpfh = o3d.pipelines.registration.compute_fpfh_feature(
-        source_down, o3d.geometry.KDTreeSearchParamHybrid(
-            radius = 3 * feature_radius, max_nn=100))
+    if pts.shape[0] == 0:
+        return o3d.geometry.PointCloud()  # nube vacía
     
-    target_fpfh = o3d.pipelines.registration.compute_fpfh_feature(
-        target_down, o3d.geometry.KDTreeSearchParamHybrid(
-            radius = 3 * feature_radius, max_nn=100))
-
-    # Calculates the transformation matrix using ransac
-    result = o3d.pipelines.registration.registration_ransac_based_on_feature_matching( 
-        source_down, target_down, source_fpfh, target_fpfh, True,
-        feature_radius,
-        o3d.pipelines.registration.TransformationEstimationPointToPoint(False),
-        3, [
-            o3d.pipelines.registration.CorrespondenceCheckerBasedOnEdgeLength(
-                0.9),
-            o3d.pipelines.registration.CorrespondenceCheckerBasedOnDistance(
-                feature_radius)
-        ], o3d.pipelines.registration.RANSACConvergenceCriteria(40000, 0.999))
+    # Trasladar puntos a coordenadas relativas al centro
+    rel_pts = pts - center[np.newaxis, :]
     
-    return result
-
-
-def execute_fast_global_registration(source_down, target_down, voxel_size = CONFIG["VOXEL_SIZE"], normal_factor = CONFIG["NORMAL_FACTOR"]):
-    """
-    Executes the Fast Global Registration (FGR) algorithm to align two point clouds.
-    This function computes the transformation matrix that aligns the source point cloud
-    to the target point cloud using feature-based matching and the Fast Global Registration method.
-    Args:
-        source_down (open3d.geometry.PointCloud): The downsampled source point cloud.
-        target_down (open3d.geometry.PointCloud): The downsampled target point cloud.
-        source_fpfh (open3d.pipelines.registration.Feature): The FPFH features of the source point cloud.
-        target_fpfh (open3d.pipelines.registration.Feature): The FPFH features of the target point cloud.
-        voxel_size (float, optional): The voxel size used for downsampling. Defaults to VOXEL_SIZE.
-    Returns:
-        open3d.pipelines.registration.RegistrationResult: The result of the registration, 
-        including the transformation matrix and fitness score.
-    """
-
-    # Cloud downsampling ratio to determine correspondance between clouds
-    distance_threshold =  voxel_size * normal_factor
+    mask = ((rel_pts[:,0] >= x_min) & (rel_pts[:,0] <= x_max) &
+            (rel_pts[:,1] >= y_min) & (rel_pts[:,1] <= y_max) &
+            (rel_pts[:,2] >= z_min) & (rel_pts[:,2] <= z_max))
     
-    source_fpfh = o3d.pipelines.registration.compute_fpfh_feature(
-        source_down, o3d.geometry.KDTreeSearchParamHybrid(
-            radius = 3 * distance_threshold, max_nn=100))
+    cropped_pcd = o3d.geometry.PointCloud()
+    cropped_pcd.points = o3d.utility.Vector3dVector(pts[mask])
     
-    target_fpfh = o3d.pipelines.registration.compute_fpfh_feature(
-        target_down, o3d.geometry.KDTreeSearchParamHybrid(
-            radius = 3 * distance_threshold, max_nn=100))
+    # Mantener colores si existen
+    if pcd.has_colors():
+        colors = np.asarray(pcd.colors)
+        cropped_pcd.colors = o3d.utility.Vector3dVector(colors[mask])
     
-    # Calculates the transformation matrix using fast global registration
-    result = o3d.pipelines.registration.registration_fgr_based_on_feature_matching(
-        source_down, target_down, source_fpfh, target_fpfh,
-        o3d.pipelines.registration.FastGlobalRegistrationOption(
-            maximum_correspondence_distance = distance_threshold))
+        # Radius for normal estimation
+    radius_normal = voxel_size * normal_factor
     
-    return result
+        # Estimate normal with radius as search criteria
+    cropped_pcd.estimate_normals(
+        o3d.geometry.KDTreeSearchParamHybrid(radius=radius_normal, max_nn=30))
     
-    
-def multi_res_icp(current_pose, source_msg, target_msg, resolutions = CONFIG["MULTI_VOXEL_RES_SIZES"], normal_factor = CONFIG["NORMAL_FACTOR"]):
-    
-    for res in resolutions:
-        
-        # Downsample the point clouds
-        new_frame_down = cp.deepcopy(source_msg)
-        new_frame_down = new_frame_down.voxel_down_sample(voxel_size=res)
-
-        key_frame_down = cp.deepcopy(target_msg)
-        key_frame_down = key_frame_down.voxel_down_sample(voxel_size=res)
-        
-        # Estimate normals
-        o3d.geometry.PointCloud.estimate_normals(new_frame_down, search_param=o3d.geometry.KDTreeSearchParamHybrid(radius=res * normal_factor, max_nn=30))
-        o3d.geometry.PointCloud.estimate_normals(key_frame_down, search_param=o3d.geometry.KDTreeSearchParamHybrid(radius=res * normal_factor, max_nn=30))
-        
-        # Perform ICP registration
-        reg_p2p = o3d.pipelines.registration.registration_icp(
-                    source = new_frame_down, 
-                    target = key_frame_down,
-                    max_correspondence_distance = 0.5 * res,
-                    estimation_method = o3d.pipelines.registration.TransformationEstimationPointToPlane(),
-                    criteria = o3d.pipelines.registration.ICPConvergenceCriteria(max_iteration=100, 
-                                                                                relative_fitness=1e-6,
-                                                                                relative_rmse=1e-6
-                                                                                )                      
-                )
-        
-        current_pose = np.dot(current_pose, reg_p2p.transformation)
-    
-        source_msg = source_msg.transform(reg_p2p.transformation)
-        
-    return current_pose, source_msg
+    return cropped_pcd
 
 
 def pose_distance(pose1, pose2):
@@ -378,3 +303,39 @@ def pose_distance(pose1, pose2):
         rot_angle_deg = math.degrees(rot_angle_rad)
         
         return trans_dist, rot_angle_deg
+
+
+def compute_cloud_novelty_ratio(new_frame, key_frame, distance_threshold=0.2, max_samples=2000):
+    """
+    Calcula el grado de solapamiento entre dos nubes de puntos.
+
+    new_frame: o3d.geometry.PointCloud
+    key_frame: o3d.geometry.PointCloud
+    distance_threshold: distancia máxima para considerar que un punto tiene correspondencia
+    max_samples: número máximo de puntos a muestrear (para acelerar el cálculo)
+    
+    Return:
+        overlap_ratio: float en [0,1]
+    """
+    pts_new = np.asarray(new_frame.points)
+    pts_key = np.asarray(key_frame.points)
+
+    n_src = pts_new.shape[0]
+    if n_src == 0 or pts_key.shape[0] == 0:
+        return 0.0
+
+    # Muestreo para acelerar
+    if n_src > max_samples:
+        idx = np.random.choice(n_src, max_samples, replace=False)
+        pts_new = pts_new[idx]
+
+    sampled_src = o3d.geometry.PointCloud()
+    sampled_src.points = o3d.utility.Vector3dVector(pts_new)
+
+    # Distancia al punto más cercano en key_frame
+    dists = np.asarray(sampled_src.compute_point_cloud_distance(key_frame))
+
+    # Porcentaje de puntos con distancia menor a threshold
+    overlap_ratio = 1 - float((dists <= distance_threshold).sum()) / float(dists.size)
+    return overlap_ratio
+ 

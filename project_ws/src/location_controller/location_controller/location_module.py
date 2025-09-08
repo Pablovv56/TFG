@@ -62,7 +62,6 @@ class LocationNode (Node):
         # Create a publisher that will provide the actual pose
         self.transformed_pcl_publisher_ = self.create_publisher(PointCloud2, 'new_pcl', 10)
 
-
         # Variable for indexing messages
         self.index = 0
         
@@ -79,10 +78,11 @@ class LocationNode (Node):
         self.map = None
         
         # Last pose data recieved calculated
-        self.actual_pose = [[ 0.99630944 ,-0.08583165 ,-0.00065074 , 0.10285288],
-                            [ 0.08583165 , 0.9961947  , 0.01513443 , 0.01087134],
-                            [-0.00065074 ,-0.01513443 , 0.99988526 , 0.01813573],
-                            [ 0.         , 0.         , 0.         , 1.        ]]
+        self.actual_pose = np.identity(4)
+        """[[ 0.99630944 ,-0.08583165 ,-0.00065074 , 0.10285288],
+            [ 0.08583165 , 0.9961947  , 0.01513443 , 0.01087134],
+            [-0.00065074 ,-0.01513443 , 0.99988526 , 0.01813573],
+            [ 0.         , 0.         , 0.         , 1.        ]]"""
             
         # Configuration parameters 
         with open(YAML_PATH, "r") as file:
@@ -230,7 +230,7 @@ class LocationNode (Node):
         # Publish the stamped pose
         self.location_publisher_.publish(stamped_pose)
  
-    
+ 
     def icp_logic(self, actual_transformed_down_pcd, original_msg):
         
         """
@@ -305,7 +305,7 @@ class LocationNode (Node):
                     logging_stats += f"\033[32m\tAngle: {str(angle)}\033[0m | "
                               
                 self.angle_mean_error = ((self.angle_mean_error * (self.index - 1)) + angle) / self.index
-                logging_stats += f"Angle errors: {self.angle_error_counter} | Angle mean: {self.distance_mean_error}"
+                logging_stats += f"Angle errors: {self.angle_error_counter} | Angle mean: {self.angle_mean_error}"
             
                 logger.debug(logging_stats)
                 
