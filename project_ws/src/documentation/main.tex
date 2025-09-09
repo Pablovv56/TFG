@@ -6,6 +6,11 @@
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{graphicx}
+\usepackage[utf8]{inputenc} % UTF-8
+\usepackage[T1]{fontenc}
+\usepackage{url}            % define \url used en el .bib
+\usepackage{hyperref}       % opcional (mejor para links)
+\usepackage{cite}
 \graphicspath{ {./images/} }
 
 \begin{document}
@@ -16,22 +21,43 @@
 
 %% Abstract
 \begin{abstract}
-  La robótica es una disciplina que ha crecido en los últimos años, y su aplicación en la industria ha demostrado ser muy 
-  beneficiosa en gran cantidad de materias. Desde la automatización de tareas repetitivas hasta la mejora de la precisión en 
-  procesos de manufactura, los robots han revolucionado la forma en que realizamos todo tipo de tareas, algunas inconcebibles 
-  tan solo unos años atrás. \newline
-  En el campo de la robótica existen diversas ramas, cada una con su propio enfoque y aplicación. Una de estas ramas es la robótica 
-  móvil, que se centra en el diseño y desarrollo de robots capaces de moverse de manera autónoma en entornos dinámicos. 
-  La robótica móvil ha encontrado aplicaciones en una amplia variedad de campos, desde la exploración espacial hasta la logística 
-  y el transporte. \newline
+  Mobile robotics has profoundly transformed service robotics, expanding its possibilities and applications.
+  By providing robots with autonomous mobility, it has become possible for them to move through complex environments without constant supervision.\newline
+  Technologies such as computer vision, simultaneous localization and mapping (SLAM), and advanced sensors enable these robots to avoid 
+  obstacles and plan efficient routes. This has facilitated tasks such as cleaning, object transportation, and the delivery of food or 
+  medicine in hospitals and hotels. Their implementation has reduced operating times and optimized resource utilization across multiple 
+  industries.\newline
+  In this context, the present work aims to investigate and analyze the feasibility of a mobile robotics project focused on the development 
+  of a set of algorithms that can be used by robotic systems to autonomously localize themselves in an unknown environment while generating 
+  a voxelized representation of it, commonly known as a map, using point clouds captured from the environment as the sole data source. 
+  To accomplish this task, this project relies on the ROS2 development framework \cite{doi:10.1126/scirobotics.abm6074} as well as libraries specialized 
+  in computer vision (Open3D \cite{Zhou2018}) and voxel map management (Bonxai \cite{faconti2024bonxai}). In addition, a set of metrics and 
+  procedures will be proposed to validate the obtained results.\newline
+
+  \bfseries{\large{Keywords:}}
+  Mobile robotics, Voxel maps, Point clouds, Exploration of unknown environments.
+\end{abstract}
+
+\newpage
+
+\renewcommand{\abstractname}{Resumen}
+
+\begin{abstract}
+  La robótica móvil ha transformado profundamente la robótica de servicio, ampliando sus posibilidades y aplicaciones.
+  Al dotar a los robots de movilidad autónoma, se ha logrado que puedan desplazarse en entornos complejos sin supervisión constante.\newline
+  Tecnologías como la visión por computadora, el mapeo simultáneo (SLAM) y los sensores avanzados permiten que estos robots eviten 
+  obstáculos y planifiquen rutas eficientes. Esto ha facilitado tareas de limpieza, transporte de objetos y entrega de alimentos o 
+  medicinas en hospitales y hoteles. Su implementación ha reducido tiempos de operación y optimizado el uso de recursos en múltiples 
+  industrias. \newline
   En este contexto, el presente documento tiene como objetivo investigar y analizar la viabilidad de un proyecto de robótica móvil, 
-  centrado en la creación de un robot capaz de localizarse de manera autónoma en un entorno desconocido a la vez que genera un mapa 
-  voxelizado de este, recibiendo como única fuente de datos nubes de puntos capturadas del entorno. Exploraremos los desafíos 
-  técnicos y las oportunidades que presenta este proyecto, así como su potencial impacto en la industria 
-  y la sociedad en general. \newline
+  centrado en el desarrollo de una serie de algoritmos que puedan ser usados por sistemas robóticos para localizarse de manera 
+  autónoma en un entorno desconocido a la vez que genera una representación voxelizada de este, comúnmente conocida como mapa, 
+  recibiendo como única fuente de datos nubes de puntos capturadas del entorno. Para llevar a cabo esta tarea este proyecto se apoya 
+  en la plataforma de desarrollo ROS2 \cite{doi:10.1126/scirobotics.abm6074} y librerias especializadas en la vision por computadora (Open3D \cite{Zhou2018}) y la gestion de 
+  mapas voxelizados (Bonxai \cite{faconti2024bonxai}). Ademas se propondran una serie de métricas y procedimientos para validar los resultados obtenidos.\newline
 
   \bfseries{\large{Palabras clave:}}
-  Robótica móvil, Navegación autónoma, Mapas voxelizados, Nubes de puntos, Exploración de entornos desconocidos.
+  Robótica móvil, Mapas voxelizados, Nubes de puntos, Exploración de entornos desconocidos.
 \end{abstract}
 
 \tableofcontents
@@ -40,7 +66,7 @@
 \section{Introducción}
 
 \subsection{Motivación}
-La robótica es una disciplina que ha ensanchado sus fronteras en los últimos años, y su aplicación en la industria ha demostrado ser 
+La robótica es una disciplina que ha ampliado sus fronteras en los últimos años, y su aplicación en la ha demostrado ser 
 increíblemente beneficiosa en gran cantidad de materias, atrayendo la atención tanto de investigadores y profesionales de todo el 
 mundo como de empresas e inversores interesados en su desarrollo y aplicación. \newline
 Una de las ramas más prometedoras de la robótica es la robótica móvil, que se centra en el diseño y desarrollo de robots capaces 
@@ -48,9 +74,10 @@ de moverse de manera autónoma en entornos dinámicos. Esta rama es una de las m
 la integración de diversas disciplinas como la inteligencia artificial, la visión por computadora y el control de sistemas que 
 deben trabajar en perfecta sintonía para lograr que el robot sea capaz de navegar y operar de manera eficiente en entornos que 
 pueden ser impredecibles y cambiantes. \newline
-La tarea que nos ocupa en este documento es la creación de un robot capaz de localizarse de manera autónoma en un entorno 
-desconocido a la vez que genera un mapa voxelizado de este. Para llevar a cabo esta tarea, el robot recibirá como única fuente 
-de datos nubes de puntos capturadas del entorno. \newline
+La tarea que nos ocupa en este documento es el desarrollo de algoritmos que permitan a un sistema robótico de localizarse en un entorno 
+desconocido a la vez que genera una represantación voxelizada de este, comúnmente conocido como mapa. Para llevar a cabo esta tarea, 
+el robot recibirá como única fuente de datos nubes de puntos capturadas del entorno. Además, se calcularán una serie de métricas para 
+validar la calidad de los resultados obtenidos en diferentes escenarios.\newline
 Este proyecto plantea una serie de desafíos ligados a la naturaleza de los datos que se utilizan, ya que las nubes de puntos son 
 representaciones tridimensionales del entorno que pueden ser:  
 \begin{itemize}
@@ -71,22 +98,18 @@ Esto nos llevará a explorar diversas técnicas de procesamiento de datos y algo
 considerar las limitaciones y oportunidades que presenta el uso de nubes de puntos y los mapas voxelizados en la 
 robótica móvil. \newline
 Entre las herramientas y técnicas de interés más destacadas relacionadas con la casuística que tratamos encontraremos 
-el uso de ICP (Iterative Closest Point) para la alineación de nubes de puntos y, por consiguiente, la obtención de la pose relativa, 
-Bonxai para la generación, manipulación y almacenamiento de mapas voxelizados gestionados de manera eficiente y aprovecharemos 
-la amplia gama de herramientas y bibliotecas proporcionadas por ROS en su segunda versión, ROS2, para la implementación de los 
-algoritmos de localización y mapeo, así como la potencia y versatilidad de lenguajes de programación como Python y C++. \newline
-
-\begin{figure}[h]
-  \centering
-    \includegraphics[width=0.5\textwidth]{ROS2_logo.png}
-  \caption{Logo de la plataforma ROS2 [1].}
-\end{figure}
+el uso de ICP (Iterative Closest Point de Open3D \cite{Zhou2018}) para la alineación de nubes de puntos y, por consiguiente, la 
+obtención de la posición y orientación relativa del sistema respecto de pasos anteriores. Además, se ha seleccionado la librería 
+Bonxai\cite{faconti2024bonxai} para la generación, manipulación y almacenamiento de mapas voxelizados que permite gestionados de 
+manera eficiente. Tambien se hace uso de la amplia gama de herramientas y bibliotecas proporcionadas por ROS\cite{doi:10.1126/scirobotics.abm6074} 
+en su segunda versión, ROS2, para la implementación de los algoritmos de localización y mapeo, así como la potencia y 
+versatilidad de lenguajes de programación como Python y C++. \newline
 
 \subsection{Objetivos}
 
-El objetivo principal de este proyecto es desarrollar un robot capaz de localizarse de manera autónoma en un entorno desconocido y 
-generar un mapa voxelizado de este entorno utilizando nubes de puntos como única fuente de datos. Para lograr este objetivo, se ha 
-de llevar a cabo una serie de tareas específicas:
+El objetivo principal de este proyecto es desarrollar uan serie de algoritmos que permitan a un sistema robótico localizarse en un 
+entorno desconocido y generar un mapa voxelizado de este entorno utilizando nubes de puntos como única fuente de datos. 
+Para lograr este objetivo, se ha de llevar a cabo una serie de tareas específicas:
 \begin{itemize}
   \item \textbf{Diseño de un flujo de trabajo.} Para desarrollar este flujo de trabajo es necesario diseñar:
    \begin{itemize}
@@ -97,11 +120,11 @@ de llevar a cabo una serie de tareas específicas:
     \item \textbf{Preprocesamiento de los datos:} Se debe realizar un preprocesamiento de las nubes de puntos 
       para eliminar ruido y mejorar la calidad de los datos. Esto puede incluir técnicas como filtrado, segmentación y 
       reducción de ruido, así como la normalización de los datos para facilitar su procesamiento posterior.
-    \item \textbf{Cálculo de la pose:} Se debe implementar un algoritmo que permita calcular la pose del robot en el entorno 
-      a partir de las nubes de puntos recibidas. Esto puede incluir técnicas como ICP (Iterative Closest Point) para 
-      alinear las nubes de puntos y estimar la pose relativa del robot.
+    \item \textbf{Cálculo de la posición y orientación:} Se debe implementar un algoritmo que permita calcular la posición y orientación del 
+      robot en el entorno a partir de las nubes de puntos recibidas. Esto puede incluir técnicas como ICP (Iterative Closest Point Open3D \cite{Zhou2018}) 
+      para alinear las nubes de puntos y estimar la pose relativa del robot.
     \item \textbf{Construcción del mapa voxelizado:} Se debe utilizar alguna herramienta para la generación y manipulación 
-      de mapas voxelizados, como Bonxai, para crear un mapa del entorno a partir de las nubes de puntos procesadas. 
+      de mapas voxelizados, como Bonxai\cite{faconti2024bonxai}, para crear un mapa del entorno a partir de las nubes de puntos procesadas. 
       Esto puede incluir la creación de una estructura de datos eficiente para almacenar el mapa y la implementación de 
       algoritmos para actualizar el mapa a medida que se reciben nuevas nubes de puntos.
     \end{itemize}
@@ -109,12 +132,10 @@ de llevar a cabo una serie de tareas específicas:
     objetiva la precisión y eficiencia del sistema de localización y mapeo desarrollado. Este procedimiento debe incluir:
     \begin{itemize}
     \item \textbf{Definición de métricas sobre la calidad de la localización:} Se deben definir métricas que permitan evaluar 
-      la precisión de la localización del robot en el entorno, considerando factores como la desviación respecto a la posición 
+      la precisión de la localización del sistema en el entorno, considerando factores como la desviación respecto a la posición 
       real y la estabilidad de la localización a lo largo del tiempo.
     \item \textbf{Definición de métricas sobre la calidad del mapa:} Se deben definir métricas que permitan evaluar la calidad 
-      del mapa generado por el robot, considerando factores como la capacidad de representar adecuadamente el entorno.
-    \item \textbf{Comparativa entre enfoques:} Se debe realizar una comparativa entre los diferentes enfoques desarrollados 
-      en el proyecto, evaluando su rendimiento y eficiencia en función de las métricas definidas anteriormente.
+      del mapa generado por el sistema, considerando factores como la capacidad de representar adecuadamente el entorno.
     \end{itemize}
 \end{itemize}
 
@@ -127,10 +148,10 @@ La estructura del documento se organiza en 6 capítulos principales, cada uno de
   \item \textbf{Capítulo 2: Bases.} En este capítulo se proporciona una visión general de las bases teóricas y 
     técnicas que sustentan el proyecto, incluyendo conceptos clave como la localización, el mapeo y las nubes de puntos.
   \item \textbf{Capítulo 3: Tecnologías usadas.} En este capítulo se describen las tecnologías y herramientas utilizadas 
-    en el proyecto, incluyendo ROS2 y Bonxai, entre otros. Además, se presentan las ventajas y desventajas de cada una de ellas, 
-    así como su aplicabilidad en el contexto del proyecto.
+    en el proyecto, incluyendo ROS2\cite{doi:10.1126/scirobotics.abm6074} y Bonxai\cite{faconti2024bonxai}, entre otros. 
+    Además, se presentan las ventajas y desventajas de cada una de ellas, así como su aplicabilidad en el contexto del proyecto.
   \item \textbf{Capítulo 4: Localización y mapeo.} Este capítulo se centra en los algoritmos y técnicas utilizados para 
-    la localización y el mapeo del robot en un entorno desconocido, incluyendo la alineación de nubes de puntos y la generación 
+    la localización y el mapeo del sistema en un entorno desconocido, incluyendo la alineación de nubes de puntos y la generación 
     de mapas voxelizados.
   \item \textbf{Capítulo 5: Validación de resultados.} En este capítulo se presentan los resultados obtenidos en el proyecto, 
     incluyendo la evaluación de la precisión y eficiencia del sistema de localización y mapeo, así como una comparativa entre 
@@ -144,6 +165,40 @@ La estructura del documento se organiza en 6 capítulos principales, cada uno de
 
 \section{Bases}
 
+\subsection{Conceptos clave en robótica móvil}
+
+En el contexto de la robótica móvil, los sensores que generan nubes de puntos ---como LIDAR, cámaras RGB-D o sensores 
+estereoscópicos--- permiten obtener representaciones tridimensionales del entorno que son fundamentales para la localización 
+y el mapeo. A partir de estas mediciones se definen diversas variables clave para describir el estado del robot y su relación con 
+el entorno.
+
+\begin{itemize}
+  \item \textbf{Pose}: Variable central y describe la posición y orientación del robot en el espacio. En el caso bidimensional 
+  se representa como:
+  \[
+  \mathbf{x} = [x, y, \theta]^{T}
+  \]
+  mientras que en 3D se extiende a:
+  \[
+  \mathbf{x} = [x, y, z, q_x, q_y, q_z, q_w]^{T}
+  \]
+  donde \( q_x, q_y, q_z, q_w \) corresponden a los cuaterniones que definen la orientación.
+  \item \textbf{Traslación y rotación}: La trasalación se refiere al desplazamiento del robot entre dos instantes de tiempo 
+  consecutivos, estimado mediante el alineamiento de nubes de puntos (por ejemplo, usando algoritmos como ICP). Junto con la 
+  traslación, se obtiene la rotación, que describe el cambio de orientación.
+  \item  \textbf{Drift}: Corresponde al error acumulado en la estimación de la pose debido al ruido sensorial, imprecisiones en 
+  el alineamiento y propagación de errores de integración a lo largo del tiempo. La magnitud del drift determina la confiabilidad 
+  de la trayectoria estimada y, en ausencia de cierre de bucle, tiende a crecer indefinidamente.
+\end{itemize}
+Otras variables relevantes derivadas de las nubes de puntos incluyen:
+\begin{itemize}
+    \item \textbf{Correspondencias}: asociaciones entre puntos de la nube actual y del mapa previo.
+    \item \textbf{Transformación estimada}: matriz homogénea \( \mathbf{T} \in SE(3) \) que combina traslación y rotación para llevar la nube actual al marco de referencia global.
+    \item \textbf{Error de registro}: medida de la calidad del alineamiento de nubes, utilizada como criterio de convergencia en algoritmos iterativos.
+\end{itemize}
+El análisis de estas variables es crucial para el diseño de algoritmos de SLAM\cite{smith1987slam}, navegación autónoma y reconstrucción de entornos 
+tridimensionales.
+
 \subsection{Mapas voxelizados}
 
 \subsubsection{Introducción a los mapas voxelizados}
@@ -151,21 +206,22 @@ La idea de los mapas voxelizados surgió como una extensión natural de los conc
 de imágenes digitales en dos dimensiones, aplicados al espacio tridimensional. Mientras que una imagen está compuesta 
 por píxeles (elementos de imagen), un volumen tridimensional puede representarse mediante vóxeles (volumetric pixels), 
 es decir, pequeñas celdas cúbicas que subdividen el espacio en una cuadrícula regular. \newline
-Este enfoque se originó en el ámbito de la visualización médica y científica durante las décadas de 1970 y 1980, 
-cuando surgió la necesidad de modelar órganos y estructuras internas del cuerpo humano a partir de escáneres como la 
-tomografía computarizada (CT) y la resonancia magnética (MRI). Posteriormente, el concepto fue adoptado por otras 
-disciplinas como la computación gráfica, la simulación física y, más recientemente, la robótica, donde los mapas 
-voxelizados se utilizan para representar entornos 3D en tareas de navegación, percepción y planificación de movimiento.
+
 \begin{figure}[h]
   \centering
     \includegraphics[width=0.5\textwidth]{Voxel_map_example.png}
   \caption{Imagen de un mapa voxelizado.}
 \end{figure} 
-\newline
-Los mapas voxelizados representan una evolución significativa en la forma en que se modelan y procesan entornos 
-tridimensionales y su desarrollo está vinculado al crecimiento de la capacidad computacional y la necesidad de 
-representar espacios complejos de manera eficiente, especialmente en contextos donde se requiere análisis espacial preciso, 
-como en navegación autónoma o reconstrucción 3D.
+
+El uso de voxels para modelar estructuras internas a partir de tomografías y resonancias comenzó en los años 70 y 80, 
+cuando las capacidades computacionales posibilitaron el procesamiento volumétrico de datos médicos \cite{wired1996voxels_medical}. 
+El proyecto pionero VOXEL-MAN en 1986 representó las primeras visualizaciones 3D voxelizadas, incluyendo la combinación de imágenes 
+de CT y MRI \cite{voxelman1986history}. Un voxel, equivalente tridimensional del píxel, ha sido definido como una unidad de valor en 
+una rejilla 3D utilizada especialmente en visualización médica y científica \cite{wiki_voxel_definition}. Además, 
+el algoritmo Marching Cubes de 1987 fue un hito en la extracción eficiente de superficies isosuperficiales desde datos 
+voxelizados \cite{lorensen1987marchingcubes}. Estos desarrollos precedentes sentaron las bases para la adopción posterior 
+de mapas voxelizados en robótica, navegación y planificación de movimiento.
+
 
 \subsubsection{Características de los mapas voxelizados}
 
@@ -280,47 +336,69 @@ En el desarrollo del proyecto se han utilizado varios lenguajes para abordar dif
 Entre ellos encontramos:
 
 \begin{itemize}
-  \item 
-  \begin{minipage}[l]{0.7\textwidth}
-    \textbf{Python:} 
-      Python es un lenguaje de programación interpretado, de alto nivel y con una sintaxis clara y legible. 
-      Fue diseñado para ser fácil de aprender y usar, lo que lo hace ideal tanto para principiantes como para desarrolladores 
-      avanzados. Es multiparadigma (soporta programación orientada a objetos, funcional e imperativa) y tiene una gran cantidad 
-      de bibliotecas disponibles. La integración de Python en ROS2 permite el desarrollo rápido de prototipos y la implementación
-      de algoritmos complejos de procesamiento de datos, control y comunicación entre nodos. Python es el lenguaje principal
-      de este proyecto, usado para la implementación de nodos de ROS2, controlando el flujo de datos, la lógica para el cálculo 
-      de la pose, métricas de validación y manipulación de nubes de puntos.
-  \end{minipage}
-  \hspace{1em}
-  \begin{minipage}[r]{0.28\textwidth}
-    \includegraphics[width=\linewidth]{Python_logo.png}
-  \end{minipage}
-  \item \textbf{C++:} C++ es un lenguaje de programación compilado, de propósito general, conocido por su alto rendimiento, 
+  \item\textbf{Python:\cite{python}} Python es un lenguaje de programación interpretado, de alto nivel y con una sintaxis clara y legible. 
+  Fue diseñado para ser fácil de aprender y usar, lo que lo hace ideal tanto para principiantes como para desarrolladores 
+  avanzados. Es multiparadigma (soporta programación orientada a objetos, funcional e imperativa) y tiene una gran cantidad 
+  de bibliotecas disponibles. La integración de Python en ROS2\cite{doi:10.1126/scirobotics.abm6074} permite el desarrollo rápido de prototipos y la implementación
+  de algoritmos complejos de procesamiento de datos, control y comunicación entre nodos. Python es el lenguaje principal
+  de este proyecto, usado para la implementación de nodos de ROS2, controlando el flujo de datos, la lógica para el cálculo 
+  de la pose, métricas de validación y manipulación de nubes de puntos.
+  \begin{figure}[h]
+    \centering
+      \includegraphics[width=0.5\textwidth]{Python_logo.png} 
+    \caption{Logo de Python.}
+  \end{figure} 
+  \item \textbf{C++:\cite{cpp}} Lenguaje de programación compilado, de propósito general, conocido por su alto rendimiento, 
   control sobre el hardware y capacidades de programación orientada a objetos. Es ampliamente utilizado en sistemas embebidos, 
   videojuegos, y especialmente en aplicaciones donde el rendimiento y la eficiencia son críticos. La integración de C++
-  en ROS2 permite el desarrollo de nodos de alto rendimiento, especialmente aquellos que requieren procesamiento intensivo
+  en ROS2\cite{doi:10.1126/scirobotics.abm6074} permite el desarrollo de nodos de alto rendimiento, especialmente aquellos que requieren procesamiento intensivo
   de datos o interacción directa con hardware. En este proyecto, C++ se utiliza para nodos de almacenamiento y gestión del
   mapa voxelizado e interacción con la librería Bonxai, que proporciona una interfaz eficiente para la manipulación de mapas
   voxelizados.
-  \item \textbf{XML:} XML (eXtensible Markup Language) es un lenguaje de marcado diseñado para almacenar y 
+  \begin{figure}[h]
+    \centering
+      \includegraphics[width=0.2\textwidth]{C++_logo.png}
+    \caption{Logo de C++.}
+  \end{figure} 
+  \item \textbf{XML:\cite{xml}} XML (eXtensible Markup Language) es un lenguaje de marcado diseñado para almacenar y 
   transportar datos de forma estructurada y legible tanto para humanos como para máquinas. En ROS2, XML se utiliza principalmente 
   en la configuración y descripción de componentes del sistema robótico debido al sistema de descripciones de robots URDF y 
   XACRO, legibilidad, interoperabilidad y amplia adopción en la industria. En este proyecto, XML se utiliza para
   definir la configuración de los nodos de ROS2, incluyendo parámetros, tópicos y dependencias entre servicios.
-  \item \textbf{YAML:} YAML (Yet Another Markup Language, o más correctamente YAML Ain't Markup Language) es un formato de 
+  \begin{figure}[h]
+    \centering
+      \includegraphics[width=0.5\textwidth]{xml_logo.png}
+    \caption{Logo de XML.}
+  \end{figure} 
+  \item \textbf{YAML:\cite{yaml}} YAML (Yet Another Markup Language, o más correctamente YAML Ain't Markup Language) es un formato de 
   serialización de datos basado en texto, muy usado para representar información de forma estructurada y legible por humanos.
   Sus principales usos son como formato de configuración y para el intercambio de datos entre aplicaciones. En ROS2, YAML se 
   utiliza para definir parámetros de nodos, configuraciones de lanzamiento y otros aspectos del sistema robótico. En este proyecto, 
   YAML se utiliza para almacenar configuraciones de nodos, parámetros de algoritmos y otros datos estructurados necesarios para 
   la ejecución del sistema.
-  \item \textbf{CMAKE:} CMake es un lenguaje de configuración y scripting especializado para la construcción de software.
+  \begin{figure}[h]
+    \centering
+      \includegraphics[width=0.2\textwidth]{yaml_logo.png}
+    \caption{Logo de YAML.}
+  \end{figure} 
+  \item \textbf{CMAKE:\cite{cmake}} CMake es un lenguaje de configuración y scripting especializado para la construcción de software.
   Se usa como herramienta de automatización de compilación que utiliza archivos llamados CMakeLists.txt para describir 
   cómo debe compilarse y enlazarse un proyecto de software. CMake es usado en ROS2 debido a que es la herramienta 
   estándar para la construcción de paquetes y nodos, facilitando la gestión de dependencias, la configuración del entorno
   de compilación y la generación de archivos de configuración necesarios para la ejecución de los nodos desarrollados en C++.
-  \item \textbf{LaTeX:} LaTeX es un sistema de composición de documentos basado en el lenguaje de tipografía TeX. Está 
+  \begin{figure}[h]
+    \centering
+      \includegraphics[width=0.2\textwidth]{cmake_logo.png}
+    \caption{Logo de CMake.}
+  \end{figure} 
+  \item \textbf{LaTeX:\cite{lamport1994latex}} LaTeX es un sistema de composición de documentos basado en el lenguaje de tipografía TeX. Está 
   diseñado para la creación de documentos de alta calidad tipográfica, especialmente aquellos que incluyen fórmulas matemáticas 
   complejas, referencias cruzadas, bibliografías y estructuras organizadas como capítulos, secciones y tablas.
+  \begin{figure}[h]
+    \centering
+      \includegraphics[width=0.2\textwidth]{Latex_logo.png}
+    \caption{Logo de LaTeX.}
+  \end{figure} 
 \end{itemize}
 
 \subsection{Entorno, software y herramientas de desarrollo}
@@ -328,7 +406,7 @@ Entre ellos encontramos:
   y la prueba del código. Entre ellos encontramos:
   \begin{itemize}
     \item
-      \textbf{ROS2 (Humble Hawksbill):} ROS 2 (Robot Operating System 2) es un marco de desarrollo y un conjunto de herramientas 
+      \textbf{ROS2\cite{doi:10.1126/scirobotics.abm6074} (Humble Hawksbill):} ROS 2 (Robot Operating System 2) es un marco de desarrollo y un conjunto de herramientas 
       diseñadas para facilitar la creación de sistemas robóticos complejos, modulares y distribuidos. Aunque su nombre sugiere que es 
       un sistema operativo, en realidad ROS 2 no es un sistema operativo tradicional, sino una capa de software que proporciona 
       abstracciones y servicios esenciales para el desarrollo de robots, como:
@@ -348,6 +426,11 @@ Entre ellos encontramos:
         del sistema, rastrear mensajes y verificar la comunicación entre nodos.
         \end{itemize} 
       \end{itemize}
+      \begin{figure}[h]
+        \centering
+          \includegraphics[width=0.2\textwidth]{Ros2_humble.png} 
+        \caption{Logo de Ros2.}
+      \end{figure} 
       ROS 2 (Robot Operating System 2) es la evolución del sistema operativo para robots originalmente conocido como ROS 1. Fue 
       diseñado desde cero para resolver las limitaciones arquitectónicas y técnicas de ROS 1, ofreciendo una plataforma más robusta, 
       segura, flexible y adecuada para aplicaciones comerciales, industriales y en tiempo real. Estas mejoras vienen dadas por el uso de:
@@ -360,32 +443,57 @@ Entre ellos encontramos:
         \item \textbf{Mejoras en el sistema de construcción:} Se usa colcon en lugar de catkin, lo que permite una construcción
         más eficiente y flexible de los paquetes de ROS 2.
       \end{itemize} 
-      \item \textbf{Ubuntu (22.04 LTS):} Ubuntu es una distribución del sistema operativo Linux, basada en Debian, desarrollada por 
+      \item \textbf{Ubuntu \cite{ubuntu} (22.04 LTS):} Ubuntu es una distribución del sistema operativo Linux, basada en Debian, desarrollada por 
       Canonical. Es conocida por ser gratuita, de código abierto, estable y fácil de usar, tanto para usuarios nuevos como para 
       desarrolladores. En concreto la versión 22.04 LTS (Long Term Support) es una versión de soporte a largo plazo,
       lo que significa que recibirá actualizaciones de seguridad y mantenimiento durante un período prolongado (5 años).
       Además de esto, se ha elegido esta versión en concreto por el soporte oficial de ROS2 en la distribución Humble Hawksbill,
       alta compatibilidad con las herramientas de desarrollo usadas, la fácil gestión de dependencias y el amplio uso 
       por parte de la comunidad de robótica.
-      \item \textbf{Visual Studio Code:} Visual Studio Code es un editor de código fuente ligero y multiplataforma, desarrollado 
+      \begin{figure}[h]
+        \centering
+          \includegraphics[width=0.3\textwidth]{Ubuntu_logo.jpg} 
+        \caption{Logo de Ubuntu.}
+      \end{figure} 
+      \item \textbf{Visual Studio Code \cite{vscode}:} Visual Studio Code es un editor de código fuente ligero y multiplataforma, desarrollado 
       por Microsoft. Es gratuito, de código abierto y compatible con una gran variedad de lenguajes de programación como C++, 
       Python, XML, CMake, entre otros. Ofrece extensiones, depuración integrada, control de versiones (Git), y una interfaz 
       altamente personalizable. Se ha elegido usar este editor por su compatibilidad con los múltiples lenguajes usados en el 
       proyecto, su ligereza y rapidez, su amplia gama de extensiones y su integración con herramientas de desarrollo como CMake y ROS2.
-      \item \textbf{GitHub:} GitHub es una plataforma en línea para almacenar, compartir y colaborar en proyectos de software utilizando 
+      \begin{figure}[h]
+        \centering
+          \includegraphics[width=0.3\textwidth]{Vs_code_logo.png} 
+        \caption{Logo de Visual Studio Code.}
+      \end{figure} 
+      \item \textbf{GitHub\cite{github}:} GitHub es una plataforma en línea para almacenar, compartir y colaborar en proyectos de software utilizando 
       el sistema de control de versiones Git. Permitiendo a desarrolladores trabajar en proyectos, rastrear cambios en el código, 
       revisar contribuciones y gestionar versiones del software, todo desde un entorno centralizado basado en la web.
-      \item \textbf{Jupyter Notebook:} Jupyter Notebook es una herramienta interactiva que permite escribir y ejecutar código 
+      \begin{figure}[h]
+        \centering
+          \includegraphics[width=0.2\textwidth]{Github_logo.png} 
+        \caption{Logo de Github.}
+      \end{figure} 
+      \item \textbf{Jupyter Notebook\cite{jupyter}:} Jupyter Notebook es una herramienta interactiva que permite escribir y ejecutar código 
       en fragmentos llamados celdas. Aunque originalmente fue diseñado para usarse en un navegador web, también se puede utilizar 
       directamente desde entornos como Visual Studio Code (VS Code). Aunque esta orientado a python, tambien puede usarse con otros 
       lenguajes. La principal ventaja de Jupyter Notebook es su capacidad para combinar código, texto, visualizaciones y otros elementos
       multimedia en un solo documento, lo que facilita la creación de informes interactivos y la documentación de proyectos. 
       En este proyecto se ha utilizado para documentar el proceso de analisis de resultados y la validación de los algoritmos implementados.
-      \item \textbf{Terminator:} Terminator es un emulador de terminal para sistemas operativos basados en Unix, que permite dividir la
+      \begin{figure}[h]
+        \centering
+          \includegraphics[width=0.2\textwidth]{Jupyter_logo.png} 
+        \caption{Logo de Jupyter Notebook.}
+      \end{figure} 
+      \item \textbf{Terminator\cite{terminator}:} Terminator es un emulador de terminal para sistemas operativos basados en Unix, que permite dividir la
       ventana de la terminal en múltiples paneles, facilitando la ejecución de varios comandos y la visualización de salidas
       simultáneamente. Es especialmente útil para desarrolladores y administradores de sistemas que necesitan trabajar
       con múltiples sesiones de terminal al mismo tiempo. En este proyecto se ha utilizado para ejecutar y monitorear múltiples 
       nodos de ROS2 simultáneamente, facilitando la depuración y el control del flujo de datos entre los diferentes componentes del sistema.
+      \begin{figure}[h]
+        \centering
+          \includegraphics[width=0.2\textwidth]{Terminator.png} 
+        \caption{Logo de Terminator.}
+      \end{figure} 
 \end{itemize}
 
 \section{Pipeline de Localización y Mapeo Simultaneo}
@@ -1097,26 +1205,18 @@ importantes incluso si la mayoría de la nube es correcta.
 \subparagraph{Resultados:}
 
 
-\begin{thebibliography}{9}
-    \bibitem{latexcompanion} 
-    Robotnik Automation S.L
-    \textit{The \LaTeX\ Companion}. 
-    Addison-Wesley, Reading, Massachusetts, 1993.
-    
-    \bibitem{einstein} 
-    Albert Einstein. 
-    \textit{Zur Elektrodynamik bewegter K{\"o}rper}. (German) 
-    [\textit{On the electrodynamics of moving bodies}]. 
-    Annalen der Physik, 322(10):891–921, 1905.
-\end{thebibliography}
+
+\bibliographystyle{ieeetr} % Puedes usar plain, alpha, apalike, etc.
+\bibliography{references}
 
 \newpage
 
 %% Apendices
 \begin{umaappendices}
+
 \section{Installation \\ Manual}
-    
-    \textbf{\large{Requirements:}}
+  
+  \textbf{\large{Requirements:}}
 
 \end{umaappendices}
 
