@@ -11,63 +11,70 @@
 \contentsline {section}{\numberline {3}Tecnologías usadas}{17}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Lenguajes}{17}{subsection.3.1}%
 \contentsline {subsection}{\numberline {3.2}Entorno, software y herramientas de desarrollo}{20}{subsection.3.2}%
-\contentsline {section}{\numberline {4}Pipeline de Localización y Mapeo Simultaneo}{25}{section.4}%
+\contentsline {section}{\numberline {4}Flujo de trabajo para la Localización y Mapeo Simultaneo}{25}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Conceptos, componentes y funciones clave}{25}{subsection.4.1}%
 \contentsline {subsubsection}{\numberline {4.1.1}Gestión y sincronización de mensajes}{25}{subsubsection.4.1.1}%
 \contentsline {paragraph}{Conceptos clave:}{26}{paragraph*.1}%
 \contentsline {paragraph}{Funcionamiento del componente:}{27}{paragraph*.2}%
 \contentsline {subsubsection}{\numberline {4.1.2}Adición de ruido a los datos originales}{28}{subsubsection.4.1.2}%
-\contentsline {paragraph}{Conceptos clave:}{28}{paragraph*.3}%
+\contentsline {paragraph}{Conceptos clave:}{29}{paragraph*.3}%
 \contentsline {paragraph}{Funcionamiento del componente:}{29}{paragraph*.4}%
 \contentsline {subsubsection}{\numberline {4.1.3}Calculo de la localización}{30}{subsubsection.4.1.3}%
-\contentsline {paragraph}{Conceptos Clave:}{30}{paragraph*.5}%
-\contentsline {paragraph}{Funcionamiento del componente:}{34}{paragraph*.6}%
-\contentsline {subsubsection}{\numberline {4.1.4}Seleccion de fotogramas clave}{37}{subsubsection.4.1.4}%
-\contentsline {paragraph}{Conceptos Clave:}{37}{paragraph*.7}%
-\contentsline {paragraph}{Funcionamiento del componente:}{38}{paragraph*.8}%
-\contentsline {subsubsection}{\numberline {4.1.5}Construcción del mapa}{39}{subsubsection.4.1.5}%
-\contentsline {paragraph}{Conceptos clave:}{40}{paragraph*.9}%
-\contentsline {paragraph}{Funcionamiento del componente:}{41}{paragraph*.10}%
-\contentsline {section}{\numberline {5}Pruebas y validación de resultados}{43}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Métricas de interés}{43}{subsection.5.1}%
-\contentsline {subsubsection}{\numberline {5.1.1}Métricas de Evaluación de Localización}{43}{subsubsection.5.1.1}%
-\contentsline {paragraph}{Absolute Trajectory Error (ATE)}{43}{paragraph*.11}%
-\contentsline {subparagraph}{Definición matemática}{44}{subparagraph*.12}%
-\contentsline {subparagraph}{Motivación:}{44}{subparagraph*.13}%
-\contentsline {subparagraph}{Área de interés:}{44}{subparagraph*.14}%
-\contentsline {subparagraph}{Interpretación:}{44}{subparagraph*.15}%
-\contentsline {subparagraph}{Resultados:}{44}{subparagraph*.16}%
-\contentsline {paragraph}{Relative Pose Error (RPE)}{44}{paragraph*.17}%
-\contentsline {subparagraph}{Definición matemática:}{45}{subparagraph*.18}%
-\contentsline {subparagraph}{Motivación:}{45}{subparagraph*.19}%
-\contentsline {subparagraph}{Área de interés:}{45}{subparagraph*.20}%
-\contentsline {subparagraph}{Interpretación:}{45}{subparagraph*.21}%
-\contentsline {subparagraph}{Resultados:}{45}{subparagraph*.22}%
-\contentsline {paragraph}{KITTI-style Drift:}{45}{paragraph*.23}%
-\contentsline {subparagraph}{Definición matemática:}{46}{subparagraph*.24}%
-\contentsline {subparagraph}{Motivación:}{46}{subparagraph*.25}%
-\contentsline {subparagraph}{Área de interés:}{46}{subparagraph*.26}%
-\contentsline {subparagraph}{Interpretación:}{46}{subparagraph*.27}%
-\contentsline {subparagraph}{Resultados:}{46}{subparagraph*.28}%
-\contentsline {subsubsection}{\numberline {5.1.2}Métricas de Evaluación de Mapeo}{46}{subsubsection.5.1.2}%
-\contentsline {paragraph}{Chamfer Distance (Bidireccional)}{46}{paragraph*.29}%
-\contentsline {subparagraph}{Definición matemática:}{47}{subparagraph*.30}%
-\contentsline {subparagraph}{Descripción:}{47}{subparagraph*.31}%
-\contentsline {paragraph}{Relevancia en SLAM sin cierre de bucle}{47}{paragraph*.32}%
-\contentsline {subparagraph}{Área de interés:}{47}{subparagraph*.33}%
-\contentsline {subparagraph}{Interpretación:}{47}{subparagraph*.34}%
-\contentsline {subparagraph}{Resultados:}{47}{subparagraph*.35}%
-\contentsline {paragraph}{F-score \(\tau \)}{47}{paragraph*.36}%
-\contentsline {subparagraph}{Definición matemática:}{48}{subparagraph*.37}%
-\contentsline {subparagraph}{Descripción:}{48}{subparagraph*.38}%
-\contentsline {subparagraph}{Área de interés:}{48}{subparagraph*.39}%
-\contentsline {subparagraph}{Interpretación:}{48}{subparagraph*.40}%
-\contentsline {subparagraph}{Resultados:}{48}{subparagraph*.41}%
-\contentsline {paragraph}{Distribución de Errores (Percentiles)}{48}{paragraph*.42}%
-\contentsline {subparagraph}{Definición matemática:}{48}{subparagraph*.43}%
-\contentsline {subparagraph}{Descripción:}{49}{subparagraph*.44}%
-\contentsline {subparagraph}{Relevancia en SLAM sin cierre de bucle:}{49}{subparagraph*.45}%
-\contentsline {subparagraph}{Área de interés:}{49}{subparagraph*.46}%
-\contentsline {subparagraph}{Interpretación:}{49}{subparagraph*.47}%
-\contentsline {subparagraph}{Resultados:}{49}{subparagraph*.48}%
-\contentsline {section}{Appendix \numberline {A}Installation \\ Manual}{53}{appendix.a.A}%
+\contentsline {paragraph}{Conceptos Clave:}{31}{paragraph*.5}%
+\contentsline {paragraph}{Funcionamiento del componente:}{37}{paragraph*.6}%
+\contentsline {subsubsection}{\numberline {4.1.4}Construcción del mapa}{40}{subsubsection.4.1.4}%
+\contentsline {paragraph}{Conceptos clave:}{41}{paragraph*.7}%
+\contentsline {paragraph}{Funcionamiento del componente:}{42}{paragraph*.8}%
+\contentsline {subsection}{\numberline {4.2}Flujo de trabajo completo}{43}{subsection.4.2}%
+\contentsline {section}{\numberline {5}Pruebas y validación de resultados}{45}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Métricas de interés}{45}{subsection.5.1}%
+\contentsline {subsubsection}{\numberline {5.1.1}Métricas de Evaluación de Localización}{45}{subsubsection.5.1.1}%
+\contentsline {paragraph}{Absolute Trajectory Error (ATE)}{45}{paragraph*.9}%
+\contentsline {subparagraph}{Definición matemática}{46}{subparagraph*.10}%
+\contentsline {subparagraph}{Motivación:}{46}{subparagraph*.11}%
+\contentsline {subparagraph}{Área de interés:}{46}{subparagraph*.12}%
+\contentsline {subparagraph}{Interpretación:}{46}{subparagraph*.13}%
+\contentsline {subparagraph}{Resultados:}{46}{subparagraph*.14}%
+\contentsline {subparagraph}{Interpretación de resultados:}{48}{subparagraph*.15}%
+\contentsline {paragraph}{Relative Pose Error (RPE)}{48}{paragraph*.16}%
+\contentsline {subparagraph}{Definición matemática:}{48}{subparagraph*.17}%
+\contentsline {subparagraph}{Motivación:}{48}{subparagraph*.18}%
+\contentsline {subparagraph}{Área de interés:}{49}{subparagraph*.19}%
+\contentsline {subparagraph}{Interpretación:}{49}{subparagraph*.20}%
+\contentsline {subparagraph}{Resultados:}{49}{subparagraph*.21}%
+\contentsline {subparagraph}{Interpretación de resultados:}{50}{subparagraph*.22}%
+\contentsline {paragraph}{KITTI-style Drift:}{50}{paragraph*.23}%
+\contentsline {subparagraph}{Definición matemática:}{50}{subparagraph*.24}%
+\contentsline {subparagraph}{Motivación:}{50}{subparagraph*.25}%
+\contentsline {subparagraph}{Área de interés:}{50}{subparagraph*.26}%
+\contentsline {subparagraph}{Interpretación:}{51}{subparagraph*.27}%
+\contentsline {subparagraph}{Resultados:}{51}{subparagraph*.28}%
+\contentsline {subparagraph}{Interpretación de resultados:}{52}{subparagraph*.29}%
+\contentsline {paragraph}{Resumen de métricas de localización}{52}{paragraph*.30}%
+\contentsline {subsubsection}{\numberline {5.1.2}Métricas de Evaluación de Mapeo}{53}{subsubsection.5.1.2}%
+\contentsline {paragraph}{\textit {Chamfer Distance} (Bidireccional)}{53}{paragraph*.31}%
+\contentsline {subparagraph}{Definición matemática:}{53}{subparagraph*.32}%
+\contentsline {subparagraph}{Descripción:}{53}{subparagraph*.33}%
+\contentsline {paragraph}{Relevancia en SLAM sin cierre de bucle}{53}{paragraph*.34}%
+\contentsline {subparagraph}{Área de interés:}{54}{subparagraph*.35}%
+\contentsline {subparagraph}{Interpretación:}{54}{subparagraph*.36}%
+\contentsline {subparagraph}{Resultados:}{54}{subparagraph*.37}%
+\contentsline {subparagraph}{Interpretación de resultados:}{55}{subparagraph*.38}%
+\contentsline {paragraph}{F-score \(\tau \)}{55}{paragraph*.39}%
+\contentsline {subparagraph}{Definición matemática:}{55}{subparagraph*.40}%
+\contentsline {subparagraph}{Descripción:}{56}{subparagraph*.41}%
+\contentsline {subparagraph}{Área de interés:}{56}{subparagraph*.42}%
+\contentsline {subparagraph}{Interpretación:}{56}{subparagraph*.43}%
+\contentsline {subparagraph}{Resultados:}{56}{subparagraph*.44}%
+\contentsline {subparagraph}{Interpretación de resultados:}{57}{subparagraph*.45}%
+\contentsline {paragraph}{Distribución de Errores (Percentiles)}{57}{paragraph*.46}%
+\contentsline {subparagraph}{Definición matemática:}{57}{subparagraph*.47}%
+\contentsline {subparagraph}{Descripción:}{57}{subparagraph*.48}%
+\contentsline {subparagraph}{Relevancia en SLAM sin cierre de bucle:}{58}{subparagraph*.49}%
+\contentsline {subparagraph}{Área de interés:}{58}{subparagraph*.50}%
+\contentsline {subparagraph}{Interpretación:}{58}{subparagraph*.51}%
+\contentsline {subparagraph}{Resultados:}{58}{subparagraph*.52}%
+\contentsline {subparagraph}{Interpretación de resultados:}{59}{subparagraph*.53}%
+\contentsline {paragraph}{Resumen de métricas de mapeo}{60}{paragraph*.54}%
+\contentsline {section}{\numberline {6}Conclusiones y trabajo futuro}{63}{section.6}%
+\contentsline {section}{Appendix \numberline {A}Installation \\ Manual}{67}{appendix.a.A}%

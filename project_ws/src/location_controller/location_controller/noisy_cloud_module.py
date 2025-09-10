@@ -37,7 +37,7 @@ class NoisyCloud (Node):
         """
 
         #Initialize node
-        super().__init__("noisy_cloud")
+        super().__init__("NoisyData")
 
         #Subscription to point cloud (buffer of 10 messages)
         self.noisy_cloud_ = self.create_subscription(PointCloud2, input_topic, self.add_noise, 10)
@@ -74,8 +74,8 @@ class NoisyCloud (Node):
         # Rebuild the pcd from the noisy data array
         noisy_cloud = pc2.create_cloud_xyz32(msg.header, points_noisy)
     
-        """
-        noisy_cloud_o3d = preprocess_point_cloud(noisy_cloud, clean_pcd=False)
+        
+        noisy_cloud_o3d = preprocess_point_cloud(noisy_cloud, downsample = False, clean_pcd=False)
         
         process_pcl = preprocess_point_cloud(noisy_cloud)
         
@@ -90,7 +90,7 @@ class NoisyCloud (Node):
                                         front=[0.9288, -0.2951, -0.2242],
                                         lookat=[1.6784, 2.0612, 1.4451],
                                         up=[-0.3402, -0.9189, -0.1996])
-        """
+        
         
         # Publish the pcd
         self.noisy_cloud_publisher_.publish(noisy_cloud)

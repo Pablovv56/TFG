@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.7.1)  9 SEP 2025 02:46
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.7.1)  11 SEP 2025 00:59
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -477,7 +477,7 @@ LaTeX Info: Redefining \nameref on input line 16.
 
 
 pdfTeX warning: pdflatex (file ./title.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<title.pdf, id=104, 597.23125pt x 845.1575pt>
+<title.pdf, id=108, 597.23125pt x 845.1575pt>
 File: title.pdf Graphic file (type pdf)
 <use title.pdf>
 Package pdftex.def Info: title.pdf  used on input line 18.
@@ -495,7 +495,7 @@ pdfTeX warning: pdflatex (file ./title.pdf): PDF inclusion: found PDF version <1
 
 
 pdfTeX warning: pdflatex (file ./title.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<title.pdf, id=107, page=1, 597.23125pt x 845.1575pt>
+<title.pdf, id=111, page=1, 597.23125pt x 845.1575pt>
 File: title.pdf Graphic file (type pdf)
 <use title.pdf, page 1>
 Package pdftex.def Info: title.pdf , page1 used on input line 18.
@@ -545,11 +545,11 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 LaTeX Font Info:    Trying to load font information for U+msb on input line 2.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-))
+) [5])
 \tf@toc=\write4
 \openout4 = `main.toc'.
 
- [5] [6]
+ [6]
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
 (Font)              scaled to size 112.0pt on input line 66.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
@@ -563,7 +563,7 @@ LaTeX Font Info:    Font shape `TS1/LinuxLibertineT-TLF/m/n' will be
  [7
 
 ]
-<./images//Point_cloud_example.png, id=191, 2126.94624pt x 1105.12875pt>
+<./images//Point_cloud_example.png, id=196, 2126.94624pt x 1105.12875pt>
 File: ./images//Point_cloud_example.png Graphic file (type png)
 <use ./images//Point_cloud_example.png>
 Package pdftex.def Info: ./images//Point_cloud_example.png  used on input line 94.
@@ -580,7 +580,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 205--209
 
  []
 
-<./images//Voxel_map_example.png, id=223, 1179.40625pt x 904.37875pt>
+<./images//Voxel_map_example.png, id=228, 1179.40625pt x 904.37875pt>
 File: ./images//Voxel_map_example.png Graphic file (type png)
 <use ./images//Voxel_map_example.png>
 Package pdftex.def Info: ./images//Voxel_map_example.png  used on input line 212.
@@ -606,12 +606,12 @@ Overfull \hbox (3.78867pt too wide) in paragraph at lines 309--310
  []
 
 [16]
-<./images//Python_logo.png, id=259, 2569.6pt x 760.8425pt>
+<./images//Python_logo.png, id=264, 2569.6pt x 760.8425pt>
 File: ./images//Python_logo.png Graphic file (type png)
 <use ./images//Python_logo.png>
 Package pdftex.def Info: ./images//Python_logo.png  used on input line 348.
 (pdftex.def)             Requested size: 227.33716pt x 67.31192pt.
-<./images//C++_logo.png, id=262, 1828.8325pt x 2058.69125pt>
+<./images//C++_logo.png, id=267, 1828.8325pt x 2058.69125pt>
 File: ./images//C++_logo.png Graphic file (type png)
 <use ./images//C++_logo.png>
 Package pdftex.def Info: ./images//C++_logo.png  used on input line 360.
@@ -619,215 +619,361 @@ Package pdftex.def Info: ./images//C++_logo.png  used on input line 360.
  [17
 
  <./images//Python_logo.png>]
-<./images//xml_logo.png, id=271, 2569.6pt x 999.735pt>
+<./images//xml_logo.png, id=276, 2569.6pt x 999.735pt>
 File: ./images//xml_logo.png Graphic file (type png)
 <use ./images//xml_logo.png>
 Package pdftex.def Info: ./images//xml_logo.png  used on input line 370.
 (pdftex.def)             Requested size: 227.33716pt x 88.4468pt.
-<./images//yaml_logo.png, id=273, 234.8775pt x 215.80624pt>
+<./images//yaml_logo.png, id=278, 234.8775pt x 215.80624pt>
 File: ./images//yaml_logo.png Graphic file (type png)
 <use ./images//yaml_logo.png>
 Package pdftex.def Info: ./images//yaml_logo.png  used on input line 381.
 (pdftex.def)             Requested size: 90.93347pt x 83.54831pt.
  [18 <./images//C++_logo.png> <./images//xml_logo.png>]
-<./images//cmake_logo.png, id=285, 225.84375pt x 225.84375pt>
+<./images//cmake_logo.png, id=290, 225.84375pt x 225.84375pt>
 File: ./images//cmake_logo.png Graphic file (type png)
 <use ./images//cmake_logo.png>
 Package pdftex.def Info: ./images//cmake_logo.png  used on input line 391.
 (pdftex.def)             Requested size: 90.93347pt x 90.9355pt.
-<./images//Latex_logo.png, id=287, 321.2pt x 321.2pt>
+<./images//Latex_logo.png, id=292, 321.2pt x 321.2pt>
 File: ./images//Latex_logo.png Graphic file (type png)
 <use ./images//Latex_logo.png>
 Package pdftex.def Info: ./images//Latex_logo.png  used on input line 399.
 (pdftex.def)             Requested size: 90.93347pt x 90.93031pt.
  [19 <./images//yaml_logo.png> <./images//cmake_logo.png>] [20 <./images//Latex_logo.png>]
-<./images//Ros2_humble.png, id=307, 633.94737pt x 773.09882pt>
+<./images//Ros2_humble.png, id=312, 633.94737pt x 773.09882pt>
 File: ./images//Ros2_humble.png Graphic file (type png)
 <use ./images//Ros2_humble.png>
 Package pdftex.def Info: ./images//Ros2_humble.png  used on input line 431.
 (pdftex.def)             Requested size: 90.93347pt x 110.88731pt.
  [21 <./images//Ros2_humble.png>]
-<./images//Ubuntu_logo.jpg, id=316, 1284.8pt x 722.7pt>
+<./images//Ubuntu_logo.jpg, id=321, 1284.8pt x 722.7pt>
 File: ./images//Ubuntu_logo.jpg Graphic file (type jpg)
 <use ./images//Ubuntu_logo.jpg>
 Package pdftex.def Info: ./images//Ubuntu_logo.jpg  used on input line 455.
 (pdftex.def)             Requested size: 136.40369pt x 76.7183pt.
-<./images//Vs_code_logo.png, id=318, 315.1775pt x 161.60374pt>
+<./images//Vs_code_logo.png, id=323, 315.1775pt x 161.60374pt>
 File: ./images//Vs_code_logo.png Graphic file (type png)
 <use ./images//Vs_code_logo.png>
 Package pdftex.def Info: ./images//Vs_code_logo.png  used on input line 465.
 (pdftex.def)             Requested size: 136.40369pt x 69.9395pt.
-<./images//Github_logo.png, id=320, 321.2pt x 321.2pt>
+<./images//Github_logo.png, id=325, 321.2pt x 321.2pt>
 File: ./images//Github_logo.png Graphic file (type png)
 <use ./images//Github_logo.png>
 Package pdftex.def Info: ./images//Github_logo.png  used on input line 473.
 (pdftex.def)             Requested size: 90.93347pt x 90.93031pt.
  [22 <./images//Ubuntu_logo.jpg> <./images//Vs_code_logo.png>]
-<./images//Jupyter_logo.png, id=331, 602.25pt x 602.25pt>
+<./images//Jupyter_logo.png, id=336, 602.25pt x 602.25pt>
 File: ./images//Jupyter_logo.png Graphic file (type png)
 <use ./images//Jupyter_logo.png>
 Package pdftex.def Info: ./images//Jupyter_logo.png  used on input line 484.
 (pdftex.def)             Requested size: 90.93347pt x 90.93092pt.
-<./images//Terminator.png, id=333, 349.305pt x 349.305pt>
+<./images//Terminator.png, id=338, 349.305pt x 349.305pt>
 File: ./images//Terminator.png Graphic file (type png)
 <use ./images//Terminator.png>
 Package pdftex.def Info: ./images//Terminator.png  used on input line 494.
 (pdftex.def)             Requested size: 90.93347pt x 90.9344pt.
- [23 <./images//Github_logo.png> <./images//Jupyter_logo.png>] [24 <./images//Terminator.png>] [25
+ [23 <./images//Github_logo.png> <./images//Jupyter_logo.png>] [24 <./images//Terminator.png>]
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
+(Font)              scaled to size 12.0pt on input line 515.
+ [25
 
-] [26]
-Overfull \hbox (3.10948pt too wide) in paragraph at lines 560--562
+]
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/it' will be
+(Font)              scaled to size 12.0pt on input line 525.
+ [26]
+Overfull \hbox (3.10948pt too wide) in paragraph at lines 561--563
 []\T1/LinuxLibertineT-TLF/b/n/12 Inicialización de vari-ables aux-il-iares para la eje-cu-ción\T1/LinuxLibertineT-TLF/m/n/12 : Es nece-sario ini-cializar
  []
 
 
-Overfull \hbox (17.37643pt too wide) in paragraph at lines 563--565
+Overfull \hbox (17.37643pt too wide) in paragraph at lines 564--566
 []\T1/LinuxLibertineT-TLF/b/n/12 Respuestas provo-cadas por la re-cep-ción de men-sajes a través del tópico ''new_pose''\T1/LinuxLibertineT-TLF/m/n/12 :
  []
 
-[27] [28]
-Overfull \hbox (15.43233pt too wide) in paragraph at lines 610--612
+[27]
+<./images//rosbag_output.png, id=378, 1198.4775pt x 596.2275pt>
+File: ./images//rosbag_output.png Graphic file (type png)
+<use ./images//rosbag_output.png>
+Package pdftex.def Info: ./images//rosbag_output.png  used on input line 579.
+(pdftex.def)             Requested size: 318.27063pt x 158.33615pt.
+ [28 <./images//rosbag_output.png>]
+Overfull \hbox (15.43233pt too wide) in paragraph at lines 618--620
 [] []\T1/LinuxLibertineT-TLF/b/n/12 Fun-cionamiento del com-po-nente:[] \T1/LinuxLibertineT-TLF/m/n/12 Tal y como hemos ido de-scri-bi-endo, el nodo ''noisy_cloud''
  []
 
-
-Overfull \hbox (9.43246pt too wide) in paragraph at lines 620--623
+[29]
+Overfull \hbox (9.43246pt too wide) in paragraph at lines 628--631
 []\T1/LinuxLibertineT-TLF/b/n/12 Respuestas provo-cadas por la re-cep-ción de men-sajes a través del tópico ''new_pcl''\T1/LinuxLibertineT-TLF/m/n/12 :
  []
 
-[29]
-Overfull \hbox (58.19676pt too wide) in paragraph at lines 646--648
-\T1/LinuxLibertineT-TLF/m/n/12 mato ''Point-Cloud2'', es nece-sario trans-for-mar-las a un for-mato ''open3d.geometry.PointCloud()''
- []
-
-[30]
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 12.0pt on input line 664.
- [31]
-Overfull \hbox (12.21194pt too wide) in paragraph at lines 682--684
+<./images//noisy_pcl.png, id=393, 2734.215pt x 853.1875pt>
+File: ./images//noisy_pcl.png Graphic file (type png)
+<use ./images//noisy_pcl.png>
+Package pdftex.def Info: ./images//noisy_pcl.png  used on input line 635.
+(pdftex.def)             Requested size: 454.67433pt x 141.87643pt.
+[30 <./images//noisy_pcl.png>] [31]
+<./images//preprocessed_pcl.png, id=407, 3056.41875pt x 914.41624pt>
+File: ./images//preprocessed_pcl.png Graphic file (type png)
+<use ./images//preprocessed_pcl.png>
+Package pdftex.def Info: ./images//preprocessed_pcl.png  used on input line 679.
+(pdftex.def)             Requested size: 454.67433pt x 136.02634pt.
+ [32 <./images//preprocessed_pcl.png>]
+Overfull \hbox (12.21194pt too wide) in paragraph at lines 702--704
 []\T1/LinuxLibertineT-TLF/b/n/12 Inicialización: \T1/LinuxLibertineT-TLF/m/n/12 Se es-tablece una es-ti-mación ini-cial de la trans-for-ma-ción $\OT1/cmr/m/n/12 (\OT1/cmr/bx/n/12 R[]\OML/cmm/m/it/12 ; \OT1/cmr/bx/n/12 t[]\OT1/cmr/m/n/12 )$\T1/LinuxLibertineT-TLF/m/n/12 ,
  []
 
-[32]
-Overfull \hbox (21.25732pt too wide) in paragraph at lines 714--715
+[33]
+Overfull \hbox (21.25732pt too wide) in paragraph at lines 734--735
 []\T1/LinuxLibertineT-TLF/b/n/12 Transformación: \T1/LinuxLibertineT-TLF/m/n/12 Ac-tu-alizar la nube fuente apli-cando la trans-for-ma-ción obtenida. 
  []
 
-LaTeX Font Info:    Trying to load font information for T1+LinuxLibertineMonoT-TLF on input line 730.
+LaTeX Font Info:    Trying to load font information for T1+LinuxLibertineMonoT-TLF on input line 750.
 (/usr/share/texlive/texmf-dist/tex/latex/libertine/T1LinuxLibertineMonoT-TLF.fd
 File: T1LinuxLibertineMonoT-TLF.fd 2019/05/20 (autoinst) Font definitions for T1/LinuxLibertineMonoT-TLF.
 )
 LaTeX Font Info:    Font shape `T1/LinuxLibertineMonoT-TLF/m/n' in size <12> not available
-(Font)              Font shape `T1/LinuxLibertineMonoT-TLF/regular/n' tried instead on input line 730.
+(Font)              Font shape `T1/LinuxLibertineMonoT-TLF/regular/n' tried instead on input line 750.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineMonoT-TLF/regular/n' will be
-(Font)              scaled to size 12.0pt on input line 730.
-
-Overfull \hbox (16.90794pt too wide) in paragraph at lines 730--734
-[]\T1/LinuxLibertineT-TLF/b/n/12 Implementación en Open3D\T1/LinuxLibertineT-TLF/m/n/12 : La li-br-ería \T1/LinuxLibertineMonoT-TLF/regular/n/12 Open3D \T1/LinuxLibertineT-TLF/m/n/12 pro-por-ciona una im-ple-mentación
- []
-
-
-Overfull \hbox (13.93962pt too wide) in paragraph at lines 730--734
-\T1/LinuxLibertineT-TLF/m/n/12 op-ti-mizada de ICP en C++ y Python. Su fun-ción prin-ci-pal \T1/LinuxLibertineMonoT-TLF/regular/n/12 registration_icp()
- []
+(Font)              scaled to size 12.0pt on input line 750.
+<./images//misaligned_frames.png, id=428, 2729.19624pt x 838.13126pt>
+File: ./images//misaligned_frames.png Graphic file (type png)
+<use ./images//misaligned_frames.png>
+Package pdftex.def Info: ./images//misaligned_frames.png  used on input line 762.
+(pdftex.def)             Requested size: 454.67433pt x 139.62851pt.
 
 
-Overfull \hbox (120.89233pt too wide) in paragraph at lines 730--734
-\T1/LinuxLibertineT-TLF/m/n/12 per-mite ele-gir en-tre varias métri-cas de alin-eación (\T1/LinuxLibertineMonoT-TLF/regular/n/12 TransformationEstimationPointToPoint\T1/LinuxLibertineT-TLF/m/n/12 ,
- []
+LaTeX Warning: `h' float specifier changed to `ht'.
 
-[33] [34]
-Overfull \hbox (7.29643pt too wide) in paragraph at lines 772--775
+<./images//aligned_frames.png, id=429, 2582.64874pt x 894.34125pt>
+File: ./images//aligned_frames.png Graphic file (type png)
+<use ./images//aligned_frames.png>
+Package pdftex.def Info: ./images//aligned_frames.png  used on input line 768.
+(pdftex.def)             Requested size: 454.67433pt x 157.44002pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[34] [35 <./images//misaligned_frames.png> <./images//aligned_frames.png>]
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
+(Font)              scaled to size 8.0pt on input line 784.
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
+(Font)              scaled to size 6.0pt on input line 784.
+ [36] [37]
+Overfull \hbox (7.29643pt too wide) in paragraph at lines 833--836
 []\T1/LinuxLibertineT-TLF/b/n/12 Respuestas provo-cada por la re-cep-ción de men-sajes a traves del tópico ''clean_pcl''
  []
 
-[35]
-Overfull \hbox (12.76912pt too wide) in paragraph at lines 790--794
-\T1/LinuxLibertineT-TLF/m/n/12 nube se trans-forma desde el tipo ''Point-Clou2'' a ''open3d.geometry.PointCloud()'',
+
+Overfull \hbox (18.42111pt too wide) in paragraph at lines 839--843
+\T1/LinuxLibertineT-TLF/m/n/12 Aqui se trans-forma desde el tipo ''Point-Cloud2'' a ''open3d.geometry.PointCloud()'',
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 811--815
-
- []
-
-
-Underfull \vbox (badness 2913) has occurred while \output is active []
-
- [36]
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 8.0pt on input line 824.
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 6.0pt on input line 824.
- [37]
-Overfull \hbox (2.3217pt too wide) in paragraph at lines 836--839
-\T1/LinuxLibertineT-TLF/m/n/12 nube no aporta in-for-ma-ción sig-ni-fica-tiva al mapa, por lo que no se añade. Matemáti-
+Overfull \hbox (18.84111pt too wide) in paragraph at lines 850--854
+\T1/LinuxLibertineT-TLF/m/n/12 nube se trans-forma desde el tipo ''Point-Cloud2'' a ''open3d.geometry.PointCloud()'',
  []
 
 [38]
-Overfull \hbox (7.42883pt too wide) in paragraph at lines 874--883
+Overfull \hbox (3.59291pt too wide) in paragraph at lines 870--878
+[]\T1/LinuxLibertineT-TLF/b/n/12 Evaluación de fo-tograma clave: \T1/LinuxLibertineT-TLF/m/n/12 Si la eval-u-ación an-te-rior no ha cumplido
+ []
+
+[39]
+Overfull \hbox (7.42883pt too wide) in paragraph at lines 889--898
 \T1/LinuxLibertineT-TLF/m/n/12 que per-mite al-ma-ce-nar y con-sul-tar in-for-ma-ción es-pa-cial de man-era efi-ciente. Para este propósito
  []
 
 
-Overfull \hbox (2.9789pt too wide) in paragraph at lines 874--883
+Overfull \hbox (2.9789pt too wide) in paragraph at lines 889--898
 \T1/LinuxLibertineT-TLF/m/n/12 tionar el mapa 3D. \T1/LinuxLibertineMonoT-TLF/regular/n/12 Bonxai \T1/LinuxLibertineT-TLF/m/n/12 es una bib-lioteca de código abierto dis-eñada para la rep-re-sentación,
  []
 
 
-Overfull \hbox (15.04506pt too wide) in paragraph at lines 874--883
+Overfull \hbox (15.04506pt too wide) in paragraph at lines 889--898
 \T1/LinuxLibertineT-TLF/m/n/12 ma-nip-u-lación y con-sulta efi-ciente de datos volumétri-cos en 3D me-di-ante una es-truc-tura jerárquica
  []
 
-
-Underfull \vbox (badness 3557) has occurred while \output is active []
-
- [39] [40]
-Overfull \hbox (4.21246pt too wide) in paragraph at lines 947--951
+[40] [41]
+Overfull \hbox (4.21246pt too wide) in paragraph at lines 962--966
 []\T1/LinuxLibertineT-TLF/b/n/12 Respuestas provo-cada por la re-cep-ción de men-sajes a traves del tópico ''new_pcl''\T1/LinuxLibertineT-TLF/m/n/12 :
  []
 
-[41] [42
-
-]
-Underfull \hbox (badness 10000) in paragraph at lines 954--957
+[42] [43]
+<./images//Diagrama.png, id=490, 1185.42876pt x 310.15875pt>
+File: ./images//Diagrama.png Graphic file (type png)
+<use ./images//Diagrama.png>
+Package pdftex.def Info: ./images//Diagrama.png  used on input line 989.
+(pdftex.def)             Requested size: 454.67433pt x 118.95952pt.
+ [44 <./images//Diagrama.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 994--997
 
  []
 
-[43]
-Overfull \hbox (9.89665pt too wide) in paragraph at lines 1014--1017
+[45
+
+] [46]
+<./images//ate_clean.png, id=511, 411.2163pt x 327.3831pt>
+File: ./images//ate_clean.png Graphic file (type png)
+<use ./images//ate_clean.png>
+Package pdftex.def Info: ./images//ate_clean.png  used on input line 1060.
+(pdftex.def)             Requested size: 181.86694pt x 144.79332pt.
+<./images//ate_noisy.png, id=512, 411.2163pt x 327.3831pt>
+File: ./images//ate_noisy.png Graphic file (type png)
+<use ./images//ate_noisy.png>
+Package pdftex.def Info: ./images//ate_noisy.png  used on input line 1071.
+(pdftex.def)             Requested size: 181.86694pt x 144.79332pt.
+ [47 <./images//ate_clean.png> <./images//ate_noisy.png>]
+Overfull \hbox (9.89665pt too wide) in paragraph at lines 1096--1099
 [] [] \T1/LinuxLibertineT-TLF/b/n/12 Defini-ción matemática:[] \T1/LinuxLibertineT-TLF/m/n/12 El RPE mide la con-sis-ten-cia lo-cal de la es-ti-mación de movimiento
  []
 
-[44] [45] [46] [47] [48] (./main.bbl [49] [50
+[48]
+Underfull \hbox (badness 10000) in paragraph at lines 1143--1144
 
-] [51]
+ []
+
+<./images//rpe_clean.png, id=529, 412.6617pt x 327.3831pt>
+File: ./images//rpe_clean.png Graphic file (type png)
+<use ./images//rpe_clean.png>
+Package pdftex.def Info: ./images//rpe_clean.png  used on input line 1145.
+(pdftex.def)             Requested size: 181.86694pt x 144.28378pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 1147--1148
+
+ []
+
+<./images//rpe_noisy.png, id=530, 413.3844pt x 327.3831pt>
+File: ./images//rpe_noisy.png Graphic file (type png)
+<use ./images//rpe_noisy.png>
+Package pdftex.def Info: ./images//rpe_noisy.png  used on input line 1149.
+(pdftex.def)             Requested size: 181.86694pt x 144.02902pt.
+[49 <./images//rpe_clean.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 1153--1158
+
+ []
+
+[50 <./images//rpe_noisy.png>]
+<./images//kitty_clean.png, id=551, 614.295pt x 338.2236pt>
+File: ./images//kitty_clean.png Graphic file (type png)
+<use ./images//kitty_clean.png>
+Package pdftex.def Info: ./images//kitty_clean.png  used on input line 1203.
+(pdftex.def)             Requested size: 181.86694pt x 100.1312pt.
+<./images//kitty_noisy.png, id=552, 614.295pt x 338.2236pt>
+File: ./images//kitty_noisy.png Graphic file (type png)
+<use ./images//kitty_noisy.png>
+Package pdftex.def Info: ./images//kitty_noisy.png  used on input line 1214.
+(pdftex.def)             Requested size: 181.86694pt x 100.1312pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1221--1230
+
+ []
+
+[51 <./images//kitty_clean.png>]
+<./images//full_path.png, id=561, 822.07124pt x 451.6875pt>
+File: ./images//full_path.png Graphic file (type png)
+<use ./images//full_path.png>
+Package pdftex.def Info: ./images//full_path.png  used on input line 1240.
+(pdftex.def)             Requested size: 318.27063pt x 174.86856pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \vbox (badness 6157) has occurred while \output is active []
+
+ [52 <./images//kitty_noisy.png>] [53 <./images//full_path.png>]
+<./images//chamfer_clean.png, id=580, 627.3036pt x 282.5757pt>
+File: ./images//chamfer_clean.png Graphic file (type png)
+<use ./images//chamfer_clean.png>
+Package pdftex.def Info: ./images//chamfer_clean.png  used on input line 1296.
+(pdftex.def)             Requested size: 272.80737pt x 122.88924pt.
+<./images//chamfer_noisy.png, id=581, 630.9171pt x 282.5757pt>
+File: ./images//chamfer_noisy.png Graphic file (type png)
+<use ./images//chamfer_noisy.png>
+Package pdftex.def Info: ./images//chamfer_noisy.png  used on input line 1307.
+(pdftex.def)             Requested size: 272.80737pt x 122.18643pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[54 <./images//chamfer_clean.png>] [55 <./images//chamfer_noisy.png>] [56] [57]
+<./images//ed_clean.png, id=618, 425.6703pt x 327.3831pt>
+File: ./images//ed_clean.png Graphic file (type png)
+<use ./images//ed_clean.png>
+Package pdftex.def Info: ./images//ed_clean.png  used on input line 1431.
+(pdftex.def)             Requested size: 227.33716pt x 174.846pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<./images//ed_noisy.png, id=619, 430.7292pt x 327.3831pt>
+File: ./images//ed_noisy.png Graphic file (type png)
+<use ./images//ed_noisy.png>
+Package pdftex.def Info: ./images//ed_noisy.png  used on input line 1443.
+(pdftex.def)             Requested size: 227.33716pt x 172.79286pt.
+[58] [59 <./images//ed_clean.png> <./images//ed_noisy.png>]
+Overfull \hbox (16.9295pt too wide) in paragraph at lines 1461--1466
+\T1/LinuxLibertineT-TLF/m/n/12 bidi-rec-cional, F-score y dis-tribu-ción de er-rores) pro-por-cio-nan una visión com-pleta del rendimiento
+ []
+
+<./images//map_clean.png, id=637, 1472.50125pt x 758.835pt>
+File: ./images//map_clean.png Graphic file (type png)
+<use ./images//map_clean.png>
+Package pdftex.def Info: ./images//map_clean.png  used on input line 1469.
+(pdftex.def)             Requested size: 227.33716pt x 117.15504pt.
+<./images//map_noisy.png, id=638, 1472.50125pt x 758.835pt>
+File: ./images//map_noisy.png Graphic file (type png)
+<use ./images//map_noisy.png>
+Package pdftex.def Info: ./images//map_noisy.png  used on input line 1475.
+(pdftex.def)             Requested size: 227.33716pt x 117.15504pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[60 <./images//map_clean.png>] [61 <./images//map_noisy.png>] [62
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 1480--1486
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1487--1495
+
+ []
+
+[63] (./main.bbl [64] [65
+
+]
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
 (Font)              scaled to size 8.0pt on input line 67.
-) [52]
+) [66]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\\' on input line 1217.
+(hyperref)                removing `\\' on input line 1508.
 
-[53
+[67
 
 ] (./main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: C2732AF719D975AEDBCFB13FAB97A39A;5135.
+(rerunfilecheck)             Checksum: 5A02B558106590067D6BD35AC8B46458;5377.
  ) 
 Here is how much of TeX's memory you used:
- 14035 strings out of 480171
- 225410 string characters out of 5894490
+ 14235 strings out of 480171
+ 230101 string characters out of 5894490
  507529 words of memory out of 5000000
- 31558 multiletter control sequences out of 15000+600000
- 538694 words of font info for 74 fonts, out of 8000000 for 9000
+ 31695 multiletter control sequences out of 15000+600000
+ 544131 words of font info for 76 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
- 85i,17n,90p,402b,671s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_dhi6qf.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_7grukw.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_naooyc.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_nh77jq.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/libertine/LinLibertineMT.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/libertine/LinLibertineT.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/libertine/LinLibertineTB.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/libertine/LinLibertineTI.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (53 pages, 1987356 bytes).
+ 85i,17n,90p,445b,669s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_dhi6qf.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_ki75ao.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_7grukw.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_naooyc.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_nh77jq.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/libertine/LinLibertineMT.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/libertine/LinLibertineT.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/libertine/LinLibertineTB.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/libertine/LinLibertineTBI.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/libertine/LinLibertineTI.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (67 pages, 5790675 bytes).
 PDF statistics:
- 654 PDF objects out of 1000 (max. 8388607)
- 525 compressed objects within 6 object streams
- 168 named destinations out of 1000 (max. 500000)
- 291 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 807 PDF objects out of 1000 (max. 8388607)
+ 623 compressed objects within 7 object streams
+ 210 named destinations out of 1000 (max. 500000)
+ 394 words of extra memory for PDF output out of 10000 (max. 10000000)
 

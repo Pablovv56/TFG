@@ -496,9 +496,9 @@ Entre ellos encontramos:
       \end{figure} 
 \end{itemize}
 
-\section{Pipeline de Localización y Mapeo Simultaneo}
+\section{Flujo de trabajo para la Localización y Mapeo Simultaneo}
 
-En esta sección primero describiremos las funciones y componentes claves que entran en juego en el proceso. Posteriormente, pasaremos a 
+En esta sección primero se describen las funciones y componentes claves que entran en juego en el proceso. Posteriormente, pasaremos a 
 describir el flujo de datos y la interacción entre los diferentes componentes del sistema y, por tanto, describiremos el flujo de trabajo 
 completo de la aplicación.
 
@@ -508,30 +508,30 @@ las funciones que desempeñan, los conceptos que lo sustentan y los detalles de 
 
 \subsubsection{Gestión y sincronización de mensajes}
 La gestión y sincronización de mensajes es un aspecto crucial en sistemas robóticos distribuidos, donde múltiples nodos trabajan de forma 
-conjunta para lograr tareas complejas. En el contexto de ROS2, los nodos se comunican entre sí mediante el intercambio de mensajes a
+conjunta para lograr tareas complejas. En el contexto de ROS2\cite{doi:10.1126/scirobotics.abm6074}, los nodos se comunican entre sí mediante el intercambio de mensajes a
 través de tópicos, servicios y acciones. La sincronización adecuada de estos mensajes es esencial para garantizar que los datos se procesen 
 en el orden correcto y que las operaciones dependientes de múltiples fuentes se realicen de manera coherente. \newline
 Para lograr una gestión y sincronización correcta de los mensajes para este proyecto y dado que la fuente de datos está almacenada en un 
-archivo de tipo rosbag, se ha optado por el desarrollo de un nodo que se encargue de reproducir los mensajes adecuados en función de la disponibilidad 
-de los principales nodos de procesamiento.\newline
+archivo de tipo \textit{\textit{rosbag}}, que es un tipo archivo dedicado al almacenamiento de comunicaciones en ROS2\cite{doi:10.1126/scirobotics.abm6074}, 
+se ha optado por el desarrollo de un nodo que se encargue de reproducir los mensajes adecuados en función de la disponibilidad de los principales nodos de procesamiento.\newline
 Este nodo llamado ''input\textunderscore data\textunderscore node'' se encarga de crear una estructura de datos que almacena los mensajes contenidos 
-en el archivo rosbag (grabación con los datos) ya que estos vienen serializados. Una vez leído este archivo y creada esta estructura de datos con los 
+en el archivo \textit{rosbag} (grabación con los datos) ya que estos vienen serializados. Una vez leído este archivo y creada esta estructura de datos con los 
 datos serializados, se irán leyendo los mensajes de forma ordenada, deserializando, formateando según el tipo de datos al que corresponda el mensaje 
 y publicándolos en los tópicos correspondientes.
 
 \paragraph{Conceptos clave:}
 Los conceptos clave que sustentan este nodo son:
 \begin{itemize}
-  \item \textbf{Archivos rosbag}: Un rosbag es un archivo usado en ROS (Robot Operating System) para registrar y reproducir datos de tópicos. Los 
-  archivos rosbag se almacenan en formato binario guardando la secuencia de mensajes ROS capturados. Estos mensajes incluyen cabeceras, marcas de tiempo 
+  \item \textbf{Archivos \textit{rosbag}}: Un \textit{rosbag} es un archivo usado en ROS2 \cite{doi:10.1126/scirobotics.abm6074} para registrar y reproducir datos de tópicos. Los 
+  archivos \textit{rosbag} se almacenan en formato binario guardando la secuencia de mensajes ROS capturados. Estos mensajes incluyen cabeceras, marcas de tiempo 
   y datos serializados. En nuestro caso, usaremos un archivo de este tipo para leer una grabación realizada previamente sobre un entorno simulado que 
   intentaremos recrear usando nuestro proceso de localización y mapeo.
   \item \textbf{Serialización y deserialización de mensajes}: La serialización es el proceso de convertir un objeto o estructura de datos en una secuencia 
   de bytes para su almacenamiento, y la deserialización es el proceso inverso, es decir, convertir una secuencia de bytes en un objeto o estructura de datos. 
-  En ROS2, los mensajes se serializan para su transmisión a través de la red o su almacenamiento en archivos rosbag. En nuestro caso, los mensajes leídos del 
-  archivo rosbag vienen serializados, por lo que es necesario deserializarlos antes de poder usarlos. Esta acción será clave una vez leído el archivo rosbag 
+  En ROS2\cite{doi:10.1126/scirobotics.abm6074}, los mensajes se serializan para su transmisión a través de la red o su almacenamiento en archivos \textit{rosbag}. En nuestro caso, los mensajes leídos del 
+  archivo \textit{rosbag} vienen serializados, por lo que es necesario deserializarlos antes de poder usarlos. Esta acción será clave una vez leído el archivo \textit{rosbag} 
   y antes de publicar los mensajes en los tópicos correspondientes.
-  \item \textbf{Publicación y suscripción a tópicos}: En ROS2, los nodos pueden publicar mensajes en tópicos y suscribirse a ellos para recibir mensajes.
+  \item \textbf{Publicación y suscripción a tópicos}: En ROS2\cite{doi:10.1126/scirobotics.abm6074}, los nodos pueden publicar mensajes en tópicos y suscribirse a ellos para recibir mensajes.
   La publicación y suscripción a tópicos es un mecanismo de comunicación fundamental en ROS2, que permite la comunicación asíncrona entre nodos. En nuestro caso, 
   el nodo ''input\textunderscore data\textunderscore node'' publicará los mensajes deserializados en el tópico ''clean\textunderscore pcl'' para los datos que 
   correspondan a las nubes de puntos que se usarán para el proceso de mapeo y localización y el tópico ''clean\textunderscore pose'' para los datos que correspondan 
@@ -540,8 +540,9 @@ Los conceptos clave que sustentan este nodo son:
 \end{itemize}
 
 \paragraph{Funcionamiento del componente:}
-Tal y como se ha descrito, el nodo ''input\textunderscore data \textunderscore node'' se encargará de leer el archivo rosbag, deserializar los mensajes y
+Tal y como se ha descrito, el nodo ''input\textunderscore data \textunderscore node'' se encargará de leer el archivo \textit{rosbag}, deserializar los mensajes y
 publicarlos en los tópicos correspondientes. El flujo de trabajo del nodo se puede describir de la siguiente manera:
+
 \begin{itemize}
   \item \textbf{Inicialización}: La inicialización de este nodo está conformada por los siguientes pasos:
   \begin{itemize}
@@ -555,7 +556,7 @@ publicarlos en los tópicos correspondientes. El flujo de trabajo del nodo se pu
       \item \textbf{Suscripción a ''new\textunderscore pose''}: Este suscriptor recibirá mensajes de tipo ''PoseStamped'' conteniendo la nueva pose calculada en función 
       del cálculo realizado por el servicio de publicación.
     \end{itemize}
-    \item \textbf{Inicialización de lectura del archivo rosbag}: Es necesario inicializar el sistema de lectura del archivo rosbag para que se pueda iterar fácilmente
+    \item \textbf{Inicialización de lectura del archivo \textit{rosbag}}: Es necesario inicializar el sistema de lectura del archivo \textit{rosbag} para que se pueda iterar fácilmente
     a través de los mensajes que este contiene.
     \item \textbf{Inicialización de variables auxiliares para la ejecución}: Es necesario inicializar algunas variables auxiliares como índices, entre otras,  
     para la correcta ejecución del nodo.
@@ -563,15 +564,22 @@ publicarlos en los tópicos correspondientes. El flujo de trabajo del nodo se pu
   \item \textbf{Respuestas provocadas por la recepción de mensajes a través del tópico ''new\textunderscore pose''}: Cada vez que se recibe un mensaje a través del tópico 
   ''new\textunderscore pose'' se inicia un proceso de respuesta que involucra los siguientes pasos:
   \begin{itemize}
-    \item \textbf{Obtención de la última pose antes de la publicación de la nube de puntos}: Se leerá el archivo rosbag almacenando siempre el último mensaje con etiqueta 
+    \item \textbf{Obtención de la última pose antes de la publicación de la nube de puntos}: Se leerá el archivo \textit{rosbag} almacenando siempre el último mensaje con etiqueta 
     ''gt\textunderscore odom'' de forma que cuando se encuentre un mensaje conteniendo la nueva nube de puntos, se pueda deserializar y rellenar un mensaje de tipo ''PoseStamped'' 
     que contendrá la última pose asociada a este mensaje por el tópico ''clean\textunderscore pose''.
-    \item \textbf{Obtención de las nubes de puntos}: Se continuará la lectura de los mensajes del archivo rosbag hasta que se encuentre uno con la etiqueta 
+    \item \textbf{Obtención de las nubes de puntos}: Se continuará la lectura de los mensajes del archivo \textit{rosbag} hasta que se encuentre uno con la etiqueta 
     ''cloud\textunderscore in'', entonces se deserializarán los datos del mensaje y se rellenarán aquellos campos necesarios para publicar un mensaje de tipo ''PointCloud2''.
     Una vez tenemos este mensaje de tipo ''PointCloud2'' relleno, este se publicará a través del tópico ''clean\textunderscore pcl'' junto con la pose asociada por el tópico 
     correspondiente.
   \end{itemize}
 \end{itemize}
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.7\textwidth]{rosbag_output.png}
+  \caption{Imagen de una nube de puntos y pose asociada extraidas por el nodo ''input\textunderscore data\textunderscore node''.}
+\end{figure}
+
 En resumen, este nodo se encarga de iniciar el flujo de datos de entrada publicando los mensajes asociados con las nubes de puntos y la pose asociada. Una vez se ha iniciado
 este flujo, continuará publicando estos mensajes cada vez que reciba un mensaje por parte del nodo de localización (determinando así que este está listo para recibir otro),
 y así hasta que se complete la lectura.
@@ -582,7 +590,7 @@ a lo que podría ser una ejecución en el entorno real. Es por esto que se ha de
 los mensajes de tipo ''PointCloud2'' publicados a través del tópico ''clean\textunderscore pose'', que contienen la nube de puntos libre de errores. En base a unos 
 parámetros determinados, añadirá cierto error de forma aleatoria a los puntos contenidos en la nube. Esta parte del proceso se usará solo cuando queramos probar la 
 resiliencia frente a errores, es decir, el flujo de trabajo también está preparado para trabajar directamente con la nube sin error, como es de esperar, ya que la 
-presencia de error añade complejidad al proceso y reducir la complejidad de este no debería impactar negativamente.
+presencia de error añade complejidad al proceso y reducir la complejidad de este no debería impactar significativamente.
 
 \paragraph{Conceptos clave:} 
 Un concepto clave a tener en cuenta para este proceso es la transformación que se aplica a la nube de puntos sin error para que se convierta en una nube de 
@@ -602,7 +610,7 @@ puntos que contenga ruido. En este caso se ha optado por aplicar la siguiente tr
       \[
       x' = x + n_x, \quad y' = y + n_y, \quad z' = z + n_z
       \]
-      donde $n_x, n_y, n_z \sim \mathcal{N}(\mu, \sigma^2)$ son muestras independientes de la distribución normal.
+      donde $n_x, n_y, n_z \sim \mathcal{N}(\mu, \sigma^2)$ son muestras independientes de la distribución normal y siendo (x',y',z') las nuevas coordenadas del punto ruidoso.
   \end{itemize}
 \end{itemize}
 
@@ -621,18 +629,23 @@ del flujo de trabajo. Para ello, el funcionamiento básico de este nodo será:
   provoca la llamada de una función que se encarga de aplicar una máscara de ruido a la nube de puntos recibida y, posteriormente, publicarla a través del 
   tópico ''noisy\textunderscore pcl''.
 \end{itemize}
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=1\textwidth]{noisy_pcl.png}
+  \caption{Imagen de una nube de puntos procesada por el nodo ''noisy\textunderscore cloud''.}
+\end{figure}
+
 En resumen, este nodo se encarga de transformar la nube de puntos original a un estado simulado más cercano a la realidad de un sensor.
 
 \subsubsection{Calculo de la localización}
-La piedra angular de este proyecto se asienta sobre las bases de la localización, si sabemos la posición desde la que hemos capturado una nube de puntos
-podemos trasladar esta hasta esa posición para a posteriori ir calculando el desplazamiento entre nubes y componiendo este desplazamiento sobre la pose
-existente, repitiendo asi este proceso hasta el infinito siempre y cuando seamos capaces de hacer buenas estimaciones de estos desplazamientos, filtrando
-ruido, calculos poco precisos y aislado estas estimaciones de pequeños errores consecutivos que pueden derivarnos lejos de la pose original si no se 
-controlan. \newline
+La piedra angular de este proyecto se asienta sobre las bases de la localización. Si se conoce la posición desde la que se ha capturado una nube de puntos
+es posible trasladar esta hasta esa posición para a posteriori ir calculando el desplazamiento entre nubes y componiendo este desplazamiento sobre la pose
+existente, repitiendo asi este proceso de forma iterativa e indefinida siempre y cuando seamos capaces de hacer buenas estimaciones de estos desplazamientos. \newline
 Este es un proceso complejo que consta de varios componentes asociados que trabajan en sintonia para generar salidas de igual importacia a la pose como 
 es el propio mapa. En este caso nos vamos a centrar en el proceso que lleva a cabo el nodo de localización llamado ''localization\textunderscore node''
-y de la clase asociada a este proceso llamada ''KeyFrameSelector''. Estas dos clases trabajan en conjunto para calcular la pose desde la que se ha capturado 
-una nube de puntos respecto de la anterior y comprobar si cumple los requisitos para formar parte del mapa.
+Este nodo se encargara de recibir la nube de puntos (con o sin ruido), procesarla y calcular a traves esta y la información previa una nueva pose del sistema
+ademas de decidir si hay nueva información que añadir al mapa.
 
 \paragraph{Conceptos Clave:}
 Este componente se construye alrededor de varios conceptos fundamentales para el correcto funcionamiento de este proyecto, entre ellos encontramos los 
@@ -643,28 +656,35 @@ siguientes:
   del número de puntos agrupandolos en función de la distancia entre ellos). En nuestro caso, la mayoria de transformaciones de preprocesamiento que se aplican 
   son:
   \begin{itemize}
-    \item \textbf{Transformación de formato}: Dado que las nubes de puntos son recibidas en formato ''PointCloud2'', es necesario transformarlas a un formato
-      ''open3d.geometry.PointCloud()'' para poder trabajar con ellas usando las librerías Open3D que se usarán a lo largo del proceso. 
-      \item \textbf{Submuestreo (Downsampling)}: Dado que el mapa con el que trabajamos tiene una resolución determinada, es necesario reducir la resolución de
-      las nubes de puntos que recibimos para que esta coincida con la del mapa. Esto se hace para reducir la cantidad de puntos a procesar, lo que mejora la 
-      eficiencia computacional y reduce el ruido. En nuestro caso, se usa un método de submuestreo basado en un voxel grid, donde se agrupan los puntos dentro 
-      de celdas de un tamaño determinado (tamaño del voxel) y se reemplazan por un solo punto representativo (generalmente el centroide de los puntos en esa celda).
-      \item \textbf{Eliminación de outliers}: Las nubes de puntos pueden contener puntos erróneos o aislados que no representan la realidad del entorno. Estos outliers 
-      pueden ser causados por ruido en la captura, errores de medición o reflejos. La eliminación de outliers es crucial para mejorar la calidad de la nube de puntos y 
-      la precisión de los cálculos posteriores. En nuestro caso, se usa un método basado en la distancia media a los vecinos más cercanos, donde se eliminan los puntos 
-      que están demasiado lejos de sus vecinos. Este proceso se realiza después del submuestreo para evitar eliminar puntos que podrían ser relevantes en la nube original.
-      \item \textbf{Traslación al origen}: Las nubes de puntos capturadas suelen estar referenciadas a un sistema de coordenadas distinto al origen (0,0,0). Para facilitar 
-      el cálculo del desplazamiento entre nubes y su emparejamiento con la nube anterior, es necesario trasladarlas al sistema de coordenadas del origen. Esto permite 
-      que las transformaciones posteriores sean más consistentes y precisas.
-      \item \textbf{Cálculo de normales}: El cálculo de las normales de los puntos en la nube es esencial para muchos algoritmos de procesamiento de nubes de puntos,
-      incluyendo el emparejamiento ICP. Las normales proporcionan información sobre la orientación de las superficies representadas por la nube de puntos, lo que ayuda a 
-      mejorar la precisión del emparejamiento. En nuestro caso, se calcula la normal de cada punto en función de sus vecinos más cercanos, usando un método basado en la
-      covarianza local.
+    \item \textbf{Transformación de formato}: Dado que las nubes de puntos son recibidas en formato ''PointCloud2'', para poder trabajar con ellas y usar librerías como
+    Open3D\cite{Zhou2018}, es necesario transformarlas a un formato compatible con estas librerías. En nuestro caso, se convierten a
+    ''open3d.geometry.PointCloud()'' para poder trabajar con ellas usando las librerías Open3D que se usarán a lo largo del proceso. 
+    \item \textbf{Submuestreo (Downsampling)}: Dado que el mapa con el que trabajamos tiene una resolución determinada, es necesario reducir la resolución de
+    las nubes de puntos que recibimos para que esta coincida con la del mapa. Esto se hace para reducir la cantidad de puntos a procesar, lo que mejora la 
+    eficiencia computacional y reduce el ruido. En nuestro caso, se usa un método de submuestreo basado en un voxel grid, donde se agrupan los puntos dentro 
+    de celdas de un tamaño determinado (tamaño del voxel) y se reemplazan por un solo punto representativo (generalmente el centroide de los puntos en esa celda).
+    \item \textbf{Eliminación de outliers}: Las nubes de puntos pueden contener puntos erróneos o aislados que no representan la realidad del entorno. Estos outliers 
+    pueden ser causados por ruido en la captura, errores de medición o reflejos. La eliminación de outliers es crucial para mejorar la calidad de la nube de puntos y 
+    la precisión de los cálculos posteriores. En nuestro caso, se usa un método basado en la distancia media a los vecinos más cercanos, donde se eliminan los puntos 
+    que están demasiado lejos de sus vecinos. Este proceso se realiza después del submuestreo para evitar eliminar puntos que podrían ser relevantes en la nube original.
+    \item \textbf{Traslación al origen}: Las nubes de puntos capturadas suelen estar referenciadas a un sistema de coordenadas distinto al origen (0,0,0). Para facilitar 
+    el cálculo del desplazamiento entre nubes y su emparejamiento con la nube anterior, es necesario trasladarlas al sistema de coordenadas del origen. Esto permite 
+    que las transformaciones posteriores sean más consistentes y precisas.
+    \item \textbf{Cálculo de normales}: El cálculo de las normales de los puntos en la nube es esencial para muchos algoritmos de procesamiento de nubes de puntos,
+    incluyendo el emparejamiento ICP. Las normales proporcionan información sobre la orientación de las superficies representadas por la nube de puntos, lo que ayuda a 
+    mejorar la precisión del emparejamiento. En nuestro caso, se calcula la normal de cada punto en función de sus vecinos más cercanos, usando un método basado en la
+    covarianza local.
+    \begin{figure}[h]
+      \centering
+        \includegraphics[width=1\textwidth]{preprocessed_pcl.png}
+      \caption{Imagen de una nube de puntos procesada por la función de preprocesamiento.}
+    \end{figure}
   \end{itemize}
+  \newpage
   \item \textbf{ICP (Iterative Closest Point)}: El algoritmo \textit{Iterative Closest Point} (ICP) es un método ampliamente utilizado para la alineación de nubes de puntos 
-  en aplicaciones de visión por computadora, robótica y reconstrucción 3D. Su objetivo es encontrar la transformación rígida óptima (rotación y traslación) que minimiza la 
+  en aplicaciones de visión por computador, robótica y reconstrucción 3D. Su objetivo es encontrar la transformación rígida óptima (rotación y traslación) que minimiza la 
   distancia entre dos conjuntos de puntos: una nube de puntos \textit{fuente} $\mathcal{P} = \{\mathbf{p}_i\}_{i=1}^{N}$ y una nube de puntos \textit{objetivo} 
-  $\mathcal{Q} = \{\mathbf{q}_j\}_{j=1}^{M}$. Ahora describiremos su formulación matemática y el algoritmo paso a paso.
+  $\mathcal{Q} = \{\mathbf{q}_j\}_{j=1}^{M}$ siendo \textit{N} y \textit{M} puntos de cada una respectivamente. Ahora describiremos su formulación matemática y el algoritmo paso a paso.
   \begin{itemize}
     \item \textbf{Formulación Matemática}: El problema se modela como la búsqueda de una transformación rígida $(\mathbf{R}, \mathbf{t})$, donde $\mathbf{R} \in SO(3)$ es 
     una matriz de rotación y $\mathbf{t} \in \mathbb{R}^3$ es un vector de traslación, que minimice la siguiente función de costo:
@@ -727,9 +747,8 @@ siguientes:
       \]
       donde $\mathbf{n}_j$ es el vector normal asociado a $\mathbf{q}_j$.
     \end{itemize}
-    \item \textbf{Implementación en Open3D}: La librería \texttt{Open3D} proporciona una implementación optimizada de ICP en C++ y Python. Su función principal 
-    \texttt{registration\_icp()} permite elegir entre varias métricas de alineación (\texttt{TransformationEstimationPointToPoint}, 
-    \texttt{TransformationEstimationPointToPlane}) y utiliza aceleradores de búsqueda de vecinos como KD-Trees para obtener correspondencias eficientes.
+    \item \textbf{Implementación en Open3D\cite{Zhou2018}}: La librería \texttt{Open3D} proporciona una implementación optimizada de ICP en C++\cite{cpp} y Python\cite{python}. Su función principal para ello
+    \texttt{registration\_icp()} permite elegir entre varias métricas de alineación y utiliza aceleradores de búsqueda de vecinos como KD-Trees para obtener correspondencias eficientes.
     Además, Open3D admite:
     \begin{itemize}
         \item \textbf{Jerarquía multiescala:} aplicación de ICP en niveles de resolución decreciente para mejorar la convergencia global.
@@ -737,18 +756,60 @@ siguientes:
         \item \textbf{Transformación inicial:} opción de especificar $(\mathbf{R}_0, \mathbf{t}_0)$ para mejorar los resultados cuando se dispone de una estimación previa.
     \end{itemize}
   \end{itemize}
-  \item \textbf{Selección de fotogramas clave (Key frame selection)}: Anteriormente se comenta cómo no todas las nubes pueden formar parte del mapa, ya que todos 
-  los emparejamientos realizados contienen un mínimo de error debido a que la naturaleza del método de emparejamiento es estadística y no es perfecta. De forma que, 
-  si componemos este error, aunque mínimo o imperceptible a simple vista entre las capturas iniciales, se va acumulando con el tiempo, dando lugar a que la pose termine 
-  por corromperse y deje de representar de forma correcta la pose real. \newline
-  Esto nos lleva a desarrollar un proceso de curado y selección de fotogramas que, si cumplen una serie de requisitos, formarán parte del mapa y, por tanto, 
-  contribuirán a las siguientes iteraciones. Por ello, es de gran interés que estos emparejamientos sean lo más precisos posibles y que se realicen con una frecuencia 
-  adecuada. En concreto, se ha desarrollado una clase llamada ''KeyFrameSelector'' que se encarga de gestionar este proceso. Esta clase se discutira mas en profundidad 
-  mas adelante.
+
+  \begin{figure}[h]
+    \centering
+      \includegraphics[width=1\textwidth]{misaligned_frames.png}
+    \caption{Imagen de dos nubes de puntos desalineadas.}
+  \end{figure}
+
+  \begin{figure}[h]
+    \centering
+      \includegraphics[width=1\textwidth]{aligned_frames.png}
+    \caption{Imagen de dos nubes de puntos alineadas.}
+  \end{figure}
+
+  \item \textbf{Selección de fotogramas clave (Key frame selection)}:El principio fundamental de la tecninca de emparejamiento que se usa en este proyecto (ICP), al ser un metodo estadistico, es que siempre va a contener un minimo de error.
+  Aunque este error sea minimo, si se va acumulando con el tiempo, puede llegar a corromper la pose y que esta deje de representar la realidad. Por ello, es necesario un proceso
+  de curado y seleccion de fotogramas que construyan el mapa. Este proceso debe ser riguroso ya que si se aceptan muchas nubes de puntos, el error se acumulara mas rapidamente y 
+  si se aceptan pocas, el mapa sera pobre, no representara la realidad y hara mas complicado que se encuentren emparejamientos entre la nube actual y el mapa. \newline
+  En este caso, debemos distingir entre dos tipos de fotogramas clave:
+  \begin{itemize}
+    \item \textbf{Fotogramas clave para la localización}: Estos fotogramas clave son aquellos que se usan para manetener una referencia mas actual de la pose 
+    respecto del mapa, es decir, para reanclar la pose y evitar que el error se acumule demasiado. Para que uno de los fotogramas actuales sea considerado
+    como fotograma clave para la localización, debe cumplir al menos una de las siguientes condiciones
+    \begin{itemize}
+      \item \textbf{Distancia mínima desde la última clave}: Se define una distancia mínima que la nueva nube de puntos debe tener respecto a la última nube clave añadida al mapa.
+      Esto asegura que las nubes de puntos añadidas al mapa estén suficientemente separadas espacialmente, lo que ayuda a cubrir más área del entorno y reduce la redundancia.
+      Matemáticamente, si $\mathbf{p}_{\text{new}}$ es el centroide de la nueva nube de puntos y $\mathbf{p}_{\text{last}}$ es el centroide de la última nube clave, se requiere que:
+      \[
+      \|\mathbf{p}_{\text{new}} - \mathbf{p}_{\text{last}}\| > d_{\text{min}}
+      \]
+      donde $d_{\text{min}}$ es la distancia mínima requerida.
+      \item \textbf{Cambio angular mínimo}: Se establece un umbral de cambio angular que la nueva nube de puntos debe superar respecto a la última nube clave. Esto garantiza que las 
+      nubes de puntos se capturen desde diferentes orientaciones, lo que mejora la diversidad de perspectivas en el mapa.
+      Matemáticamente, si $\mathbf{R}_{\text{new}}$ y $\mathbf{R}_{\text{last}}$ son las matrices de rotación asociadas a las nubes, el cambio angular $\theta$ se calcula como:
+      \[
+      \theta = \arccos\left(\frac{\text{trace}(\mathbf{R}_{\text{new}} \mathbf{R}_{\text{last}}^\top) - 1}{2}\right)
+      \]
+      y se requiere que $\theta > \theta_{\text{min}}$, donde $\theta_{\text{min}}$ es el umbral mínimo de cambio angular.
+    \end{itemize}
+    \item \textbf{Fotogramas clave para la construcción del mapa}: Estos fotogramas clave son aquellos que se usan para construir el mapa, es decir, para añadir nueva información
+    al mapa. Para que uno de los fotogramas actuales sea considerado como fotograma clave para la construcción del mapa, debe cumplir al menos una de las siguientes condiciones:
+    \begin{itemize}
+      \item \textbf{Ratio de novedad mínimo}: Se calcula el ratio de novedad (información que aporta) entre la nueva nube de puntos y el mapa existente. Si este raito es alto, 
+      significa que la nueva nube aporta información significativa al mapa y, por tanto, debe ser añadida.
+      Matemáticamente, si $N_{\text{overlap}}$ es el número de puntos de la nueva nube que coinciden con el mapa y $N_{\text{total}}$ es el número total de puntos en la nueva nube, el ratio de novdad $r$ se define como:
+      \[
+      r = 1-\frac{N_{\text{overlap}}}{N_{\text{total}}}
+      \]
+      y se requiere que $r > r_{\text{max}}$, donde $r_{\text{max}}$ es el umbral mínimo permitido.
+    \end{itemize}
+  \end{itemize}
 \end{itemize}
 
 \paragraph{Funcionamiento del componente:}
-Tal y como se ha ido introduciendo, el nodo ''localization\textunderscore node'' se encargara de orquestar una serie de tareas cruciales que conciernen tanto 
+Tal y como se ha ido introduciendo, el nodo ''localization\textunderscore node'' se encargará de orquestar una serie de tareas cruciales que conciernen tanto 
 a la localización global como a la construcción del mapa, por lo que detallar los pasos que este sigue, es clave para comprender el funcionamiento de la herramienta. 
 A contuación se describen los pasos que sigue:
 \begin{itemize}
@@ -757,11 +818,11 @@ A contuación se describen los pasos que sigue:
     \item \textbf{Inicialización de publicadores y subscriptores}: Al instanciar el nodo, se inicia la escucha y se prepara para la recepción de mensajes de los 
     siguientes tópicos:
     \begin{itemize}
-      \item \textbf{Subscripción de ''clean\textunderscore pcl'' o ''noisy\textunderscore cloud''}: Este subscriptor se encargara de recibir los mensajes de tipo 
-      ''PointCloud2'' conteniendo la nube de puntos original o con ruido en funcion del tipo de ejecución que hayamos decidido realizar.
+      \item \textbf{Subscripción de ''clean\textunderscore pcl'' o ''noisy\textunderscore cloud''}: Este subscriptor se encargará de recibir los mensajes de tipo 
+      ''PointCloud2'' conteniendo la nube de puntos original o con ruido en función del tipo de ejecución que hayamos decidido realizar.
       \item \textbf{Publicacion de ''new\textunderscore pose''}: Este servicio de publicación se encarga de publicar mensajes de tipo ''PoseStamped'' conteniendo 
       la pose actualizada calculada a traves de la ultima información recibida.
-      \item \textbf{Publicacion de ''new\textunderscore pcl''}: Este servicio de publicación se encarga de publicar mensajes de tipo ''PointClou2'' conteniendo 
+      \item \textbf{Publicacion de ''new\textunderscore pcl''}: Este servicio de publicación se encarga de publicar mensajes de tipo ''PointCloud2'' conteniendo 
       la nube de puntos actualizada calculada a traves de la ultima información recibida.
     \end{itemize}
     \item \textbf{Lectura del archivo de configuración}: Es necesario leer un archivo de configuración de tipo YAML que contiene los parametros de evaluación de 
@@ -770,104 +831,58 @@ A contuación se describen los pasos que sigue:
     para la correcta ejecución del nodo.
   \end{itemize}
   \item \textbf{Respuestas provocada por la recepción de mensajes a traves del tópico ''clean\textunderscore pcl'' o ''noisy\textunderscore pcl''}:
-  Los mensajes recibidos por los tópicos de ''clean\textunderscore pcl'' o ''noisy\textunderscore pcl'' son la unica entra que no se genera de forma recursiva por 
+  Los mensajes recibidos por los tópicos de ''clean\textunderscore pcl'' o ''noisy\textunderscore pcl'' son la única entrada que no se genera de forma recursiva por 
   la ejecución del nodo, pero no es el unico input que usaremos. La ejecución de esta función se puede dividir en dos casos:
   \begin{itemize}
     \item \textbf{Primera llamada:} La primera llamada de este nodo se usa para inicializar una serie de elementos:
     \begin{itemize}
       \item \textbf{Almacenamiento de la primera nube de puntos:} Como este algoritmo usara dos nubes de puntos (''t-1'' y ''t'') para calcular el desplazamiento, en 
-      la primera llamada no tendremos ninguna nube previa por lo que unicamente haremos un preprocesamiento donde se transforma desde el tipo ''PointClou2'' a 
+      la primera llamada no tendremos ninguna nube previa por lo que unicamente haremos un preprocesamiento. \newline Aqui se transforma desde el tipo ''PointCloud2'' a 
       ''open3d.geometry.PointCloud()'', se realizara un submuestreo para igualar su resolción a la que usa el mapa, se hace una limpieza de outliers, se trasladara al 
       punto [x=0, y=0, x=0] y se calcularan sus normales, que son necesarias para realizar ICP dejandola asi lista para el siguiente paso.
-      \item \textbf{Almacenamiento del mapa e instaciación de la clase KeyFrameSelector:} Dado que es la primera nube de puntos, servira de punto de referencia, su pose 
-      sera el punto de origen por lo que se puede usar como inicialización para el mapa y la clase que seleccionara las sucesivas imagenes clave en función de esta y el 
-      mapa que describe.
+      \item \textbf{Almacenamiento del primer fotograma clave y del mapa:} Dado que es la primera nube de puntos, servira de punto de referencia, su pose 
+      sera el punto de origen por lo que se puede usar como inicialización para el fotograma clave y el mapa.
       \item \textbf{Reconstrucción del mensaje y publicación}: Dado que en esta fase no hay ningun emparejamiento que calcular, solo se transforma la nube de puntos 
       de vuelta al tipo ''PointCloud2'' y publicarla a traves del tópico ''new\textunderscore pcl'' para que sea recibida por el modulo de mapeo.
     \end{itemize}
     \item \textbf{Llamadas sucesivas:} El resto de mensajes recibidos se trataran de igual manera y siguiendo este esquema:
     \begin{itemize}
       \item \textbf{Preprocesamiento:} La nube de puntos se preprocesa de la misma manera que en el caso de la primera llamada, aunque se mantiene la copia original en 
-      caso de que se requiera usar para el proceso de selección de nubes claves. Es decir, la nube se transforma desde el tipo ''PointClou2'' a 
+      caso de que se requiera usar para el proceso de selección de nubes claves. Es decir, la nube se transforma desde el tipo ''PointCloud2'' a 
       ''open3d.geometry.PointCloud()'', se realiza el submuestreo a la resolción del mapa, se hace limpieza de outliers, se traslada a la pose calculada anteriormente y 
       se calculan las normales para poder realizar el posterior emparejamiento por ICP.
       \item \textbf{Logica ICP:} Esta es la logica principal, encargada de suministrar la nueva pose y nube de puntos trasaladada a esa posición. Para implementar esta 
       lógica, se ha creado una función llamada ''icp\textunderscore logic'' que sigue el siguiente esquema:
       \begin{itemize}
-        \item \textbf{Pendiente: Resumen actual} 
-        \item \textbf{El numero de frames es que han pasado desde la ultima comprobación es menor que un umbral} Se calcula ICP entre la nube de puntos actual y la anterior, 
-        se obtiene la transformación resultante y se compone con la pose.
-        \textbf{Si FITNESS, RMSE, TRANSLATION y ROTATION cumplen los requisitos} Se actualiza la pose y se almacena la nube de puntos actual como la anterior
-        \item \textbf{El numero de frames es que han pasado desde la ultima comprobación es mayor o igual que el umbral o el emparejamiento no cumple los requisitos anteiores}
-        Se comprueba si el frame actual puede ser una imagen clave.
+        \item \textbf{Evaluación de emparejamiento fotograma a fotograma:} En primer lugar, se evalua si debe realizarse un emparejamiento entre la nube actual y la
+        nube anterior, la condición principal para que se realice este emparejamiento es que no haya pasado mucho tiempo desde la ultima vez que se encontro un nuevo fotograma clave.
+        Esta es la condición a evaluar:
+        \[
+        (\text{Índice} - \text{Última\_ actualización}) \bmod \text{Umbral} = 0
+        \]
+        Si esta condición se cumple, se realiza el emparejamiento entre la nube actual y la anterior usando ICP punto a plano. Si el emparejamiendo cumple todas las siguientes condiciones: \newline
+        \textbf{Fitness > Umbral mínimo}\newline
+        \textbf{RMSE < Umbral máximo}\newline
+        \textbf{Distancia < Umbral máximo}\newline
+        \textbf{Angulo < Umbral máximo}\newline
+        Entonces se actualiza la devuleve la pose, y el mapa vacio (ya que no pertenece al grupo de fotogramas que cumple las condiocnes) y se almacena la nube actual como la nueva nube anterior.
+        En caso de que no se cumpla alguna de las condiciones, pasaremos a comprobar si es un frame clave.
+        \item \textbf{Evaluación de fotograma clave:} Si la evaluación anterior no ha cumplido alguna de las condiones, se intenta realizar un emparejamiento entre la nube actual y 
+        el útlimo fotograma clave. Si este emparejamiento cumple alguna las siguientes condiciones:\newline
+        \textbf{Distancia > Umbral mínimo}\newline
+        \textbf{Angulo > Umbral mínimo}\newline
+        Si se ha cumplido algunas de las condiciones, este emparejamiento resulta en una nueva pose y fotograma claves. Además se considera la posibilidad de que esta nube aporte
+        nueva información al mapa, por lo que se evalua si cumple la siguiente condición:\newline
+        \textbf{Ratio de novedad > Umbral mínimo}\newline 
+        Si se cumple esta condición, se devuelve la nueva pose y la nube actual para que sea añadida al mapa. En caso de que no se cumpla, se devuelve la nueva pose y un mapa vacío.
       \end{itemize}
-      \item \textbf{Guardado de la nueva pose y publicación de la nueva información del mapa:} Se guarda la pose calculada por la logica ICP para puclicarla una vez que el 
-      mapa ha integrado la nueva nube de puntos en caso de que haya nueva información que añadir.
+      \item \textbf{Guardado de la nueva pose y publicación de la nueva información del mapa:} Una vez terminada la logica de ICP, si se ha obtenido un nuevo fotograma clave perteneciente 
+      al mapa, entonces este se publica y se esperara a la recepción del mapa actualizado para publicar la nueva pose, en caso contrario, se publica la nueva pose unicamente.
     \end{itemize}
   \end{itemize}
-\end{itemize}
-
-\subsubsection{Seleccion de fotogramas clave}
-El principio fundamental de la tecninca de emparejamiento que se usa en este proyecto (ICP), al ser un metodo estadistico, es que siempre va a contener un minimo de error.
-Aunque este error sea minimo, si se va acumulando con el tiempo, puede llegar a corromper la pose y que esta deje de representar la realidad. Por ello, es necesario un proceso
-de curado y seleccion de fotogramas que construyan el mapa. Este proceso debe ser riguroso ya que si se aceptan muchas nubes de puntos, el error se acumulara mas rapidamente y 
-si se aceptan pocas, el mapa sera pobre, no representara la realidad y hara mas complicado que se encuentren emparejamientos entre la nube actual y el mapa. \newline
-
-\paragraph{Conceptos Clave:}
-El unico concepto clave que sustenta este proceso es el siguiente:
-\begin{itemize}
-  \item \textbf{Criterios de selección de fotogramas clave}: La selección de fotogramas clave se basa en la evaluación de varios criterios que determinan si una nube
-  de puntos debe ser añadida al mapa. Estos criterios incluyen:
-  \begin{itemize}
-    \item \textbf{Distancia mínima desde la última clave}: Se define una distancia mínima que la nueva nube de puntos debe tener respecto a la última nube clave añadida al mapa.
-      Esto asegura que las nubes de puntos añadidas al mapa estén suficientemente separadas espacialmente, lo que ayuda a cubrir más área del entorno y reduce la redundancia.
-      Matemáticamente, si $\mathbf{p}_{\text{new}}$ es el centroide de la nueva nube de puntos y $\mathbf{p}_{\text{last}}$ es el centroide de la última nube clave, se requiere que:
-      \[
-      \|\mathbf{p}_{\text{new}} - \mathbf{p}_{\text{last}}\| > d_{\text{min}}
-      \]
-      donde $d_{\text{min}}$ es la distancia mínima requerida.
-    \item \textbf{Cambio angular mínimo}: Se establece un umbral de cambio angular que la nueva nube de puntos debe superar respecto a la última nube clave. Esto garantiza que las 
-      nubes de puntos se capturen desde diferentes orientaciones, lo que mejora la diversidad de perspectivas en el mapa.
-      Matemáticamente, si $\mathbf{R}_{\text{new}}$ y $\mathbf{R}_{\text{last}}$ son las matrices de rotación asociadas a las nubes, el cambio angular $\theta$ se calcula como:
-      \[
-      \theta = \arccos\left(\frac{\text{trace}(\mathbf{R}_{\text{new}} \mathbf{R}_{\text{last}}^\top) - 1}{2}\right)
-      \]
-      y se requiere que $\theta > \theta_{\text{min}}$, donde $\theta_{\text{min}}$ es el umbral mínimo de cambio angular.
-    \item \textbf{Ratio de superposición}: Se calcula el ratio de superposición entre la nueva nube de puntos y el mapa existente. Si este ratio es demasiado alto, indica que la nueva nube no aporta
-      información significativa al mapa, por lo que no se añade.
-      Matemáticamente, si $N_{\text{overlap}}$ es el número de puntos de la nueva nube que coinciden con el mapa y $N_{\text{total}}$ es el número total de puntos en la nueva nube, el ratio de superposición $r$ se define como:
-      \[
-      r = \frac{N_{\text{overlap}}}{N_{\text{total}}}
-      \]
-      y se requiere que $r < r_{\text{max}}$, donde $r_{\text{max}}$ es el umbral máximo permitido.
-  \end{itemize}
-\end{itemize}
-
-\paragraph{Funcionamiento del componente:}
-La clase ''KeyFrameSelector'' se encargara de gestionar este proceso de selección, almacenamiento y gestion de nubes clave. El funcionamiento de esta clase se puede describir 
-de la siguiente manera:
-\begin{itemize}
-  \item \textbf{Inicialización}: La inicialización de esta clase esta involucra al primer frame del proceso ya que este sera el frame de referencia. Ademas se compone 
-  por los siguientes pasos:
-  \begin{itemize}
-    \item \textbf{Inicialización de variables esenciales}: Con la inicialización de la clase, se inicializan una serie de variables esenciales para el correcto funcionamiento 
-    de la clase, como la última nube clave, su pose asociada y el mapa actual, que en este punto unicamente contiene la primera nube de puntos.
-    \item \textbf{Lectura del archivo de configuración}: Es necesario leer un archivo de configuración de tipo YAML que contiene los parametros de evaluación de 
-    las condiciones para aceptar una nueva nube como clave.
-  \end{itemize}
-  \item \textbf{Evaluación de nuevas nubes de puntos}: Este proceso recibe la nube de puntos actual sin ninguna transformacion, es decir en el tipo original del mensaje (''PointClou2), 
-  por lo que es necesario aplicar un preprocesamiento que en este caso incluye la transformar la nube al tipo ''open3d.geometry.PointCloud()'', realizar un submuestreo para igualar su 
-  resolción a la del mapa, trasladarla a la ultima pose en la que se añadio una nube clave, es decir correcta desde nuestra ultima estimación, eliminacion de outliers y calculo de normales. 
-  Una vez tenemos la nube de puntos preprocesada, se sigue el siguiente esquema:
-  \begin{itemize}
-    \item \textbf{Pendiente: Resumen actual:}: 
-    Al ser nubes de puntos que pueden estar mas alejadas de lo normal o complicar el emparejamiento por ICP, primero se realiza un alineamiento inicial usando un metodo de
-    alineamiento global basado en características (RANSAC) que nos da una estimación inicial de la transformación entre la nube actual y el mapa. Esta estimación inicial ayuda 
-    a mejorar la convergencia del ICP posterior. Posteriormente, se realiza un emparejamiento ICP (Iterative Closest Point) entre la nube actual y la ultima nube clave del mapa. 
-    Con esta ultima transformacion se calculan las metricas de evaluación. En caso de que las cumpla, se empareja de nuevo esta nube pero esta vez con el mapa completo, y se devuelve
-    la transformación resultante al nodo de localización. En caso de que no se cumpla igualmente se devulve la transformación resultante del emparejamiento con la ultima nube clave, ya que
-    ayuda a reanclar la pose al mapa y reducir el drift, pero sin actualizar el mapa.
-  \end{itemize}
+  \item \textbf{Respuestas provocada por la recepción de mensajes a traves del tópico \newline ''bonxai\_point\_cloud\_centers''}:
+  Recibir un mensaje a traves de este tópico significa que el mapa ha sido actualizado y, por tanto, se debe almacenar en el formato correcto, calcular sus normales y proceder 
+  a publicar la nueva pose.
 \end{itemize}
 
 \subsubsection{Construcción del mapa}
@@ -950,9 +965,34 @@ la estructura de datos y proporcionar una interfaz sencilla para interactuar con
   para integrar la nube de puntos en el mapa y ademas publicar el mapa actualizado a traves de un tópico llamado ''bonxai\textunderscore point\textunderscore cloud\textunderscore centers''.
 \end{itemize}
 
+\subsection{Flujo de trabajo completo}
+En esta sección se describe el flujo de trabajo completo, las salidas de cada uno de los componentes y las interacciones entre ellos. El flujo de trabajo completo del sistema de localización 
+y mapeo se puede describir de la siguiente manera:
+
+\begin{enumerate}
+  \item \textbf{Input\_data\_node:} Este nodo leera una pose y una nube de puntos de la grabación y las publicará a traves de los tópicos 
+  ''clean\_pose'' y ''clean\_pcl'' respectivamente. Se quedara a la espera de que el nodo de localización publique la nueva pose para publicar 
+  la siguiente pose y nube de puntos.
+  \item \textbf{(Opcional) Noisy\_data\_node:} 
+  Este nodo se ejecutará si se decide hacer una ejecición con ruido. En ese caso, interceptará los mensajes de ''clean\_pcl'', añadirá ruido y lo publicará a traves del tópico
+  ''noisy\_pcl''. En caso contrario, este nodo no se ejecutará y el nodo de localización escuchará directamente los mensajes de ''clean\_pcl''.
+  \item \textbf{Localization\_node:} Este nodo escuchará los mensajes de ''clean\_pcl'' o ''noisy\_pcl'' en función del tipo de ejecución. Cada vez que reciba una nube de puntos, 
+  realizará el preprocesamiento y la lógica de ICP para calcular la nueva pose y decidir si la nube actual es un fotograma clave. Si el fotograma actual es clave y añade información 
+  al mapa, publicará la nueva nube de puntos a traves del tópico ''new\_pcl'' y esperará a que el nodo de mapeo publique el mapa actualizado para publicar la nueva pose.
+  En caso de que el fotograma actual no sea clave, publicará la nueva pose a traves del tópico ''new\_pose''.
+  \item \textbf{Mapping\_node:} Este nodo escuchará los mensajes de ''new\_pcl''. Cada vez que reciba una nube de puntos, la integrará en el mapa usando Bonxai y publicará el mapa actualizado a traves del tópico
+  ''bonxai\_point\_cloud\_centers''. El nodo de localización escuchará este tópico para publicar la nueva pose.
+\end{enumerate}
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=1\textwidth]{Diagrama.png}
+  \caption{Diagrama simplificado sobre las interacciones entre nodos.}
+\end{figure}
+
 \section{Pruebas y validación de resultados}
 La validación de los resultados obtenidos por el sistema de localización y mapeo es crucial para asegurar su precisión y fiabilidad en aplicaciones del mundo real. Para ello, se han diseñado y 
-ejecutado una serie de pruebas que evalúan el rendimiento del sistema tanto a nivel de localización como de construcción del mapa. A continuación, se describen las metricas de interes en cada caso, 
+ejecutado una serie de pruebas que evalúan el rendimiento del sistema tanto a nivel de localización como de construcción del mapa. A continuación, se describen las metricas de interés en cada caso, 
 metodologías empleadas, los escenarios de prueba y los resultados obtenidos.\newline
 
 \subsection{Métricas de interés}
@@ -1007,6 +1047,48 @@ revela de manera directa la \textbf{deriva acumulada} en posición a lo largo de
 \end{itemize}
 
 \subparagraph{Resultados:}
+Los resultados del ATE se obtienen de comparar la trayectoria original (ground-truth) con la trayectoria estimada por el sistema de localización. 
+Los resultados son los siguientes:
+\begin{itemize}
+  \item \textbf{Ejecición sin ruido:} Los valores obtenidos son:
+  \begin{itemize}
+    \item \textbf{ATE (RMSE):} 0.319 metros.
+    \item \textbf{ATE mediana:}: 0.312 metros.
+    \item \textbf{ATE máximo:} 0.582 metros.
+    \begin{figure}[h]
+      \centering
+        \includegraphics[width=0.4\textwidth]{ate_clean.png}
+      \caption{Evolución del ATE a lo largo de la ejecución.}
+    \end{figure} 
+  \end{itemize}
+  \item \textbf{Ejecición con ruido:} Los valores obtenidos son:
+  \begin{itemize}
+    \item \textbf{ATE (RMSE):} 0.314 metros.
+    \item \textbf{ATE mediana:}: 0.306 metros.
+    \item \textbf{ATE máximo:} 0.589 metros.
+    \begin{figure}[h]
+      \centering
+        \includegraphics[width=0.4\textwidth]{ate_noisy.png}
+      \caption{Evolución del ATE a lo largo de la ejecución.}
+    \end{figure} 
+  \end{itemize}
+\end{itemize}
+
+\subparagraph{Interpretación de resultados:}
+Los resultados obtenidos para el ATE en ambas ejecuciones (con y sin ruido) son
+sorprendentemente similares, con valores de RMSE alrededor de 0.31 metros.
+Esto indica que el sistema de localización es robusto frente al ruido introducido,
+manteniendo una precisión global consistente.\newline
+La mediana del ATE también es cercana al RMSE, lo que sugiere que
+los errores no están dominados por unos pocos valores atípicos.
+El ATE máximo, ligeramente superior en la ejecución con ruido, refleja
+algunos picos de error, esto podría atribuirse en parte al ruido de la ejecución y 
+a discontinuidades en la grabación, que no actualiza la pose en cada fotograma si no
+de forma asincrona.\newline
+Ademas, se puede ver como el grafico contiene muchas pequeñas irregularidades, esto se 
+debe al anclaje con el fotograma clave, que hace que la trayectoria no sea completamente suave.
+En conjunto, estos resultados demuestran que el sistema de localización
+mantiene una buena precisión global incluso en presencia de ruido.
 
 \paragraph{Relative Pose Error (RPE)}
 
@@ -1042,9 +1124,9 @@ siempre que las estimaciones locales sean coherentes.
 
 \subparagraph{Área de interés:}
 \begin{itemize}
-  \item Consistencia local del odometría
-  \item Estabilidad de la integración incremental
-  \item Detección de saltos o discontinuidades en la estimación de pose
+  \item Consistencia local del odometría.
+  \item Estabilidad de la integración incremental.
+  \item Detección de saltos o discontinuidades en la estimación de pose.
 \end{itemize}
 
 \subparagraph{Interpretación:}
@@ -1055,11 +1137,29 @@ siempre que las estimaciones locales sean coherentes.
 \end{itemize}
 
 \subparagraph{Resultados:}
+Los resultados del RPE se obtienen de comparar el movimiento relativo cada \textit{N} fotogramas entre pose original (ground-truth) y la estimada por el sistema de localización. 
+Los resultados son los siguientes:
+\begin{itemize}
+  \item \textbf{Ejecución sin ruido:} Los valores obtenidos son: \newline
+
+    \includegraphics[width=0.4\textwidth]{rpe_clean.png}
+
+  \item \textbf{Ejecución con ruido:} Los valores obtenidos son: \newline
+
+    \includegraphics[width=0.4\textwidth]{rpe_noisy.png}
+\end{itemize}
+
+\subparagraph{Interpretación de resultados:}
+Los resultados del RPE muestran que el sistema de localización mantiene una buena consistencia local tanto en la ejecución sin ruido como en la ejecución con ruido.
+En ambas ejecuciones, el RPE de traslación se mantiene en valores bajos, alrededor de 0.05 metros, lo que indica que las estimaciones de movimiento entre poses consecutivas
+son precisas y coherentes.\newline
+La ligera variación en el RPE entre las dos ejecuciones sugiere que el sistema es robusto frente al ruido, ya que la presencia de ruido no ha provocado un aumento significativo en
+el error local.\newline
 
 \paragraph{KITTI-style Drift:}
 
 \subparagraph{Definición matemática:}
-En el benchmark KITTI, la deriva se evalúa sobre tramos de longitud $L$ (p.ej. $L \in \{100,200, \dots,800\}$ m).
+En el benchmark KITTI, la deriva se evalúa sobre tramos de longitud $L$ (p.ej. $L \in \{1,2, \dots,10\}$ metros).
 Para cada segmento se calcula el error relativo de traslación y de rotación:
 \[
 \text{drift}(L) = 
@@ -1075,9 +1175,9 @@ de la deriva, lo que permite comparar secuencias de distinta longitud.
 
 \subparagraph{Área de interés:}
 \begin{itemize}
-  \item Tasa de acumulación de error por metro recorrido
-  \item Comparación con otros sistemas de odometría visual/SLAM en datasets estándar
-  \item Identificación de segmentos de trayectoria con peor rendimiento
+  \item Tasa de acumulación de error por metro recorrido.
+  \item Comparación con otros sistemas de odometría visual/SLAM en datasets estándar.
+  \item Identificación de segmentos de trayectoria con peor rendimiento.
 \end{itemize}
 
 \subparagraph{Interpretación:}
@@ -1090,6 +1190,57 @@ de la deriva, lo que permite comparar secuencias de distinta longitud.
 
 \subparagraph{Resultados:}
 
+Los resultados del KITTI se obtienen de comparar segmentos de la pose original (ground-truth) con segmentos estimados por el sistema de localización y mapeo. 
+Los resultados son los siguientes:
+\begin{itemize}
+  \item \textbf{Ejecición sin ruido:} Los valores obtenidos son:
+  \begin{itemize}
+    \item \textbf{Derrape trasalacional, medio:} 3.15\%.
+    \item \textbf{Derrape trasalacional, mediana:}: 3.21\%.
+    \item \textbf{Derrape rotacional medio:} 34º/100 metros.
+    \begin{figure}[h]
+      \centering
+        \includegraphics[width=0.4\textwidth]{kitty_clean.png}
+      \caption{Evolución del KITTI a lo largo de la ejecución.}
+    \end{figure} 
+    \end{itemize}
+  \item \textbf{Ejecición con ruido:} Los valores obtenidos son:
+  \begin{itemize}
+    \item \textbf{Derrape trasalacional, medio:} 4.13\%.
+    \item \textbf{Derrape trasalacional, mediana:}: 4.22\%.
+    \item \textbf{Derrape rotacional medio:} 43º/100 metros.
+    \begin{figure}[h]
+      \centering
+        \includegraphics[width=0.4\textwidth]{kitty_noisy.png}
+      \caption{Evolución del KITTI a lo largo de la ejecución.}
+    \end{figure} 
+  \end{itemize}
+\end{itemize}
+
+\subparagraph{Interpretación de resultados:}
+Los resultados del KITTI-style drift indican que el sistema de localización y mapeo mantiene
+una tasa de acumulación de error razonable en ambas ejecuciones (con y sin ruido).
+En la ejecución sin ruido, el derrape traslacional medio es del 3.15\%, lo que sugiere que el sistema es capaz de seguir la trayectoria de referencia con una
+precisión adecuada en cada tramo de 50 metros. La mediana cercana al valor medio indica
+que los errores no están dominados por unos pocos segmentos atípicos.\newline
+En la ejecución con ruido, el derrape traslacional medio aumenta a 4.13\%, lo que refleja el impacto del ruido en la precisión local.
+Aunque hay un incremento, el valor sigue siendo aceptable, indicando que el sistema es robusto frente al ruido.
+El derrape rotacional también muestra un aumento, pasando de 34º/100 metros a 43º/100 metros, lo que sugiere que el ruido afecta más a la estimación de orientación que
+a la de posición.\newline
+
+\paragraph{Resumen de métricas de localización}
+En resumen, las métricas de localización (ATE, RPE y KITTI-style drift) proporcionan una visión completa del rendimiento del sistema de localización y mapeo.
+El ATE revela la precisión global de la trayectoria, el RPE evalúa la consistencia local del movimiento, y el KITTI-style drift normaliza la deriva por distancia recorrida.
+Los resultados obtenidos en ambas ejecuciones (con y sin ruido) demuestran que el sistema es robusto y mantiene una buena precisión tanto a nivel global como local, incluso en presencia de ruido.
+Estas métricas son fundamentales para validar la eficacia del sistema en escenarios de SLAM sin cierre de bucle. Ademas, haciendo una inspección visual de la trayectoria, se puede observar que el sistema sigue de manera bastante fiel la trayectoria original,
+con pequeñas desviaciones que se corresponden con los errores cuantificados por las métricas.
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.7\textwidth]{full_path.png}
+  \caption{Inspección visual de la trayectoria.}
+\end{figure} 
+
 \subsubsection{Métricas de Evaluación de Mapeo}
 
 En escenarios de \textit{SLAM} sin cierre de bucle, además de la trayectoria, 
@@ -1097,12 +1248,12 @@ es fundamental evaluar la calidad del mapa reconstruido.
 Las métricas de mapeo cuantifican tanto la exactitud de los puntos estimados 
 como la cobertura de la escena.
 
-\paragraph{Chamfer Distance (Bidireccional)}
+\paragraph{\textit{Chamfer Distance} (Bidireccional)}
 
 \subparagraph{Definición matemática:}
 Sea $P_{gt}$ el conjunto de puntos de referencia (ground-truth) 
 y $P_{slam}$ el conjunto de puntos reconstruidos por SLAM. 
-La Chamfer distance bidireccional se define como:
+La \textit{Chamfer distance} bidireccional se define como:
 \[
 d_{CD}(P_{gt}, P_{slam}) = \frac{1}{|P_{gt}|} \sum_{p \in P_{gt}} 
 \min_{q \in P_{slam}} \|p - q\|^2
@@ -1117,13 +1268,13 @@ segunda suma evalúa la exactitud (si se agregaron puntos espurios).
 
 \paragraph{Relevancia en SLAM sin cierre de bucle}
 En ausencia de cierre de bucle, los mapas pueden sufrir deformaciones locales y acumulación de errores. 
-La Chamfer distance permite cuantificar estas desviaciones sin requerir correspondencias explícitas de topología.
+La \textit{Chamfer distance} permite cuantificar estas desviaciones sin requerir correspondencias explícitas de topología.
 
 \subparagraph{Área de interés:}
 \begin{itemize}
-  \item Precisión global del mapa
-  \item Cobertura y completitud de la escena
-  \item Detección de artefactos o puntos espurios
+  \item Precisión global del mapa.
+  \item Cobertura y completitud de la escena.
+  \item Detección de artefactos o puntos espurios.
 \end{itemize}
 
 \subparagraph{Interpretación:}
@@ -1134,6 +1285,41 @@ La Chamfer distance permite cuantificar estas desviaciones sin requerir correspo
 \end{itemize}
 
 \subparagraph{Resultados:}
+\begin{itemize}
+  \item \textbf{Ejecición sin ruido:} Los valores obtenidos son:
+  \begin{itemize}
+    \item \textbf{Media Original->Calculado:} 0.273 metros.
+    \item \textbf{Media Calculado->Original:} 0.216 metros.
+    \item \textbf{Media Chamfer bidireccional:} 0.122 metros.
+    \begin{figure}[h]
+      \centering
+        \includegraphics[width=0.6\textwidth]{chamfer_clean.png}
+        \caption{Distribución de distancia entre puntos.}
+    \end{figure} 
+    \end{itemize}
+  \item \textbf{Ejecición con ruido:} Los valores obtenidos son:
+  \begin{itemize}
+    \item \textbf{Media Original->Calculado:} 0.274 metros.
+    \item \textbf{Media Calculado->Original:} 0.209 metros.
+    \item \textbf{Media Chamfer bidireccional:} 0.122 metros.
+    \begin{figure}[h]
+      \centering
+        \includegraphics[width=0.6\textwidth]{chamfer_noisy.png}
+      \caption{Distribución de distancia entre puntos.}
+    \end{figure} 
+  \end{itemize}
+\end{itemize}
+
+\subparagraph{Interpretación de resultados:}
+Los resultados de la \textit{Chamfer distance} bidireccional indican que el sistema de localización y mapeo logra una reconstrucción del entorno con una precisión y 
+cobertura razonables en ambas ejecuciones (con y sin ruido).
+En la ejecución sin ruido, la media de la distancia desde los puntos de referencia al conjunto reconstruido es de 0.273 metros,
+lo que sugiere que la mayoría de los puntos del entorno están bien representados en el mapa generado.
+La media en la dirección opuesta (desde el conjunto reconstruido a los puntos de referencia) es ligeramente menor, 0.216 metros,
+lo que indica que hay pocos puntos espurios en la reconstrucción.\newline
+En la ejecución con ruido, los valores son muy similares, con una media de 0.274 metros en la dirección de referencia a reconstrucción y
+0.209 metros en la dirección opuesta. Esto demuestra que el sistema es robusto frente al ruido, manteniendo una calidad de reconstrucción comparable.\newline
+La media bidireccional de 0.122 metros en ambas ejecuciones indica que, en promedio, los puntos del mapa están a una distancia razonable de los puntos de referencia.
 
 \paragraph{F-score \(\tau\)}
 
@@ -1143,33 +1329,60 @@ Para un umbral de distancia $\tau$, se define:
 \text{Precision} = \frac{|\{ q \in P_{slam} : \exists p \in P_{gt}, \|q-p\| < \tau \}|}{|P_{slam}|}
 \]
 \[
-\text{Recall} = \frac{|\{ p \in P_{gt} : \exists q \in P_{slam}, \|p-q\| < \tau \}|}{|P_{gt}|}
+\text{Sensibilidad} = \frac{|\{ p \in P_{gt} : \exists q \in P_{slam}, \|p-q\| < \tau \}|}{|P_{gt}|}
 \]
 \[
-F\text{-score} = 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}
+F\text{-score} = 2 \cdot \frac{\text{Precision} \cdot \text{Sensibilidad}}{\text{Precision} + \text{Sensibilidad}}
 \]
 
 \subparagraph{Descripción:}
-El F-score combina precisión y recall para dar un valor global de la calidad del mapa bajo un umbral de tolerancia. 
+El F-score combina precisión (proporción de las predicciones positivas fueron realmente correctas) y sensibilidad (proporción de los positivos reales fueron detectados correctamente) 
+, para dar un valor global de la calidad del mapa bajo un umbral de tolerancia. Si la precisión es alta pero la sensibilidad es baja, significa que la reconstrucción es precisa pero incompleta.
+Si la sencibilidad es alta pero la precisión es baja, significa que la reconstrucción cubre bien la escena pero incluye muchos puntos espurios.
 Se centra en si los puntos estimados están suficientemente cerca de la referencia y si la reconstrucción cubre la escena.
 Esta métrica es importante en el SLAM sin cierra de bucle ya que permite evaluar la calidad de la reconstrucción sin depender de la alineación 
 perfecta global, lo cual es útil cuando la trayectoria ha acumulado deriva.
 
 \subparagraph{Área de interés:}
 \begin{itemize}
-  \item Completitud vs. exactitud bajo un umbral de tolerancia
-  \item Comparación rápida entre distintas reconstrucciones
-  \item Evaluación de regiones críticas de la escena
+  \item Completitud vs. exactitud bajo un umbral de tolerancia.
+  \item Comparación rápida entre distintas reconstrucciones.
+  \item Evaluación de regiones críticas de la escena.
 \end{itemize}
 
 \subparagraph{Interpretación:}
 \begin{itemize}
   \item F-score cercano a 1: buena precisión y cobertura.  
   \item Baja precisión: muchos puntos espurios.
-  \item Bajo recall: la reconstrucción no cubre todo el mapa.
+  \item Baja sensibilidad: la reconstrucción no cubre todo el mapa.
 \end{itemize}
 
 \subparagraph{Resultados:}
+\begin{itemize}
+  \item \textbf{Ejecición sin ruido:} Los valores obtenidos son:
+  \begin{itemize}
+    \item \textbf{F-score \(\tau\) = 0.2 metros:} Precisión: 0.567 | Sensibilidad: 0.592 | F-score: 0.579.
+    \item \textbf{F-score \(\tau\) = 0.1 metros:} Precisión: 0.428 | Sensibilidad: 0.447 | F-score: 0.438.
+    \item \textbf{F-score \(\tau\) = 0.05 metros:} Precisión: 0.323 | Sensibilidad: 0.328 | F-score: 0.325.
+  \end{itemize}
+  \item \textbf{Ejecición con ruido:} Los valores obtenidos son:
+  \begin{itemize}
+    \item \textbf{F-score \(\tau\) = 0.2 metros:} Precisión: 0.573 | Sensibilidad: 0.601 | F-score: 0.586.
+    \item \textbf{F-score \(\tau\) = 0.1 metros:} Precisión: 0.427 | Sensibilidad: 0.459 | F-score: 0.442.
+    \item \textbf{F-score \(\tau\) = 0.05 metros:} Precisión: 0.314 | Sensibilidad: 0.338 | F-score: 0.325.
+  \end{itemize}
+\end{itemize}
+
+\subparagraph{Interpretación de resultados:}
+Los resultados del F-score para ambas ejecuciones (con y sin ruido) indican que el sistema de localización y mapeo logra un equilibrio razonable entre precisión y sensibilidad en la reconstrucción
+del entorno.\newline
+En la ejecución sin ruido, el F-score a un umbral de 0.2 metros es de 0.579, con una precisión del 56.7\% y una sensibilidad del 59.2\%. Esto sugiere que la mayoría de los puntos reconstruidos están
+cerca de los puntos de referencia y que la reconstrucción cubre una parte significativa de la escena.
+A medida que se reduce el umbral a 0.1 y 0.05 metros, el F-score disminuye, lo cual es esperado ya que es más difícil cumplir con criterios más estrictos.\newline
+En la ejecución con ruido, los valores del F-score son ligeramente mejores, con un F-score de 0.586 a un umbral de 0.2 metros. La precisión y sensibilidad también son marginalmente superiores en 
+comparación con la ejecución sin ruido.
+Esto podría indicar que el sistema es capaz de manejar el ruido de manera efectiva, manteniendo una calidad de reconstrucción comparable.\newline
+En general, los resultados sugieren que el sistema de localización y mapeo es robusto y capaz de producir mapas de calidad razonable, incluso en presencia de ruido.
 
 \paragraph{Distribución de Errores (Percentiles)}
 
@@ -1181,7 +1394,10 @@ p_x = \text{percentil}_x(\{ d_i \})
 \]
 
 \subparagraph{Descripción:}
-La distribución de errores permite conocer no solo el error típico (mediana), sino también cómo se comportan los casos más extremos.
+consiste en analizar cómo se distribuyen las diferencias entre el mapa generado y el mapa de referencia, expresadas como error por vóxel.
+ En lugar de usar solo un promedio, se calculan percentiles (p. ej. 25, 50, 75, 95) para identificar la variabilidad del error en todo el 
+ volumen. Esto permite detectar si los errores se concentran en pocas regiones (colas de la distribución) o si están repartidos de forma 
+ uniforme, proporcionando una visión más robusta y detallada de la calidad del modelo.
 
 \subparagraph{Relevancia en SLAM sin cierre de bucle:}
 Es especialmente útil para detectar zonas donde la reconstrucción falla debido a deriva local, ya que puede haber outliers 
@@ -1189,9 +1405,9 @@ importantes incluso si la mayoría de la nube es correcta.
 
 \subparagraph{Área de interés:}
 \begin{itemize}
-  \item Errores típicos y extremos
-  \item Detección de outliers
-  \item Evaluación de robustez local de la reconstrucción
+  \item Errores típicos y extremos.
+  \item Detección de outliers.
+  \item Evaluación de robustez local de la reconstrucción.
 \end{itemize}
 
 \subparagraph{Interpretación:}
@@ -1203,7 +1419,82 @@ importantes incluso si la mayoría de la nube es correcta.
 \end{itemize}
 
 \subparagraph{Resultados:}
+\begin{itemize}
+  \item \textbf{Ejecición sin ruido:} Los valores obtenidos son:
+  \begin{itemize}
+    \item \textbf{Mediana:} 0.141 metros. 
+    \item \textbf{P90}: 0.825 metros.
+    \item \textbf{P95:} 0.953 metros.
+    \item \textbf{P99:} 1.083 metros.
+    \begin{figure}[h]
+      \centering
+        \includegraphics[width=0.5\textwidth]{ed_clean.png}
+        \caption{Distribución de distancia entre puntos (ejecucción sin ruido).}
+    \end{figure} 
+    \end{itemize}
+  \item \textbf{Ejecición con ruido:} Los valores obtenidos son:
+  \begin{itemize}
+    \item \textbf{Mediana:} 0.141 metros. 
+    \item \textbf{P90}: 0.844 metros.
+    \item \textbf{P95:} 0.976 metros.
+    \item \textbf{P99:} 1.108 metros.
+    \begin{figure}[h]
+      \centering
+        \includegraphics[width=0.5\textwidth]{ed_noisy.png}
+      \caption{Distribución de distancia entre puntos (ejecución con ruido).}
+    \end{figure} 
+  \end{itemize}
+\end{itemize}
 
+\subparagraph{Interpretación de resultados:}
+Los resultados de la distribución de errores para ambas ejecuciones (con y sin ruido) indican que el sistema de localización y mapeo logra una reconstrucción del entorno con una precisión razonable.
+En la ejecución sin ruido, la mediana del error es de 0.141 metros, lo que sugiere que la mayoría de los puntos del entorno están bien representados en el mapa generado.
+El percentil 90 (P90) es de 0.825 metros, lo que indica que el 90\% de los puntos tienen un error menor a este valor.
+Los percentiles 95 (P95) y 99 (P99) son de 0.953 metros y 1.083 metros respectivamente, lo que sugiere que hay algunos puntos con errores más significativos, pero estos son relativamente pocos.
+En la ejecución con ruido, los valores son muy similares, con una mediana del error también de 0.141 metros.
+El P90 aumenta ligeramente a 0.844 metros, y los P95 y P99 también muestran un ligero incremento.
+Esto demuestra que el sistema es robusto frente al ruido, manteniendo una calidad de reconstrucción comparable.
+En general, los resultados sugieren que el sistema de localización y mapeo es capaz de producir mapas de calidad razonable, incluso en presencia de ruido, con la mayoría de los puntos teniendo errores moderados 
+y solo unos pocos outliers con errores más grandes.
+
+\paragraph{Resumen de métricas de mapeo}
+En resumen, las métricas de mapeo (Chamfer distance bidireccional, F-score y distribución de errores) proporcionan una visión completa del rendimiento del sistema de localización y mapeo en términos de calidad del mapa reconstruido.
+La Chamfer distance evalúa tanto la precisión como la cobertura del mapa, el F-score combina precisión y sensibilidad bajo distintos umbrales de tolerancia, y la distribución de errores ofrece una visión detallada de la variabilidad del error en todo el volumen.
+Los resultados obtenidos en ambas ejecuciones (con y sin ruido) demuestran que el sistema es robusto y capaz de producir mapas de calidad razonable, incluso en presencia de ruido.
+Estas métricas son fundamentales para validar la eficacia del sistema en escenarios de SLAM sin cierre de bucle. Ademas, haciendo una inspección visual del mapa, se puede observar que el sistema logra reconstruir de manera bastante fiel la estructura del entorno,
+con algunas desviaciones que se corresponden con los errores cuantificados por las métricas.
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.5\textwidth]{map_clean.png}
+  \caption{Inspección visual del mapa (ejecución sin ruido).}
+\end{figure} 
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.5\textwidth]{map_noisy.png}
+  \caption{Distribución de distancia entre puntos (con ruido).}
+\end{figure} 
+
+\section{Conclusiones y trabajo futuro}
+En este proyecto se ha desarrollado un sistema de localización y mapeo basado en nubes de puntos 3D, utilizando algoritmos de ICP para la estimación de la pose y la integración de nubes de puntos en un mapa 
+3D mediante la librería Bonxai. El sistema ha sido implementado en ROS2, lo que facilita su integración con otros componentes robóticos y su despliegue en entornos reales.\newline
+Las pruebas realizadas han demostrado que el sistema es capaz de estimar la trayectoria del robot con una precisión razonable, incluso en presencia de ruido en las nubes de puntos. Las métricas de
+evaluación, como el ATE, RPE y KITTI-style drift, han mostrado resultados satisfactorios, indicando que el sistema es robusto y preciso.\newline
+En cuanto a la construcción del mapa, las métricas de Chamfer distance y F-score han confirmado que el sistema puede generar mapas 3D de calidad, con una buena cobertura y precisión en la 
+representación del entorno.\newline
+
+A pesar de los resultados positivos, existen varias áreas de mejora y trabajo futuro. En primer lugar, se podría explorar la integración de técnicas de aprendizaje automático para mejorar la robustez del
+algoritmo de ICP, especialmente en entornos con alta densidad de ruido o con estructuras repetitivas. Además, la incorporación de sensores adicionales, como cámaras RGB, sensores de odometría, 
+podría mejorar la precisión de la estimación de la pose y la calidad del mapa.\newline
+Otra línea de trabajo futuro es la optimización del rendimiento computacional del sistema, para permitir su uso en tiempo real en robots móviles con recursos limitados. Esto podría incluir la 
+implementación de versiones que usen el hardware dedicado de forma eficiencia como usar aceleradores para de los algoritmos de ICP y la optimización del proceso de integración de nubes de 
+puntos en Bonxai.\newline
+También sería interesante explorar la extensión del sistema para soportar el cierre de bucle, lo que permitiría corregir la deriva acumulada en la estimación de la trayectoria y mejorar la calidad del mapa
+a largo plazo.\newline
+
+En resumen, este proyecto ha sentado las bases para un sistema de localización y mapeo basado en nubes de puntos 3D, demostrando su viabilidad y eficacia. Con las mejoras propuestas, el sistema podría
+ser adaptado para una amplia gama de aplicaciones robóticas, desde la navegación autónoma hasta la inspección y mapeo de entornos complejos.
 
 
 \bibliographystyle{ieeetr} % Puedes usar plain, alpha, apalike, etc.
