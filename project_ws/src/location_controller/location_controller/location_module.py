@@ -369,6 +369,8 @@ class LocationNode (Node):
         
         if logger.isEnabledFor(logging.DEBUG):
             
+            self.kf_index += 1    
+            
             logging_stats = "KF STATS:\n"
             
             if (distance < self.config["KF_DISTANCE_THRESHOLD"]):
@@ -377,7 +379,7 @@ class LocationNode (Node):
             else:
                 logging_stats += f"\033[31m\t\tDistance: {str(distance)} | Counter: {self.kf_distance_error_counter} \033[0m"
                 
-            self.kf_distance_mean_error = ((self.kf_distance_mean_error * (self.index - 1)) + distance) / self.index
+            self.kf_distance_mean_error = ((self.kf_distance_mean_error * (self.kf_index - 1)) + distance) / self.kf_index
             logging_stats += f"Distance mean: {self.kf_distance_mean_error}\n"
             
             if (angle < self.config["KF_ANGLE_THRESHOLD"]):
@@ -386,9 +388,9 @@ class LocationNode (Node):
             else:
                 logging_stats += f"\033[31m\t\tAngle: {str(angle)} | Counter: {self.kf_angle_error_counter} \033[0m"
                 
-            self.kf_angle_mean_error = ((self.kf_angle_mean_error * (self.index - 1)) + angle) / self.index
+            self.kf_angle_mean_error = ((self.kf_angle_mean_error * (self.kf_index - 1)) + angle) / self.kf_index
             logging_stats += f"Angle mean: {self.kf_angle_mean_error}\n"
-                            
+                        
             logger.debug(logging_stats)
             
         # If the distance is greater than the threshold, we have a new key frame
@@ -413,7 +415,9 @@ class LocationNode (Node):
             map_overlap_ratio = compute_cloud_novelty_ratio(map_frame, self.map)
             
             if logger.isEnabledFor(logging.DEBUG):
-            
+                
+                self.map_index += 1
+                            
                 logging_stats = "MAP STATS:\n"
                 
                 if (map_overlap_ratio > self.config["MAP_NOVELTY_RATIO_THRESHOLD"]):
@@ -422,10 +426,8 @@ class LocationNode (Node):
                 else:
                     logging_stats += f"\033[31m\t\tNovelty: {str(map_overlap_ratio)} | Counter: {self.map_overlap_error_counter} \033[0m"
                     
-                self.map_overlap_mean_error = ((self.map_overlap_mean_error * (self.index - 1)) + map_overlap_ratio) / self.index
+                self.map_overlap_mean_error = ((self.map_overlap_mean_error * (self.map_index - 1)) + map_overlap_ratio) / self.map_index
                 logging_stats += f"Novelty mean: {self.map_overlap_mean_error}\n"
-                                
-                self.index += 1
                             
                 logger.debug(logging_stats)
             
@@ -455,9 +457,9 @@ class LocationNode (Node):
                                 )   
     
         # Calculate the new pose temporarily to check if the movement is not too large
-        updated_pose = np.dot(actual_pose, registration_result.transformation)
+        updated_pose = np.dot(registration_result.transformation, actual_pose)
         
         # Transform the last pcd recieved to the new pose
-        updated_frame = cp.deepcopy(source_frame.transform(registration_result.transformation))
+        updated_frame = source_frame.transform(registration_result.transformation)
         
         return updated_pose, updated_frame, registration_result

@@ -193,16 +193,26 @@ def draw_registration_result(source, target, transformation = None):
 def preprocess_point_cloud(msg, downsample = True, clean_pcd = True, transformation = None,  voxel_size = CONFIG["VOXEL_SIZE"], normal_factor = CONFIG["NORMAL_FACTOR"]):
     
     """
-    Preprocesses a point cloud by downsampling, estimating normals, and computing FPFH features.
+    Preprocesses a point cloud by converting it from ROS PointCloud2 to Open3D format, 
+    downsampling, cleaning, transforming, estimating normals, and computing FPFH features.
+    
     Args:
-        pcd (open3d.geometry.PointCloud): The input point cloud to preprocess.
-        voxel_size (float): The voxel size used for downsampling the point cloud.
-        normal_factor (float): A multiplier for the voxel size to determine the radius for normal estimation.
-        feature_factor (float): A multiplier for the voxel size to determine the radius for FPFH feature computation.
+        msg (sensor_msgs.msg.PointCloud2): The input ROS PointCloud2 message to preprocess.
+        downsample (bool, optional): Whether to downsample the point cloud using voxel grid filtering. Defaults to True.
+        clean_pcd (bool, optional): Whether to remove statistical outliers from the point cloud. Defaults to True.
+        transformation (numpy.ndarray, optional): A 4x4 transformation matrix to apply to the point cloud. Defaults to None.
+        voxel_size (float, optional): The voxel size used for downsampling the point cloud. Defaults to CONFIG["VOXEL_SIZE"].
+        normal_factor (float, optional): A multiplier for the voxel size to determine the radius for normal estimation. Defaults to CONFIG["NORMAL_FACTOR"].
+    
     Returns:
-        tuple: A tuple containing:
-            - pcd_down (open3d.geometry.PointCloud): The downsampled point cloud.
-            - pcd_fpfh (open3d.pipelines.registration.Feature): The computed FPFH features of the downsampled point cloud.
+        open3d.geometry.PointCloud: The preprocessed Open3D point cloud.
+    
+    Notes:
+        - The function converts the input ROS PointCloud2 message to an Open3D point cloud.
+        - If `downsample` is True, the point cloud is downsampled using voxel grid filtering.
+        - If `clean_pcd` is True, statistical outliers are removed from the point cloud.
+        - If a transformation matrix is provided, it is applied to the point cloud.
+        - Normals are estimated for the point cloud using a radius determined by `voxel_size * normal_factor`.
     """
     
     # Copy of the actual step in open3d type
@@ -234,13 +244,13 @@ def crop_point_cloud(pcd, pose=(0,0,0), voxel_size = CONFIG["VOXEL_SIZE"], norma
                      y_min=CONFIG["KF_FUSION_CROP_SIZE_Y_MIN"], y_max=CONFIG["KF_FUSION_CROP_SIZE_Y_MAX"],
                      z_min=CONFIG["KF_FUSION_CROP_SIZE_Z_MIN"], z_max=CONFIG["KF_FUSION_CROP_SIZE_Z_MAX"]):
     """
-    Recorta la nube de puntos en un cubo/caja definido alrededor de un centro.
+    Crops the point cloud within a cube/box defined around a center.
     
     pcd: o3d.geometry.PointCloud
-    center: tuple (cx, cy, cz) en las mismas coordenadas que la nube
-    x_min, x_max, ...: límites de recorte RELATIVOS al centro. Usa np.inf para no recortar en ese eje.
+    center: tuple (cx, cy, cz) in the same coordinates as the point cloud
+    x_min, x_max, ...: RELATIVE cropping limits to the center. Use np.inf to avoid cropping along that axis.
     
-    Devuelve: nueva PointCloud recortada
+    Returns: a new cropped PointCloud
     """
     center = pose[:3, 3]  # extraer traslación (x, y, z)
     pts = np.asarray(pcd.points)
@@ -274,49 +284,65 @@ def crop_point_cloud(pcd, pose=(0,0,0), voxel_size = CONFIG["VOXEL_SIZE"], norma
 
 
 def pose_distance(pose1, pose2):
-        """
-        Calcula distancia traslacional (m) y rotacional (deg) entre dos poses 4x4.
-        T1, T2: np.ndarray 4x4
-        """
-        
-        T1 = np.array(pose1, dtype=np.float64)
-        T2 = np.array(pose2, dtype=np.float64)
-        
-        assert T1.shape == (4, 4) and T2.shape == (4, 4), "Las poses deben ser 4x4"
-        
-        # Traslación
-        p1 = T1[0:3, 3]
-        p2 = T2[0:3, 3]
-        trans_dist = np.linalg.norm(p2 - p1)
-        
-        # Rotación relativa
-        R1 = T1[0:3, 0:3]
-        R2 = T2[0:3, 0:3]
-        R_rel = R1.T @ R2  # rotación que lleva R1 a R2
-        
-        # Asegurar rango numérico
-        trace_val = np.trace(R_rel)
-        trace_val = np.clip(trace_val, -1.0, 3.0)
-        
-        # Ángulo (en radianes → grados)
-        rot_angle_rad = math.acos((trace_val - 1.0) / 2.0)
-        rot_angle_deg = math.degrees(rot_angle_rad)
-        
-        return trans_dist, rot_angle_deg
+    """
+    Calculates the translational (meters) and rotational (degrees) distance between two 4x4 poses.
+    Args:
+        pose1 (np.ndarray): A 4x4 numpy array representing the first pose.
+        pose2 (np.ndarray): A 4x4 numpy array representing the second pose.
+    Returns:
+        tuple: A tuple containing:
+            - trans_dist (float): The translational distance in meters.
+            - rot_angle_deg (float): The rotational distance in degrees.
+    Raises:
+        AssertionError: If the input poses are not 4x4 numpy arrays.
+    Notes:
+        - The translational distance is computed as the Euclidean distance between the translation vectors of the two poses.
+        - The rotational distance is computed as the angle (in degrees) derived from the relative rotation matrix.
+        - The function ensures numerical stability by clipping the trace of the relative rotation matrix to the range [-1.0, 3.0].
+    """
+    
+    T1 = np.array(pose1, dtype=np.float64)
+    T2 = np.array(pose2, dtype=np.float64)
+    
+    assert T1.shape == (4, 4) and T2.shape == (4, 4), "Las poses deben ser 4x4"
+    
+    # Traslación
+    p1 = T1[0:3, 3]
+    p2 = T2[0:3, 3]
+    trans_dist = np.linalg.norm(p2 - p1)
+    
+    # Rotación relativa
+    R1 = T1[0:3, 0:3]
+    R2 = T2[0:3, 0:3]
+    R_rel = R1.T @ R2  # rotación que lleva R1 a R2
+    
+    # Asegurar rango numérico
+    trace_val = np.trace(R_rel)
+    trace_val = np.clip(trace_val, -1.0, 3.0)
+    
+    # Ángulo (en radianes → grados)
+    rot_angle_rad = math.acos((trace_val - 1.0) / 2.0)
+    rot_angle_deg = math.degrees(rot_angle_rad)
+    
+    return trans_dist, rot_angle_deg
 
 
 def compute_cloud_novelty_ratio(new_frame, key_frame, distance_threshold=0.2, max_samples=2000):
     """
-    Calcula el grado de solapamiento entre dos nubes de puntos.
-
-    new_frame: o3d.geometry.PointCloud
-    key_frame: o3d.geometry.PointCloud
-    distance_threshold: distancia máxima para considerar que un punto tiene correspondencia
-    max_samples: número máximo de puntos a muestrear (para acelerar el cálculo)
-    
-    Return:
-        overlap_ratio: float en [0,1]
+    Compute the novelty ratio between two point clouds.
+    This function calculates the degree of overlap between two point clouds by determining
+    the proportion of points in the new frame that do not have a corresponding point in the 
+    key frame within a specified distance threshold.
+    Args:
+        new_frame (o3d.geometry.PointCloud): The new point cloud frame to evaluate.
+        key_frame (o3d.geometry.PointCloud): The reference point cloud frame.
+        distance_threshold (float, optional): Maximum distance to consider a point as corresponding. Defaults to 0.2.
+        max_samples (int, optional): Maximum number of points to sample from the new frame for faster computation. Defaults to 2000.
+    Returns:
+        float: A value in the range [0, 1] representing the novelty ratio. 
+               A value closer to 0 indicates high overlap, while a value closer to 1 indicates low overlap.
     """
+    
     pts_new = np.asarray(new_frame.points)
     pts_key = np.asarray(key_frame.points)
 

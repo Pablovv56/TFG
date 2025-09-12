@@ -19,7 +19,6 @@ MAP_NORMAL_FACTOR: 20
 NOISE_MEAN: 0.0
 NOISE_STD_DEV: 0.01
 NOISE_PROBABILITY: 0.3
-
 # FRAME-TO-FRAME PARAMETERS-------------------------------------------------------------------------
 
 # FILTERING PARAMETERS
