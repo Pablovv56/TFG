@@ -24,10 +24,15 @@
   Technologies such as computer vision, simultaneous localization and mapping (SLAM\cite{smith1987slam}), and advanced sensors enable these robots to avoid 
   obstacles and plan efficient routes. This has facilitated tasks such as cleaning, object transportation, and the delivery of food or 
   medicine in hospitals and hotels. Their implementation has reduced operating times and optimized resource utilization across multiple 
-  industries.\newline
+  industries.
+  \begin{figure}[h]
+    \centering
+      \includegraphics[width=0.6\textwidth]{clean_map_intro.png}
+    \caption{Image of the generated map.}
+  \end{figure}\newline
   In this context, the present work aims to investigate and analyze the feasibility of a mobile robotics project focused on the development 
   of a set of algorithms that can be used by robotic systems to autonomously localize themselves in an unknown environment while generating 
-  a voxelized representation of it, commonly known as a map, using point clouds captured from the environment as the sole data source. 
+  a voxelized representation of it, commonly known as a map, using point clouds captured from the environment as the sole data source. \newpage
   To accomplish this task, this project relies on the ROS2\cite{doi:10.1126/scirobotics.abm6074} development framework  as well as libraries specialized 
   in computer vision (Open3D\cite{Zhou2018}) and voxel map management (Bonxai\cite{faconti2024bonxai}). In addition, a set of metrics and 
   procedures will be proposed to validate the obtained results.\newline
@@ -43,14 +48,19 @@
 \begin{abstract}
   La robótica móvil ha transformado profundamente la robótica de servicio, ampliando sus posibilidades y aplicaciones.
   Al dotar a los robots de movilidad autónoma, se ha logrado que puedan desplazarse en entornos complejos sin supervisión constante.\newline
-  Tecnologías como la visión por computadora, el mapeo simultáneo (SLAM\cite{smith1987slam}) y los sensores avanzados permiten que estos robots eviten 
+  Tecnologías como la visión por computador, el mapeo simultáneo (SLAM\cite{smith1987slam}) y los sensores avanzados permiten que estos robots eviten 
   obstáculos y planifiquen rutas eficientes. Esto ha facilitado tareas de limpieza, transporte de objetos y entrega de alimentos o 
   medicinas en hospitales y hoteles. Su implementación ha reducido tiempos de operación y optimizado el uso de recursos en múltiples 
-  industrias. \newline
+  industrias.
+  \begin{figure}[h]
+    \centering
+      \includegraphics[width=0.6\textwidth]{clean_map_intro.png}
+    \caption{Imagen del mapa generado.}
+  \end{figure}\newline
   En este contexto, el presente documento tiene como objetivo investigar y analizar la viabilidad de un proyecto de robótica móvil, 
   centrado en el desarrollo de una serie de algoritmos que puedan ser usados por sistemas robóticos para localizarse de manera 
   autónoma en un entorno desconocido, a la vez que generan una representación voxelizada de este, comúnmente conocida como mapa, 
-  recibiendo como única fuente de datos nubes de puntos capturadas del entorno. Para llevar a cabo esta tarea, este proyecto se apoya 
+  recibiendo como única fuente de datos nubes de puntos capturadas del entorno.\newpage Para llevar a cabo esta tarea, este proyecto se apoya 
   en la plataforma de desarrollo ROS2\cite{doi:10.1126/scirobotics.abm6074} y librerías especializadas en la visión por computador (Open3D\cite{Zhou2018}) y la gestión de 
   mapas voxelizados (Bonxai\cite{faconti2024bonxai}). Además, se propondrán una serie de métricas y procedimientos para validar los resultados obtenidos.\newline
 
@@ -69,7 +79,7 @@ increíblemente beneficiosa en una gran cantidad de materias, atrayendo la atenc
 mundo como de empresas e inversores interesados en su desarrollo y aplicación. \newline
 Una de las ramas más prometedoras de la robótica es la robótica móvil, que se centra en el diseño y desarrollo de robots capaces 
 de moverse de manera autónoma en entornos dinámicos. Esta rama es una de las más complejas y, a la vez, fascinantes, ya que implica 
-la integración de diversas disciplinas como la inteligencia artificial, la visión por computadora y el control de sistemas, que 
+la integración de diversas disciplinas como la inteligencia artificial, la visión por computador y el control de sistemas, que 
 deben trabajar en perfecta sintonía para lograr que el robot sea capaz de navegar y operar de manera eficiente en entornos que 
 pueden ser impredecibles y cambiantes. \newline
 La tarea que nos ocupa en este documento es el desarrollo de algoritmos que permitan a un sistema robótico localizarse en un entorno 
@@ -245,7 +255,7 @@ principales se destacan:
     \item \textbf{Probabilidades:} Representar la probabilidad de ocupación de un voxel, lo que permite manejar incertidumbres 
     en la percepción.
     \item \textbf{Intensidad o color:} Almacenar información adicional como la intensidad de la señal o el color asociado a cada voxel, 
-    lo que es útil en aplicaciones de visión por computadora y reconstrucción 3D.
+    lo que es útil en aplicaciones de visión por computador y reconstrucción 3D.
     \item \textbf{Etiquetas semánticas:} Asignar etiquetas a los voxeles para identificar objetos o características del entorno, 
     lo que es especialmente útil en aplicaciones de robótica móvil y percepción semántica.
     \item \textbf{Normales de superficie:} Almacenar información sobre la orientación de las superficies dentro de los voxeles, 
@@ -305,7 +315,7 @@ destacadas incluyen:
     dinámicas y realistas de colisiones o fluidos.
     \item \textbf{Inconvenientes:} Las simulaciones físicas con vóxeles pueden ser computacionalmente más intensas que con mallas.
   \end{itemize}
-  \item \textbf{Videojuegos y gráficos por computadora:} Se usan para construir mundos destructibles o interactivos, como en 
+  \item \textbf{Videojuegos y gráficos por computador:} Se usan para construir mundos destructibles o interactivos, como en 
   juegos con estética voxel (por ejemplo, Minecraft).
   \begin{itemize}
     \item \textbf{Ventajas:} Simplicidad para modelar entornos que cambian o se destruyen. Representación directa en memoria 
@@ -673,7 +683,7 @@ siguientes:
         \end{figure}
       \end{itemize}
       \item \textbf{ICP (Iterative Closest Point)}: El algoritmo \textit{Iterative Closest Point} (ICP) es un método ampliamente utilizado para la alineación de nubes de puntos 
-      en aplicaciones de visión por computadora, robótica y reconstrucción 3D. Su objetivo es encontrar la transformación rígida óptima (rotación y traslación) que minimice la 
+      en aplicaciones de visión por computador, robótica y reconstrucción 3D. Su objetivo es encontrar la transformación rígida óptima (rotación y traslación) que minimice la 
       distancia entre dos conjuntos de puntos: una nube de puntos \textit{fuente} $\mathcal{P} = \{\mathbf{p}_i\}_{i=1}^{N}$ y una nube de puntos \textit{objetivo} 
       $\mathcal{Q} = \{\mathbf{q}_j\}_{j=1}^{M}$, siendo \textit{N} y \textit{M} el número de puntos de cada una, respectivamente. A continuación, se describe su formulación matemática y el algoritmo paso a paso.
       \begin{itemize}
@@ -876,7 +886,7 @@ A continuación, se describen los pasos que sigue:
   \end{itemize}
  
 \subsubsection{Construcción del mapa}
-El mapeo es un componente esencial en aplicaciones de robótica y visión por computadora, donde la representación eficiente y precisa del entorno 3D es crucial.
+El mapeo es un componente esencial en aplicaciones de robótica y visión por computador, donde la representación eficiente y precisa del entorno 3D es crucial.
 En este contexto, las nubes de puntos seleccionadas como fotogramas clave se integran en una estructura de datos que permite almacenar y consultar información espacial 
 de manera eficiente. Para este propósito, se ha diseñado un nodo llamado ''mapping\textunderscore node'' que utiliza la biblioteca \textit{Bonxai}\cite{faconti2024bonxai} para gestionar el mapa 3D.
 \textit{Bonxai}\cite{faconti2024bonxai} es una biblioteca de código abierto diseñada para la representación, manipulación y consulta eficiente de datos volumétricos en 3D mediante una estructura 
@@ -1002,7 +1012,7 @@ En esta sección se describen tres métricas ampliamente utilizadas:
 \subparagraph{Definición matemática:}
 Sea $\mathbf{T}^{gt}_i \in SE(3)$ la pose de referencia (ground-truth) en el instante $i$ 
 y $\mathbf{T}^{est}_i \in SE(3)$ la pose estimada por el sistema SLAM\cite{smith1987slam}.
-El ATE\cite{Chen2022DELOATE} mide el error de traslación absoluto después de alinear la trayectoria estimada 
+El ATE\cite{Chen2022DELOATE} mide el error absoluto de la trayectoria después de alinear la trayectoria estimada 
 con la de referencia mediante una transformación de similitud rígida $S \in Sim(3)$
 (obtenida mediante un ajuste de mínimos cuadrados de tipo Horn o Umeyama):
 \[
@@ -1046,7 +1056,7 @@ Los resultados son los siguientes:
     \item \textbf{ATE\cite{Chen2022DELOATE} máximo:} 0.582 metros.
     \begin{figure}[h]
       \centering
-        \includegraphics[width=0.3\textwidth]{ate_clean.png}
+        \includegraphics[width=0.6\textwidth]{ate_clean.png}
       \caption{Evolución del ATE\cite{Chen2022DELOATE} a lo largo de la ejecución.}
     \end{figure} 
   \end{itemize}
@@ -1057,9 +1067,9 @@ Los resultados son los siguientes:
     \item \textbf{ATE\cite{Chen2022DELOATE} máximo:} 0.589 metros.
     \begin{figure}[h]
       \centering
-        \includegraphics[width=0.3\textwidth]{ate_noisy.png}
+        \includegraphics[width=0.6\textwidth]{ate_noisy.png}
       \caption{Evolución del ATE\cite{Chen2022DELOATE} a lo largo de la ejecución.}
-    \end{figure} 
+    \end{figure} \newpage
   \end{itemize}
 \end{itemize}
 
@@ -1079,9 +1089,7 @@ debe al anclaje con el fotograma clave, que hace que la trayectoria no sea compl
 En conjunto, estos resultados demuestran que el sistema de localización
 mantiene una buena precisión global incluso en presencia de ruido.
 
-
 \paragraph{Relative Pose Error (RPE\cite{Sturm2012RPE})}
-
 \subparagraph{Definición matemática:}
 El RPE\cite{Sturm2012RPE} mide la consistencia local de la estimación de movimiento entre poses 
 separadas por un intervalo temporal $\Delta t$.
@@ -1127,22 +1135,19 @@ siempre que las estimaciones locales sean coherentes.
 
 \subparagraph{Resultados:}
 Los resultados del RPE\cite{Sturm2012RPE} se obtienen de comparar el movimiento relativo cada \textit{N} fotogramas entre la pose original (ground-truth) y la estimada por el sistema de localización. 
-Los resultados son los siguientes:
-\begin{itemize}
+Los resultados son los siguientes:\newpage
+\begin{itemize} 
   \item \textbf{Ejecución sin ruido:} Los valores obtenidos son: \newline
 
   \begin{figure}[h]
     \centering
-      \includegraphics[width=0.4\textwidth]{rpe_clean.png}
+      \includegraphics[width=0.59\textwidth]{rpe_clean.png}
     \caption{Distribución del error traslacional cada 5 frames en la ejecucion.}
   \end{figure} 
-  \newpage
-
   \item \textbf{Ejecución con ruido:} Los valores obtenidos son: \newline
-
   \begin{figure}[h]
     \centering
-      \includegraphics[width=0.4\textwidth]{rpe_noisy.png}
+      \includegraphics[width=0.59\textwidth]{rpe_noisy.png}
     \caption{Distribución del error traslacional cada 5 frames en la ejecucion.}
   \end{figure} 
 
@@ -1197,7 +1202,7 @@ Los resultados son los siguientes:
     \item \textbf{Derrape rotacional, medio:} 34º/100 metros.
     \begin{figure}[h]
       \centering
-        \includegraphics[width=0.4\textwidth]{kitty_clean.png}
+        \includegraphics[width=0.8\textwidth]{kitty_clean.png}
       \caption{Evolución del KITTI\cite{Geiger2013KITTI} a lo largo de la ejecución.}
     \end{figure} 
     \end{itemize}
@@ -1208,9 +1213,9 @@ Los resultados son los siguientes:
     \item \textbf{Derrape rotacional, medio:} 43º/100 metros.
     \begin{figure}[h]
       \centering
-        \includegraphics[width=0.4\textwidth]{kitty_noisy.png}
+        \includegraphics[width=0.8\textwidth]{kitty_noisy.png}
       \caption{Evolución del KITTI\cite{Geiger2013KITTI} a lo largo de la ejecución.}
-    \end{figure} 
+    \end{figure}\newpage
   \end{itemize}
 \end{itemize}
 \subparagraph{Interpretación de resultados:}
@@ -1233,7 +1238,7 @@ con pequeñas desviaciones que se corresponden con los errores cuantificados por
 
 \begin{figure}[h]
   \centering
-    \includegraphics[width=0.7\textwidth]{full_path.png}
+    \includegraphics[width=1\textwidth]{full_path.png}
   \caption{Inspección visual de la trayectoria.}
 \end{figure} 
 
@@ -1289,11 +1294,10 @@ La \textit{Chamfer\cite{Fan2020Chamfer} distance} permite cuantificar estas desv
     \item \textbf{Media Chamfer\cite{Fan2020Chamfer} bidireccional:} 0.122 metros.
     \begin{figure}[h]
       \centering
-        \includegraphics[width=0.5\textwidth]{chamfer_clean.png}
+        \includegraphics[width=1\textwidth]{chamfer_clean.png}
         \caption{Distribución de distancia entre puntos.}
     \end{figure} 
-    \end{itemize}
-  \newpage
+  \end{itemize}\newpage
   \item \textbf{Ejecición con ruido:} Los valores obtenidos son:
   \begin{itemize}
     \item \textbf{Media Original->Calculado:} 0.274 metros.
@@ -1301,25 +1305,24 @@ La \textit{Chamfer\cite{Fan2020Chamfer} distance} permite cuantificar estas desv
     \item \textbf{Media Chamfer\cite{Fan2020Chamfer} bidireccional:} 0.122 metros.
     \begin{figure}[h]
       \centering
-        \includegraphics[width=0.5\textwidth]{chamfer_noisy.png}
+        \includegraphics[width=1\textwidth]{chamfer_noisy.png}
       \caption{Distribución de distancia entre puntos.}
     \end{figure} 
   \end{itemize}
 \end{itemize}
-
+\newpage
 \subparagraph{Interpretación de resultados:}
 Los resultados de la \textit{Chamfer\cite{Fan2020Chamfer} distance} bidireccional indican que el sistema de localización y mapeo logra una reconstrucción del entorno con una precisión y 
 cobertura razonables en ambas ejecuciones (con y sin ruido).
 En la ejecución sin ruido, la media de la distancia desde los puntos de referencia al conjunto reconstruido es de 0,273 metros,
 lo que sugiere que la mayoría de los puntos del entorno están bien representados en el mapa generado.
 La media en la dirección opuesta (desde el conjunto reconstruido a los puntos de referencia) es ligeramente menor, 0,216 metros,
-lo que indica que hay pocos puntos espurios en la reconstrucción.\newpage 
+lo que indica que hay pocos puntos espurios en la reconstrucción.
 En la ejecución con ruido, los valores son muy similares, con una media de 0,274 metros en la dirección de referencia a reconstrucción y
 0,209 metros en la dirección opuesta. Esto demuestra que el sistema es robusto frente al ruido, manteniendo una calidad de reconstrucción comparable.\newline
 La media bidireccional de 0,122 metros en ambas ejecuciones indica que, en promedio, los puntos del mapa están a una distancia razonable de los puntos de referencia.
 
-
-\paragraph{F-score\cite{Caccia2018FScore} \(\tau\)}
+\paragraph{F-score\cite{Caccia2018FScore}}
 
 \subparagraph{Definición matemática:}
 Para un umbral de distancia $\tau$, se define:
@@ -1358,15 +1361,15 @@ perfecta global, lo cual es útil cuando la trayectoria ha acumulado deriva.
 \begin{itemize}
   \item \textbf{Ejecición sin ruido:} Los valores obtenidos son:
   \begin{itemize}
-    \item \textbf{F-score\cite{Caccia2018FScore} \(\tau\) = 0.2 metros:} Precisión: 0.567 | Sensibilidad: 0.592 | F-score\cite{Caccia2018FScore}: 0.579.
-    \item \textbf{F-score\cite{Caccia2018FScore} \(\tau\) = 0.1 metros:} Precisión: 0.428 | Sensibilidad: 0.447 | F-score\cite{Caccia2018FScore}: 0.438.
-    \item \textbf{F-score\cite{Caccia2018FScore} \(\tau\) = 0.05 metros:} Precisión: 0.323 | Sensibilidad: 0.328 | F-score\cite{Caccia2018FScore}: 0.325.
+    \item \textbf{F-score\cite{Caccia2018FScore}, \(\tau\) = 0.2 metros:} Precisión: 0.567 | Sensibilidad: 0.592 | F-score\cite{Caccia2018FScore}: 0.579.
+    \item \textbf{F-score\cite{Caccia2018FScore}, \(\tau\) = 0.1 metros:} Precisión: 0.428 | Sensibilidad: 0.447 | F-score\cite{Caccia2018FScore}: 0.438.
+    \item \textbf{F-score\cite{Caccia2018FScore}, \(\tau\) = 0.05 metros:} Precisión: 0.323 | Sensibilidad: 0.328 | F-score\cite{Caccia2018FScore}: 0.325.
   \end{itemize}
   \item \textbf{Ejecición con ruido:} Los valores obtenidos son:
   \begin{itemize}
-    \item \textbf{F-score\cite{Caccia2018FScore} \(\tau\) = 0.2 metros:} Precisión: 0.573 | Sensibilidad: 0.601 | F-score\cite{Caccia2018FScore}: 0.586.
-    \item \textbf{F-score\cite{Caccia2018FScore} \(\tau\) = 0.1 metros:} Precisión: 0.427 | Sensibilidad: 0.459 | F-score\cite{Caccia2018FScore}: 0.442.
-    \item \textbf{F-score\cite{Caccia2018FScore} \(\tau\) = 0.05 metros:} Precisión: 0.314 | Sensibilidad: 0.338 | F-score\cite{Caccia2018FScore}: 0.325.
+    \item \textbf{F-score\cite{Caccia2018FScore}, \(\tau\) = 0.2 metros:} Precisión: 0.573 | Sensibilidad: 0.601 | F-score\cite{Caccia2018FScore}: 0.586.
+    \item \textbf{F-score\cite{Caccia2018FScore}, \(\tau\) = 0.1 metros:} Precisión: 0.427 | Sensibilidad: 0.459 | F-score\cite{Caccia2018FScore}: 0.442.
+    \item \textbf{F-score\cite{Caccia2018FScore}, \(\tau\) = 0.05 metros:} Precisión: 0.314 | Sensibilidad: 0.338 | F-score\cite{Caccia2018FScore}: 0.325.
   \end{itemize}
 \end{itemize}
 \subparagraph{Interpretación de resultados:}
@@ -1394,7 +1397,7 @@ consiste en analizar cómo se distribuyen las diferencias entre el mapa generado
  En lugar de usar solo un promedio, se calculan percentiles (p. ej., 25, 50, 75, 95) para identificar la variabilidad del error en todo el 
  volumen. Esto permite detectar si los errores se concentran en pocas regiones (colas de la distribución) o si están repartidos de forma 
  uniforme, proporcionando una visión más robusta y detallada de la calidad del modelo.
-
+\newpage
 \subparagraph{Relevancia en SLAM\cite{smith1987slam} sin cierre de bucle:}
 Es especialmente útil para detectar zonas donde la reconstrucción falla debido a deriva local, ya que puede haber outliers 
 importantes incluso si la mayoría de la nube es correcta.
@@ -1423,10 +1426,11 @@ importantes incluso si la mayoría de la nube es correcta.
     \item \textbf{P99:} 1.083 metros.
     \begin{figure}[h]
       \centering
-        \includegraphics[width=0.5\textwidth]{ed_clean.png}
+        \includegraphics[width=0.6\textwidth]{ed_clean.png}
         \caption{Distribución de distancia entre puntos.}
     \end{figure} 
     \end{itemize}
+    \newpage
   \item \textbf{Ejecución con ruido:} Los valores obtenidos son:
   \begin{itemize}
     \item \textbf{Mediana:} 0.141 metros. 
@@ -1435,7 +1439,7 @@ importantes incluso si la mayoría de la nube es correcta.
     \item \textbf{P99:} 1.108 metros.
     \begin{figure}[h]
       \centering
-        \includegraphics[width=0.5\textwidth]{ed_noisy.png}
+        \includegraphics[width=0.6\textwidth]{ed_noisy.png}
       \caption{Distribución de distancia entre puntos.}
     \end{figure} 
   \end{itemize}
@@ -1444,7 +1448,7 @@ importantes incluso si la mayoría de la nube es correcta.
 Los resultados de la distribución de errores para ambas ejecuciones (con y sin ruido) indican que el sistema de localización y mapeo logra una reconstrucción del entorno con una precisión razonable.
 En la ejecución sin ruido, la mediana del error es de 0.141 metros, lo que sugiere que la mayoría de los puntos del entorno están bien representados en el mapa generado.
 El percentil 90 (P90) es de 0.825 metros, lo que indica que el 90\% de los puntos tienen un error menor a este valor.
-Los percentiles 95 (P95) y 99 (P99) son de 0.953 metros y 1.083 metros, respectivamente, lo que sugiere que hay algunos puntos con errores más significativos, pero estos son relativamente pocos.
+Los percentiles 95 (P95) y 99 (P99) son de 0.953 metros y 1.083 metros, respectivamente, lo que sugiere que hay algunos puntos con errores más significativos, pero estos son relativamente pocos.\newline
 En la ejecución con ruido, los valores son muy similares, con una mediana del error también de 0.141 metros.
 El P90 aumenta ligeramente a 0.844 metros, y los P95 y P99 también muestran un ligero incremento.
 Esto demuestra que el sistema es robusto frente al ruido, manteniendo una calidad de reconstrucción comparable.
@@ -1460,33 +1464,31 @@ con algunas desviaciones que se corresponden con los errores cuantificados por l
 
 \begin{figure}[h]
   \centering
-    \includegraphics[width=0.5\textwidth]{map_clean.png}
+    \includegraphics[width=1\textwidth]{map_clean.png}
   \caption{Inspección visual del mapa (ejecución sin ruido).}
 \end{figure} 
 
 \begin{figure}[h]
   \centering
-    \includegraphics[width=0.5\textwidth]{map_noisy.png}
+    \includegraphics[width=1\textwidth]{map_noisy.png}
   \caption{Distribución de distancia entre puntos (con ruido).}
 \end{figure} 
 
-\section{Conclusiones y trabajo futuro}
+\section{Conclusiones y trabajos futuros}
 En este proyecto se ha desarrollado un sistema de localización y mapeo basado en nubes de puntos 3D, utilizando algoritmos de ICP para la estimación de la pose y la integración de nubes de puntos en un mapa 
 3D mediante la librería Bonxai. El sistema ha sido implementado en ROS2\cite{doi:10.1126/scirobotics.abm6074}, lo que facilita su integración con otros componentes robóticos y su despliegue en entornos reales.\newline
 Las pruebas realizadas han demostrado que el sistema es capaz de estimar la trayectoria del robot con una precisión razonable, incluso en presencia de ruido en las nubes de puntos. Las métricas de
 evaluación, como el ATE\cite{Chen2022DELOATE}, RPE\cite{Sturm2012RPE} y KITTI-style drift\cite{Geiger2013KITTI}, han mostrado resultados satisfactorios, indicando que el sistema es robusto y preciso.\newline
 En cuanto a la construcción del mapa, las métricas de Chamfer\cite{Fan2020Chamfer} distance y F-score\cite{Caccia2018FScore} han confirmado que el sistema puede generar mapas 3D de calidad, con una buena cobertura y precisión en la 
 representación del entorno.\newline
-
-A pesar de los resultados positivos, existen varias áreas de mejora y trabajo futuro. En primer lugar, se podría explorar la integración de técnicas de aprendizaje automático para mejorar la robustez del
-algoritmo de ICP, especialmente en entornos con alta densidad de ruido o con estructuras repetitivas. Además, la incorporación de sensores adicionales, como cámaras RGB y sensores de odometría, 
-podría mejorar la precisión de la estimación de la pose y la calidad del mapa.\newline
-Otra línea de trabajo futuro es la optimización del rendimiento computacional del sistema, para permitir su uso en tiempo real en robots móviles con recursos limitados. Esto podría incluir la 
-implementación de versiones que usen el hardware dedicado de forma eficiente, como aceleradores para los algoritmos de ICP, y la optimización del proceso de integración de nubes de 
-puntos en Bonxai\cite{faconti2024bonxai}.\newline
-También sería interesante explorar la extensión del sistema para soportar el cierre de bucle, lo que permitiría corregir la deriva acumulada en la estimación de la trayectoria y mejorar la calidad del mapa
-a largo plazo.\newline
-
+A pesar de los resultados positivos, existen varias áreas de mejora y trabajos futuros.  Entre las que encontramos: 
+\begin{itemize}
+  \item Optimización del algoritmo de ICP para mejorar la velocidad y robustez en entornos con alta densidad de ruido.
+  \item Integración de técnicas de aprendizaje automático para mejorar la correspondencia entre nubes de puntos.
+  \item Implementación de cierre de bucle para corregir la deriva acumulada en la estimación de la trayectoria.
+  \item Integración con otro tipo de sensores para mejorar la precisión.
+  \item Optimización del rendimiento computacional para permitir su uso en tiempo real en robots móviles con recursos limitados.
+\end{itemize}
 En resumen, este proyecto ha sentado las bases para un sistema de localización y mapeo basado en nubes de puntos 3D, demostrando su viabilidad y eficacia. Con las mejoras propuestas, el sistema podría
 ser adaptado para una amplia gama de aplicaciones robóticas, desde la navegación autónoma hasta la inspección y mapeo de entornos complejos.
 
