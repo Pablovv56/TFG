@@ -7,7 +7,7 @@ def main (args = None):
     rclpy.init(args = args)
 
     # Creates the node using the orginal or noisiy pcd as input
-    node = LocationNode("clean_pcl")
+    node = LocationNode("/clean_pcl")
     rclpy.spin(node)
 
     rclpy.shutdown()

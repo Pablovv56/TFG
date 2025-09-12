@@ -1,0 +1,120 @@
+\begin{thebibliography}{10}
+
+\bibitem{smith1987slam}
+R.~Smith and P.~Cheeseman, ``On the representation and estimation of spatial
+  uncertainty,'' {\em The International Journal of Robotics Research}, vol.~5,
+  no.~4, pp.~56--68, 1987.
+
+\bibitem{doi:10.1126/scirobotics.abm6074}
+S.~Macenski, T.~Foote, B.~Gerkey, C.~Lalancette, and W.~Woodall, ``Robot
+  operating system 2: Design, architecture, and uses in the wild,'' {\em
+  Science Robotics}, vol.~7, no.~66, p.~eabm6074, 2022.
+
+\bibitem{Zhou2018}
+Q.-Y. Zhou, J.~Park, and V.~Koltun, ``{Open3D}: {A} modern library for {3D}
+  data processing,'' {\em arXiv:1801.09847}, 2018.
+
+\bibitem{faconti2024bonxai}
+D.~Faconti, ``{Bonxai}: Fast, hierarchical, sparse voxel grid.''
+  \url{https://github.com/facontidavide/Bonxai}, 2024.
+\newblock Release v0.6.0 (2024-11-10). MPL-2.0 license.
+
+\bibitem{python}
+{Python Software Foundation}, ``Python programming language,'' 2025.
+\newblock Version 3.x, accessed 2025-09-08.
+
+\bibitem{cpp}
+{ISO/IEC JTC1/SC22/WG21}, ``Iso/iec 14882:2020 – programming language c++,''
+  2020.
+\newblock C++20 Standard, accessed 2025-09-08.
+
+\bibitem{wired1996voxels_medical}
+{Wired Staff}, ``Voxels allow doctors to get beneath the surface.'' Wired
+  (online, 1996), 1996.
+\newblock Describes the usage of voxels for 3D visualization from CT and MRI.
+
+\bibitem{voxelman1986history}
+{VOXEL-MAN Project}, ``History of the voxel-man project (first 3d medical voxel
+  visualizations).'' University Medical Center Hamburg-Eppendorf (VOXEL-MAN
+  documentation), 1986.
+\newblock Early 3D voxel-based visualization combining CT and MRI.
+
+\bibitem{wiki_voxel_definition}
+{Wikipedia contributors}, ``Voxel.'' Wikipedia, latest revision, 2025.
+\newblock Definition and application of voxels in visualization and GIS.
+
+\bibitem{lorensen1987marchingcubes}
+W.~E. Lorensen and H.~E. Cline, ``Marching cubes: A high resolution 3d surface
+  construction algorithm,'' {\em ACM SIGGRAPH Computer Graphics}, vol.~21,
+  no.~4, pp.~163--169, 1987.
+\newblock Algorithm extracting polygonal meshes from voxel data.
+
+\bibitem{xml}
+T.~Bray, J.~Paoli, C.~M. Sperberg-McQueen, E.~Maler, and F.~Yergeau,
+  ``Extensible markup language (xml) 1.0 (fifth edition),'' 2008.
+\newblock W3C Recommendation, accessed 2025-09-08.
+
+\bibitem{yaml}
+O.~Ben-Kiki, C.~Evans, and B.~Ingerson, ``Yaml ain't markup language (yaml)
+  version 1.2,'' 2021.
+\newblock Specification for human-friendly data serialization standard.
+
+\bibitem{cmake}
+{Kitware, Inc.}, ``Cmake build system,'' 2025.
+\newblock Cross-platform build-system generator, accessed 2025-09-08.
+
+\bibitem{lamport1994latex}
+L.~Lamport, {\em {\LaTeX}: A Document Preparation System}.
+\newblock Reading, Massachusetts: Addison-Wesley, 2~ed., 1994.
+\newblock 2nd edition.
+
+\bibitem{ubuntu}
+{Canonical Ltd.}, ``Ubuntu operating system,'' 2025.
+\newblock Debian-based GNU/Linux distribution, accessed 2025-09-08.
+
+\bibitem{vscode}
+{Microsoft Corporation}, ``Visual studio code,'' 2025.
+\newblock Source-code editor developed by Microsoft, accessed 2025-09-08.
+
+\bibitem{github}
+{GitHub, Inc.}, ``Github,'' 2025.
+\newblock Web-based platform for version control and collaboration, accessed
+  2025-09-08.
+
+\bibitem{jupyter}
+{Project Jupyter Contributors}, ``Project jupyter,'' 2025.
+\newblock Open-source platform for interactive computing, accessed 2025-09-08.
+
+\bibitem{terminator}
+{Terminator Project}, ``Terminator terminal emulator,'' 2025.
+\newblock Terminal emulator supporting multiple split panes, accessed
+  2025-09-08.
+
+\bibitem{Chen2022DELOATE}
+X.~Chen and et~al., ``De-loate: Benchmark for localization accuracy
+  evaluation,'' in {\em IEEE International Conference on Robotics and
+  Automation (ICRA)}, 2022.
+
+\bibitem{Sturm2012RPE}
+J.~Sturm, N.~Engelhard, F.~Endres, W.~Burgard, and D.~Cremers, ``A benchmark
+  for the evaluation of rgb-d slam systems,'' {\em IEEE/RSJ International
+  Conference on Intelligent Robots and Systems (IROS)}, 2012.
+
+\bibitem{Geiger2013KITTI}
+A.~Geiger, P.~Lenz, C.~Stiller, and R.~Urtasun, ``Vision meets robotics: The
+  kitti dataset,'' in {\em International Journal of Robotics Research (IJRR)},
+  2013.
+
+\bibitem{Fan2020Chamfer}
+H.~Fan, H.~Su, and L.~J. Guibas, ``A point set generation network for 3d object
+  reconstruction from a single image,'' {\em IEEE Conference on Computer Vision
+  and Pattern Recognition (CVPR)}, 2017.
+\newblock Chamfer Distance popularizado en trabajos de reconstrucción 3D.
+
+\bibitem{Caccia2018FScore}
+L.~Caccia, H.~van Hoof, A.~Courville, and J.~Pineau, ``Deep generative modeling
+  of point clouds via hierarchical sampling,'' {\em arXiv preprint
+  arXiv:1812.01644}, 2018.
+\newblock F-score para evaluación de nubes de puntos.
+
+\end{thebibliography}
